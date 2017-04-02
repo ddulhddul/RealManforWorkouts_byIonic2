@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      About
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      Time
+    </ion-card-header>
+    <ion-card-content style='text-align: center; font-size: 40px;'>
+      {{dpTime}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4>
+        <button block (click)='start()' ion-button color="light">start</button>
+      </ion-col>
+      <ion-col col-4>
+        <button block (click)='stop()' ion-button>stop</button>
+      </ion-col>
+      <ion-col col-4>
+        <button block (click)='reset()' ion-button color="secondary">reset</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
