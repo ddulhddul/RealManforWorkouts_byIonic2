@@ -3,6 +3,9 @@
 ionic start healthApp --v2
 cd healthApp
 ionic serve
+
+cordova platform add android
+ionic build android
 ```
 
 ## stopwatch

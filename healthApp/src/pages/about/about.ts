@@ -8,10 +8,12 @@ import {Subscription} from "rxjs";
   templateUrl: 'about.html'
 })
 export class AboutPage {
+  isStarted: boolean;
   time: number;
   dpTime: string;
   cumTime: number;
   subscription: Subscription;
+  workouts: Array<any>;
 
   constructor(public navCtrl: NavController) {
     this.setDefault();
@@ -21,8 +23,29 @@ export class AboutPage {
     this.time = 0;
     this.cumTime = 0;
     this.dpTime = '00:00:00';
+    this.isStarted = false;
+    this.workouts = [
+      {
+        name: 'push-ups',
+        id: 'pushUp',
+        done: 0,
+        goal: 100,
+        units: [5,10,15]
+      },
+      {
+        name: 'dumbel Right',
+        id: 'dumbelRight',
+        done: 0,
+        goal: 100,
+        units: [5,10,15],
+        weight: 7,
+        weightUnit: 'kg'
+      }
+    ]
   }
   start(){
+    if(this.isStarted) return;
+    this.isStarted = true;
     let timer = Observable.timer(0, 1000);
     this.subscription = timer.subscribe(t => {
       this.time = this.cumTime + t;
@@ -42,6 +65,7 @@ export class AboutPage {
     });
   }
   stop(){
+    this.isStarted = false;
     this.cumTime = this.time;
     !this.subscription || this.subscription.unsubscribe();
   }
@@ -51,5 +75,9 @@ export class AboutPage {
   }
   ngOnDestroy(){
     this.reset();
+  }
+
+  workoutClick(workout, unit){
+    workout.done += unit;
   }
 }

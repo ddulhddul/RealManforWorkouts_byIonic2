@@ -1,33 +1,48 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      About
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
   <ion-card>
     <ion-card-header>
       Time
     </ion-card-header>
-    <ion-card-content style='text-align: center; font-size: 40px;'>
+    <ion-card-content style='text-align: center; font-size: 60px;'>
       {{dpTime}}
     </ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <button block (click)='start()' ion-button color="light">start</button>
+        </ion-col>
+        <ion-col col-4>
+          <button block (click)='stop()' ion-button>stop</button>
+        </ion-col>
+        <ion-col col-4>
+          <button block (click)='reset()' ion-button color="secondary">reset</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-card>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col col-4>
-        <button block (click)='start()' ion-button color="light">start</button>
-      </ion-col>
-      <ion-col col-4>
-        <button block (click)='stop()' ion-button>stop</button>
-      </ion-col>
-      <ion-col col-4>
-        <button block (click)='reset()' ion-button color="secondary">reset</button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+</ion-header>
 
+<ion-content padding>
+  <ion-card *ngFor='let workout of workouts' [style.backgroundColor]="workout.done>=workout.goal ? 'lightgrey': null">
+    <!--<img src="../../../platforms/android/res/drawable-land-ldpi/screen.png"/>-->
+    <ion-card-content>
+      <ion-card-title>
+        <strong>
+          {{workout.name}}
+        </strong>
+      </ion-card-title>
+      <p style='text-align: right;'>Done/Goal : {{workout.done}}/{{workout.goal}}</p>
+      <p style='text-align: right;' *ngIf='workout.weight'>Weight : {{workout.weight}} {{workout.weightUnit}}</p>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4 *ngFor='let unit of workout.units; let i = index;'>
+            <button block (click)='workoutClick(workout, unit)' ion-button [style.backgroundColor]="workout.done>=workout.goal ? 'lightgrey': null">
+              {{unit}}
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
