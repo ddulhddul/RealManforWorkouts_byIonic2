@@ -1,3 +1,5 @@
+![icon](https://github.com/ddulhddul/HealthApp-byIonic2/blob/master/icon.png?raw=true)
+
 # Health App(ing...)
 ```bash
 ionic start healthApp --v2
