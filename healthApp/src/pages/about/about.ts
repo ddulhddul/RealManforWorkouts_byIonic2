@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import {Observable} from 'rxjs/Rx';
-import {Subscription} from "rxjs";
+import { NavController, NavParams } from 'ionic-angular';
+import { Observable } from 'rxjs/Rx';
+import { Subscription } from "rxjs";
+import { Storage } from '@ionic/storage';
+import { ListPage } from '../workoutlist/workoutlist';
 
 @Component({
   selector: 'page-about',
@@ -14,9 +16,13 @@ export class AboutPage {
   cumTime: number;
   subscription: Subscription;
   workouts: Array<any>;
+  yyyymmdd: string;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, 
+              public storage: Storage,
+              private navParams: NavParams) {
     this.setDefault();
+    
   }
 
   setDefault(){
@@ -26,22 +32,34 @@ export class AboutPage {
     this.isStarted = false;
     this.workouts = [
       {
-        name: 'push-ups',
-        id: 'pushUp',
+        workoutId: 'pushUp',
         done: 0,
         goal: 100,
         units: [5,10,15]
       },
       {
-        name: 'dumbel Right',
-        id: 'dumbelRight',
+        workoutId: 'dumbel',
         done: 0,
         goal: 100,
         units: [5,10,15],
         weight: 7,
         weightUnit: 'kg'
       }
-    ]
+    ];
+    let date = new Date();
+    let yyyy = date.getFullYear();
+    let mm:any = date.getMonth()+1;
+    let dd:any = date.getDate();
+    this.yyyymmdd = yyyy+(mm<10?'0'+mm:mm)+(dd<10?'0'+dd:dd);
+    
+    if(this.navParams){
+      this.yyyymmdd = this.navParams.get('date_ymd') || this.yyyymmdd;
+      this.storage.ready().then(() => {
+        this.storage.get('workout'+this.yyyymmdd).then((val) => {
+            if(val) this.workouts = JSON.parse(val);
+        })
+      });
+    }
   }
   start(){
     if(this.isStarted) return;
@@ -79,5 +97,13 @@ export class AboutPage {
 
   workoutClick(workout, unit){
     workout.done += unit;
+  }
+
+  done(){
+    this.stop();
+    this.storage.ready().then(() => {
+        this.storage.set('workout'+this.yyyymmdd, JSON.stringify(this.workouts));
+        this.navCtrl.pop();
+    });
   }
 }

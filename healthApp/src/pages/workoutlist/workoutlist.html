@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Workout List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-list>
+        <div *ngFor="let date of dateList; let i = index;" (click)='goWorkoutPage(date)'>
+            <ion-list-header style='background-color: floralwhite;'>
+                {{date | date:'y-MM-dd'}}
+            </ion-list-header>
+            <div *ngIf='workoutList[i]'>
+                <ion-item *ngFor='let workout of workoutList[i]'>
+                    <strong>{{workout.workoutId}}</strong>
+                    &nbsp;&nbsp; Done {{workout.done}} / Goal {{workout.goal}}
+                    &nbsp;&nbsp; {{workout.weight}}{{workout.weightUnit}}
+                </ion-item>
+            </div>
+        </div>
+    </ion-list>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</ion-content>

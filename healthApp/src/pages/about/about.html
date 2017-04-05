@@ -1,21 +1,24 @@
 <ion-header>
+  <ion-navbar>
+    <ion-title>{{yyyymmdd}}</ion-title>
+  </ion-navbar>
   <ion-card>
-    <ion-card-header>
-      Time
-    </ion-card-header>
     <ion-card-content style='text-align: center; font-size: 60px;'>
       {{dpTime}}
     </ion-card-content>
     <ion-grid>
       <ion-row>
-        <ion-col col-4>
+        <ion-col col-3>
           <button block (click)='start()' ion-button color="light">start</button>
         </ion-col>
-        <ion-col col-4>
+        <ion-col col-3>
           <button block (click)='stop()' ion-button>stop</button>
         </ion-col>
-        <ion-col col-4>
+        <ion-col col-3>
           <button block (click)='reset()' ion-button color="secondary">reset</button>
+        </ion-col>
+        <ion-col col-3>
+          <button block (click)='done()' ion-button color="light">done</button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -23,13 +26,13 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content padding id='workoutContent'>
   <ion-card *ngFor='let workout of workouts' [style.backgroundColor]="workout.done>=workout.goal ? 'lightgrey': null">
     <!--<img src="../../../platforms/android/res/drawable-land-ldpi/screen.png"/>-->
     <ion-card-content>
       <ion-card-title>
         <strong>
-          {{workout.name}}
+          {{workout.workoutId}}
         </strong>
       </ion-card-title>
       <p style='text-align: right;'>Done/Goal : {{workout.done}}/{{workout.goal}}</p>
