@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { AboutPage } from '../about/about';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController, AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'workoutlist',
@@ -15,7 +15,9 @@ export class ListPage {
     
     constructor(
             public storage: Storage,
-            public navCtrl: NavController
+            public navCtrl: NavController,
+            public toastCtrl: ToastController,
+            public alertCtrl: AlertController
         ) {
     }
 
@@ -73,7 +75,47 @@ export class ListPage {
         this.navCtrl.push(AboutPage, {date_ymd: this.yyyymmdd(dateNum)});
     }
 
-    ionViewDidEnter(){
+    ionViewWillEnter(){
         this.setDefault();
     }
+
+    delWorkoutYmd(date, index){
+        let yyyymmdd = this.yyyymmdd(date);
+        let confirm = this.alertCtrl.create({
+            title: 'Delete',
+            message: 'Would you like to delete '+yyyymmdd+'\'s history?',
+            buttons: [
+                {
+                    text: 'Disagree',
+                    handler: () => {
+                        
+                    }
+                },
+                {
+                    text: 'Agree',
+                    handler: () => {
+                        this.workoutList[index] = '';
+                        this.storage.ready().then(() => {
+                            this.storage.remove('workout'+yyyymmdd);
+                            this.presentToast(yyyymmdd+'\'s Workout History Deleted.', 'top');
+                        });
+                    }
+                }
+            ]
+        });
+        confirm.present();
+
+        
+    }
+
+    presentToast(msg, position) {
+        //top, middle, bottom
+        let toast = this.toastCtrl.create({
+            message: msg,
+            position: position,
+            duration: 3000
+        });
+        toast.present();
+    }
+
 }

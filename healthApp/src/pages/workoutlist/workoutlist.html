@@ -1,17 +1,21 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Workout List</ion-title>
+    <ion-title>
+        <ion-icon name="menu" menuToggle></ion-icon>&nbsp;
+        Workout List
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
 
     <ion-list>
-        <div *ngFor="let date of dateList; let i = index;" (click)='goWorkoutPage(date)'>
-            <ion-list-header style='background-color: floralwhite;'>
-                {{date | date:'y-MM-dd'}}
+        <div *ngFor="let date of dateList; let i = index;">
+            <ion-list-header>
+                <div (click)='goWorkoutPage(date)'>{{date | date:'fullDate'}}</div>
+                <ion-icon small name="close" item-right isActivate=false (click)='delWorkoutYmd(date, i)'></ion-icon>
             </ion-list-header>
-            <div *ngIf='workoutList[i]'>
+            <div *ngIf='workoutList[i]' (click)='goWorkoutPage(date)'>
                 <ion-item *ngFor='let workout of workoutList[i]'>
                     <strong>{{workout.workoutId}}</strong>
                     &nbsp;&nbsp; Done {{workout.done}} / Goal {{workout.goal}}

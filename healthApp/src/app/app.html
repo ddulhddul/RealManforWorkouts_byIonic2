@@ -1,23 +1,29 @@
 <ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Pages</ion-title>
-    </ion-toolbar>
-  </ion-header>
   <ion-content>
     <ion-list>
-      <button ion-item (click)="openPage(listPage)">
-        Workout List
-      </button>
-      <button ion-item (click)="openPage(aboutPage)">
-        About
-      </button>
-      <button ion-item (click)="openPage(homePage)">
-        Home
-      </button>
-      <button ion-item (click)="openPage(contactPage)">
-        Contact
-      </button>
+      <h1>History</h1>
+        <button ion-item (click)="openPage(listPage)">
+          List
+        </button>
+        <button ion-item (click)="openPage(aboutPage)">
+          Calendar
+        </button>
+        <button ion-item (click)="openPage(homePage)">
+          Today's
+        </button>
+      <h1>Settings</h1>
+        <button ion-item (click)="openPage(aboutPage)">
+          Options
+        </button>
+        <button ion-item (click)="openPage(aboutPage)">
+          Templates
+        </button>
+        <button ion-item (click)="openPage(aboutPage)">
+          About
+        </button>
+        <button ion-item (click)="openPage(contactPage)">
+          Contact
+        </button>
     </ion-list>
   </ion-content>
 </ion-menu>

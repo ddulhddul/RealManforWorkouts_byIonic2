@@ -3,49 +3,55 @@
     <ion-title>{{yyyymmdd}}</ion-title>
   </ion-navbar>
   <ion-card>
-    <ion-card-content style='text-align: center; font-size: 60px;'>
+    <ion-card-content style='text-align: center; font-size: 50px;'>
       {{dpTime}}
     </ion-card-content>
     <ion-grid>
       <ion-row>
         <ion-col col-3>
           <button block (click)='start()' ion-button color="light">start</button>
+          <!--<ion-icon (click)='start()' name="play" item-center></ion-icon>-->
         </ion-col>
         <ion-col col-3>
           <button block (click)='stop()' ion-button>stop</button>
+          <!--<ion-icon (click)='stop()' name="square"></ion-icon>-->
         </ion-col>
         <ion-col col-3>
           <button block (click)='reset()' ion-button color="secondary">reset</button>
+          <!--<ion-icon (click)='reset()' name="refresh"></ion-icon>-->
         </ion-col>
         <ion-col col-3>
-          <button block (click)='done()' ion-button color="light">done</button>
+          <button block (click)='done()' ion-button color="danger">done</button>
+          <!--<ion-icon (click)='done()' name="checkmark"></ion-icon>-->
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
-
 </ion-header>
 
-<ion-content padding id='workoutContent'>
-  <ion-card *ngFor='let workout of workouts' [style.backgroundColor]="workout.done>=workout.goal ? 'lightgrey': null">
-    <!--<img src="../../../platforms/android/res/drawable-land-ldpi/screen.png"/>-->
-    <ion-card-content>
-      <ion-card-title>
-        <strong>
-          {{workout.workoutId}}
-        </strong>
-      </ion-card-title>
-      <p style='text-align: right;'>Done/Goal : {{workout.done}}/{{workout.goal}}</p>
-      <p style='text-align: right;' *ngIf='workout.weight'>Weight : {{workout.weight}} {{workout.weightUnit}}</p>
-      <ion-grid>
-        <ion-row>
-          <ion-col col-4 *ngFor='let unit of workout.units; let i = index;'>
-            <button block (click)='workoutClick(workout, unit)' ion-button [style.backgroundColor]="workout.done>=workout.goal ? 'lightgrey': null">
-              {{unit}}
-            </button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
+<ion-content padding id='workoutContent'>  
+  <ion-list>
+    <div *ngFor='let workout of workouts'>
+      <ion-item>
+        <ion-thumbnail item-left>
+          <img src="assets/icon/icon.png"/>
+        </ion-thumbnail>
+        <h2>{{workout.workoutId}}</h2>
+        <div style='float:right;'>
+          <p>Done/Goal : {{workout.done}}/{{workout.goal}}</p>
+          <p *ngIf='workout.weight'>Weight : {{workout.weight}} {{workout.weightUnit}}</p>
+          <p>{{workout.message}}</p>
+        </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-4 *ngFor='let unit of workout.units; let i = index;'>
+              <button block (click)='workoutClick(workout, unit)' ion-button [style.backgroundColor]="workout.done>=workout.goal ? 'lightgrey': null">
+                +{{unit}}
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-list>
 </ion-content>

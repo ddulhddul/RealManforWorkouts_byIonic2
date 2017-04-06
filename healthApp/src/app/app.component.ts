@@ -56,7 +56,18 @@ export class MyApp {
   }
 
   openPage(page){
-      this.nav.push(page);
-      this.menu.close();
+    if(this.nav.canGoBack()){
+      this.nav.pop()
+    }
+    this.rootPage=page;
+    // if(this.rootPage==page){
+    //   this.nav.setRoot(page);
+    // }else{
+    //   if(this.nav.canGoBack()){
+    //     this.nav.pop()
+    //   }
+    //   this.nav.push(page);
+    // }
+    this.menu.close();
   }
 }

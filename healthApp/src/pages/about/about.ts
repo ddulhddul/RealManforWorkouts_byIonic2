@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { Observable } from 'rxjs/Rx';
 import { Subscription } from "rxjs";
 import { Storage } from '@ionic/storage';
-import { ListPage } from '../workoutlist/workoutlist';
 
 @Component({
   selector: 'page-about',
@@ -20,7 +19,9 @@ export class AboutPage {
 
   constructor(public navCtrl: NavController, 
               public storage: Storage,
-              private navParams: NavParams) {
+              private navParams: NavParams,
+              public toastCtrl: ToastController,
+              ) {
     this.setDefault();
     
   }
@@ -96,7 +97,12 @@ export class AboutPage {
   }
 
   workoutClick(workout, unit){
+    if(!this.isStarted) this.start();
     workout.done += unit;
+    let msg = this.dpTime+' '+workout.done+'\n';
+    // if(!workout.message) workout.message = [];
+    // workout.message.push(msg);
+    workout.message = msg;
   }
 
   done(){
@@ -105,5 +111,16 @@ export class AboutPage {
         this.storage.set('workout'+this.yyyymmdd, JSON.stringify(this.workouts));
         this.navCtrl.pop();
     });
+    this.presentToast('Saved', 'top');
+  }
+
+  presentToast(msg, position) {
+      //top, middle, bottom
+      let toast = this.toastCtrl.create({
+          message: msg,
+          position: position,
+          duration: 3000
+      });
+      toast.present();
   }
 }
