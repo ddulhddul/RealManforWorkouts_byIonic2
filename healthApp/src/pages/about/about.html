@@ -4,48 +4,71 @@
   </ion-navbar>
   <ion-card>
     <ion-card-content style='text-align: center; font-size: 50px;'>
-      {{dpTime}}
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            {{dpTime}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-2></ion-col>
+          <ion-col col-2 style='font-size: 30px;'>
+            <ion-icon style='color:green;' (click)='start()' name="play" item-center></ion-icon>
+          </ion-col>
+          <ion-col col-2 style='font-size: 30px;'>
+            <ion-icon style='color:red;' (click)='stop()' name="square"></ion-icon>
+          </ion-col>
+          <ion-col col-2 style='font-size: 30px;'>
+            <ion-icon style='color:blue;' (click)='reset()' name="refresh"></ion-icon>
+          </ion-col>
+          <ion-col col-2 style='font-size: 30px;'>
+            <ion-icon style='color:black;' (click)='done()' name="checkmark"></ion-icon>
+          </ion-col>
+          <ion-col col-2></ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
-    <ion-grid>
+    <!--<ion-grid>
       <ion-row>
-        <ion-col col-3>
-          <button block (click)='start()' ion-button color="light">start</button>
-          <!--<ion-icon (click)='start()' name="play" item-center></ion-icon>-->
+        <ion-col col-2></ion-col>
+        <ion-col col-1>
+          <button style='font-size:10px;' block (click)='start()' ion-button color="danger">start</button>
         </ion-col>
-        <ion-col col-3>
-          <button block (click)='stop()' ion-button>stop</button>
-          <!--<ion-icon (click)='stop()' name="square"></ion-icon>-->
+        <ion-col col-1>
+          <button style='font-size:10px;' block (click)='stop()' ion-button>stop</button>
         </ion-col>
-        <ion-col col-3>
-          <button block (click)='reset()' ion-button color="secondary">reset</button>
-          <!--<ion-icon (click)='reset()' name="refresh"></ion-icon>-->
+        <ion-col col-5>
+          <button style='font-size:30px;' block ion-button color="light">{{dpTime}}</button>
         </ion-col>
-        <ion-col col-3>
-          <button block (click)='done()' ion-button color="danger">done</button>
-          <!--<ion-icon (click)='done()' name="checkmark"></ion-icon>-->
+        <ion-col col-1>
+          <button style='font-size:10px;' block (click)='reset()' ion-button color="secondary">reset</button>
         </ion-col>
+        <ion-col col-1>
+          <button style='font-size:10px;' block (click)='done()' ion-button color="danger">done</button>  
+        </ion-col>
+        <ion-col col-2></ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid>-->
   </ion-card>
 </ion-header>
 
 <ion-content padding id='workoutContent'>  
   <ion-list>
-    <div *ngFor='let workout of workouts'>
+    <div *ngFor='let workout of workouts' style='margin-bottom: 10px;' [style.border]='workout.done>=workout.goal ? "solid 1.5px green": "solid 1.5px white"' >
       <ion-item>
         <ion-thumbnail item-left>
           <img src="assets/icon/{{workout.img}}.png" (error)='defaultImg(workout)'/>
         </ion-thumbnail>
-        <h2>{{workout.name}}</h2>
-        <div style='float:right;'>
-          <p>Done/Goal : {{workout.done}}/{{workout.goal}}</p>
-          <p *ngIf='workout.weight'>Weight : {{workout.weight}} {{workout.weightUnit}}</p>
-          <p>{{workout.message}}</p>
+        <h2><strong>{{workout.name}}&nbsp;</strong><small>{{workout.weight}} {{workout.weightUnit}}</small><small style='float:right;'>{{workout.message}}</small></h2>
+        <div style='margin-left:20px; margin-top:10px;'>
+          <p><strong style='font-size:20px;color:green;'>{{workout.done}}</strong> Done </p>
+          <p><strong style='font-size:20px;color:red;'>{{workout.goal}}</strong> Goal </p>
+          <p></p>
         </div>
         <ion-grid>
           <ion-row>
             <ion-col col-4 *ngFor='let unit of workout.units; let i = index;'>
-              <button block (click)='workoutClick(workout, unit)' ion-button [style.backgroundColor]="workout.done>=workout.goal ? 'lightgrey': null">
+              <button block (click)='workoutClick(workout, unit)' ion-button>
                 +{{unit}}
               </button>
             </ion-col>

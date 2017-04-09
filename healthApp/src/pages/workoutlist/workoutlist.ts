@@ -73,7 +73,6 @@ export class ListPage {
     }
 
     goWorkoutPage(dateNum){
-        console.log(dateNum, this.yyyymmdd(dateNum))
         this.navCtrl.push(AboutPage, {date_ymd: this.yyyymmdd(dateNum)});
     }
 

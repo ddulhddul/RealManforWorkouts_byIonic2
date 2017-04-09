@@ -3,17 +3,16 @@
     <ion-title>
         <ion-icon name="menu" menuToggle></ion-icon>&nbsp;
         Workout List
-        <ion-icon small name="close" item-right isActivate=false (click)='delAll()'></ion-icon>
+        <ion-icon style='float:right;' small name="close" isActivate=false (click)='delAll()'></ion-icon>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content class='outer-content'>
-
     <ion-list>
         <div *ngFor="let date of dateList; let i = index;">
             <ion-item-sliding>
-                <ion-item style='color:grey; font-size: 10px;' (click)='goWorkoutPage(date)'>{{date | date:'fullDate'}}</ion-item>                
+                <ion-item style='color:grey; font-size: 14px;' (click)='goWorkoutPage(date)'>{{date | date:'fullDate'}}</ion-item>
                 <ion-item-options>
                     <button ion-button color="danger" icon-left (click)='delWorkoutYmd(date, i)'>
                         <ion-icon name="delete"></ion-icon>
@@ -24,17 +23,15 @@
             </ion-item-sliding>
             <div *ngIf='workoutList[i]' (click)='goWorkoutPage(date)'>
                 <div *ngFor='let workout of workoutList[i]'>
-                    <ion-item style='font-size:13px;'>&nbsp;&nbsp;
-                        <strong>{{workout.name}}</strong>
-                        &nbsp;&nbsp; Done {{workout.done}} / Goal {{workout.goal}}
-                        &nbsp;&nbsp; {{workout.weight}}{{workout.weightUnit}}
+                    <ion-item>
+                        <div style='float:left;margin-left:15px;'>
+                            <strong>&nbsp;&nbsp; {{workout.name}}</strong>
+                            <small *ngIf='workout.weight'>({{workout.weight}}{{workout.weightUnit}})</small>
+                        </div>
+                        <div style='font-size:12px;float:left;margin-left:15px;'>
+                            Done {{workout.done}} / Goal {{workout.goal}}
+                        </div>
                     </ion-item>
-                    <ion-item-options>
-                        <button ion-button color="secondary" icon-left (click)='delWorkoutYmd(date, i)'>
-                        <ion-icon name="delete"></ion-icon>
-                        Delete
-                        </button>
-                    </ion-item-options>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs/Rx';
 import { Subscription } from "rxjs";
 import { Storage } from '@ionic/storage';
@@ -21,9 +21,29 @@ export class AboutPage {
               public storage: Storage,
               private navParams: NavParams,
               public toastCtrl: ToastController,
+              public alertCtrl: AlertController
               ) {
     this.setDefault();
+    this.getParamWorkout();
     
+  }
+
+  getParamWorkout(){
+    if(this.navParams){
+      this.yyyymmdd = this.navParams.get('date_ymd') || this.yyyymmdd;
+      this.storage.ready().then(() => {
+        this.storage.get('workout'+this.yyyymmdd).then((val) => {
+            if(val){
+              let json = JSON.parse(val);
+              
+              this.workouts = json.workouts;
+              this.time = json.time;
+              this.cumTime = json.cumTime;
+              this.dpTime = json.dpTime;
+            } 
+        })
+      });
+    }
   }
 
   setDefault(){
@@ -38,7 +58,7 @@ export class AboutPage {
         done: 0,
         goal: 100,
         units: [5,10,15],
-        img: 'icon'
+        img: 'pushUp'
       },
       {
         workoutId: 'dumbel',
@@ -48,7 +68,7 @@ export class AboutPage {
         units: [5,10,15],
         weight: 7,
         weightUnit: 'kg',
-        img: 'icon123'
+        img: 'dumbel'
       }
     ];
     let date = new Date();
@@ -56,24 +76,8 @@ export class AboutPage {
     let mm:any = date.getMonth()+1;
     let dd:any = date.getDate();
     this.yyyymmdd = yyyy+(mm<10?'0'+mm:mm)+(dd<10?'0'+dd:dd);
-    
-    if(this.navParams){
-      this.yyyymmdd = this.navParams.get('date_ymd') || this.yyyymmdd;
-      this.storage.ready().then(() => {
-        this.storage.get('workout'+this.yyyymmdd).then((val) => {
-            console.log(val, this.yyyymmdd)
-            if(val){
-              let json = JSON.parse(val);
-              
-              this.workouts = json.workouts;
-              this.time = json.time;
-              this.cumTime = json.cumTime;
-              this.dpTime = json.dpTime;
-            } 
-        })
-      });
-    }
   }
+
   start(){
     if(this.isStarted) return;
     this.isStarted = true;
@@ -101,23 +105,37 @@ export class AboutPage {
     !this.subscription || this.subscription.unsubscribe();
   }
   reset(){
-    this.setDefault();
-    !this.subscription || this.subscription.unsubscribe();
-  }
-  ngOnDestroy(){
-    this.reset();
+
+    let confirm = this.alertCtrl.create({
+        title: 'Delete',
+        message: 'Would you like to reset current workout history?',
+        buttons: [
+            {
+                text: 'Disagree',
+                handler: () => {
+                }
+            },
+            {
+                text: 'Agree',
+                handler: () => {
+                    this.setDefault();
+                    !this.subscription || this.subscription.unsubscribe();
+                }
+            }
+        ]
+    });
+    confirm.present();
   }
 
   workoutClick(workout, unit){
     if(!this.isStarted) this.start();
     workout.done += unit;
-    let msg = this.dpTime+' '+workout.done+'\n';
-    // if(!workout.message) workout.message = [];
-    // workout.message.push(msg);
-    workout.message = msg;
+    this.presentToast('+'+unit, 'top', '500');
+    workout.message = this.dpTime;
   }
 
   done(){
+    this.presentToast('Saved', 'top', '');
     this.stop();
     this.storage.ready().then(() => {
         let json = {workouts:[], time: 0, dpTime: '', cumTime: 0};
@@ -125,19 +143,17 @@ export class AboutPage {
         json.time = this.time;
         json.cumTime = this.cumTime;
         json.dpTime = this.dpTime;
-        console.log(this.yyyymmdd, JSON.stringify(json))
         this.storage.set('workout'+this.yyyymmdd, JSON.stringify(json));
         this.navCtrl.pop();
     });
-    this.presentToast('Saved', 'top');
   }
 
-  presentToast(msg, position) {
+  presentToast(msg, position, sec) {
       //top, middle, bottom
       let toast = this.toastCtrl.create({
           message: msg,
           position: position,
-          duration: 3000
+          duration: sec || 3000
       });
       toast.present();
   }
