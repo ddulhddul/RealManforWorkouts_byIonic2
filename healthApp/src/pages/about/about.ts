@@ -34,17 +34,21 @@ export class AboutPage {
     this.workouts = [
       {
         workoutId: 'pushUp',
+        name: 'Push Up',
         done: 0,
         goal: 100,
-        units: [5,10,15]
+        units: [5,10,15],
+        img: 'icon'
       },
       {
         workoutId: 'dumbel',
+        name: 'Dumbel',
         done: 0,
         goal: 100,
         units: [5,10,15],
         weight: 7,
-        weightUnit: 'kg'
+        weightUnit: 'kg',
+        img: 'icon123'
       }
     ];
     let date = new Date();
@@ -57,7 +61,15 @@ export class AboutPage {
       this.yyyymmdd = this.navParams.get('date_ymd') || this.yyyymmdd;
       this.storage.ready().then(() => {
         this.storage.get('workout'+this.yyyymmdd).then((val) => {
-            if(val) this.workouts = JSON.parse(val);
+            console.log(val, this.yyyymmdd)
+            if(val){
+              let json = JSON.parse(val);
+              
+              this.workouts = json.workouts;
+              this.time = json.time;
+              this.cumTime = json.cumTime;
+              this.dpTime = json.dpTime;
+            } 
         })
       });
     }
@@ -108,7 +120,13 @@ export class AboutPage {
   done(){
     this.stop();
     this.storage.ready().then(() => {
-        this.storage.set('workout'+this.yyyymmdd, JSON.stringify(this.workouts));
+        let json = {workouts:[], time: 0, dpTime: '', cumTime: 0};
+        json.workouts = this.workouts;
+        json.time = this.time;
+        json.cumTime = this.cumTime;
+        json.dpTime = this.dpTime;
+        console.log(this.yyyymmdd, JSON.stringify(json))
+        this.storage.set('workout'+this.yyyymmdd, JSON.stringify(json));
         this.navCtrl.pop();
     });
     this.presentToast('Saved', 'top');
@@ -122,5 +140,9 @@ export class AboutPage {
           duration: 3000
       });
       toast.present();
+  }
+
+  defaultImg(target){
+    target.img = 'icon';
   }
 }

@@ -29,30 +29,6 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
-
-    //storage
-      storage.ready().then(() => {
-        let history = [
-          {
-            workoutId: 'pushup',
-            name: 'Push Up',
-            goal: 80,
-            done: 0,
-            units: [5,10,15]
-          },
-          {
-            workoutId: 'dumbel',
-            name: 'Dumbel',
-            goal: 100,
-            done: 0,
-            units: [5,10,15],
-            weight: 7,
-            weightUnit: 'kg'
-          }
-        ];
-        storage.set('workout20170404', JSON.stringify(history));
-        storage.set('workout20170305', JSON.stringify(history));
-      });
   }
 
   openPage(page){

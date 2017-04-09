@@ -34,9 +34,9 @@
     <div *ngFor='let workout of workouts'>
       <ion-item>
         <ion-thumbnail item-left>
-          <img src="assets/icon/icon.png"/>
+          <img src="assets/icon/{{workout.img}}.png" (error)='defaultImg(workout)'/>
         </ion-thumbnail>
-        <h2>{{workout.workoutId}}</h2>
+        <h2>{{workout.name}}</h2>
         <div style='float:right;'>
           <p>Done/Goal : {{workout.done}}/{{workout.goal}}</p>
           <p *ngIf='workout.weight'>Weight : {{workout.weight}} {{workout.weightUnit}}</p>

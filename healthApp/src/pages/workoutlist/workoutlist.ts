@@ -39,11 +39,12 @@ export class ListPage {
             for(let i = this.workoutList.length; i < this.dateList.length; i++){
                 let yyyymmdd = this.yyyymmdd(this.dateList[i]);
                 this.storage.get('workout'+yyyymmdd).then((val) => {
+                    let pushObj = ''
                     if(val){
-                        this.workoutList.push(JSON.parse(val));
-                    }else{
-                        this.workoutList.push('');
+                        val = JSON.parse(val);
+                        if(val.workouts) pushObj = val.workouts;
                     }
+                    this.workoutList.push(pushObj);
                 })
             }
         });
@@ -72,6 +73,7 @@ export class ListPage {
     }
 
     goWorkoutPage(dateNum){
+        console.log(dateNum, this.yyyymmdd(dateNum))
         this.navCtrl.push(AboutPage, {date_ymd: this.yyyymmdd(dateNum)});
     }
 
@@ -116,6 +118,34 @@ export class ListPage {
             duration: 3000
         });
         toast.present();
+    }
+
+    delAll(){
+              
+        let confirm = this.alertCtrl.create({
+            title: 'Delete',
+            message: 'Would you like to delete all the history?',
+            buttons: [
+                {
+                    text: 'Disagree',
+                    handler: () => {
+                        
+                    }
+                },
+                {
+                    text: 'Agree',
+                    handler: () => {
+                        this.storage.ready().then(() => {
+                            this.storage.clear();
+                            this.presentToast('Workout History Deleted.', 'top');
+                            this.setDefault();
+                        });  
+                    }
+                }
+            ]
+        });
+        confirm.present();
+
     }
 
 }
