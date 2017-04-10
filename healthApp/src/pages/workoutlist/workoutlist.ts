@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { AboutPage } from '../about/about';
 import { NavController, ToastController, AlertController } from 'ionic-angular';
+import * as Common from '../../common/common';
 
 @Component({
   selector: 'workoutlist',
   templateUrl: 'workoutlist.html'
 })
 export class ListPage {
-    dateList: Array<number>;
     daysUnit: number = 30;
     curDate: Date;
     workoutList: Array<any>;
@@ -22,58 +22,52 @@ export class ListPage {
     }
 
     setDefault(){
-        this.dateList = [];
         this.workoutList = [];
         this.curDate = new Date();
-        this.dateList.push(this.curDate.getTime());
-        for (let i = 1; i <= this.daysUnit; i++) {
-            this.dateList.push( 
-                this.curDate.setDate(this.curDate.getDate()-1)
-            );
-        }
-        this.getWorkoutList();  
+        
+        this.storage.ready().then(() => {
+
+            //today's data
+            let curDateTime = this.curDate.getTime();
+            let yyyymmdd = Common.yyyymmdd(curDateTime);
+            let pushObj;
+            this.storage.get('workout'+yyyymmdd).then((val) => {
+                pushObj = {date:null};
+                if(val) pushObj = JSON.parse(val);
+                pushObj.date = new Date(curDateTime);
+                this.workoutList.push(pushObj);
+                this.getWorkoutList();
+            })
+        });
     }
 
     getWorkoutList(){
         this.storage.ready().then(() => {
-            for(let i = this.workoutList.length; i < this.dateList.length; i++){
-                let yyyymmdd = this.yyyymmdd(this.dateList[i]);
+            //history data load
+            let yyyymmdd, pushObj;
+            for (let i = 1; i <= this.daysUnit; i++) {
+                let dateNum = this.curDate.setDate(this.curDate.getDate()-1);
+                yyyymmdd = Common.yyyymmdd(dateNum);
                 this.storage.get('workout'+yyyymmdd).then((val) => {
-                    let pushObj = ''
-                    if(val){
-                        val = JSON.parse(val);
-                        if(val.workouts) pushObj = val.workouts;
-                    }
+                    pushObj = {date:null};
+                    if(val) pushObj = JSON.parse(val);
+                    pushObj.date = new Date(dateNum);
                     this.workoutList.push(pushObj);
                 })
             }
         });
     }
 
-    yyyymmdd(dateNum){
-        let date = new Date(dateNum);
-        let yyyy = date.getFullYear();
-        let mm:any = date.getMonth()+1;
-        let dd:any = date.getDate();
-        
-        return yyyy+(mm<10?'0'+mm:mm)+(dd<10?'0'+dd:dd);
-    }
-
     doInfinite(infiniteScroll) {
 
         setTimeout(() => {
-            for (let i = 1; i <= this.daysUnit; i++) {
-                this.dateList.push( 
-                    this.curDate.setDate(this.curDate.getDate()-1)
-                );
-            }
             this.getWorkoutList();
             infiniteScroll.complete();
         }, 500);
     }
 
     goWorkoutPage(dateNum){
-        this.navCtrl.push(AboutPage, {date_ymd: this.yyyymmdd(dateNum)});
+        this.navCtrl.push(AboutPage, {date_ymd: Common.yyyymmdd(dateNum)});
     }
 
     ionViewWillEnter(){
@@ -81,7 +75,7 @@ export class ListPage {
     }
 
     delWorkoutYmd(date, index){
-        let yyyymmdd = this.yyyymmdd(date);
+        let yyyymmdd = Common.yyyymmdd(date);
         let confirm = this.alertCtrl.create({
             title: 'Delete',
             message: 'Would you like to delete '+yyyymmdd+'\'s history?',
@@ -95,10 +89,10 @@ export class ListPage {
                 {
                     text: 'Agree',
                     handler: () => {
-                        this.workoutList[index] = '';
+                        this.workoutList[index] = {date: date};
                         this.storage.ready().then(() => {
                             this.storage.remove('workout'+yyyymmdd);
-                            this.presentToast(yyyymmdd+'\'s Workout History Deleted.', 'top');
+                            Common.presentToast(this.toastCtrl, yyyymmdd+'\'s Workout History Deleted.', 'top', '');
                         });
                     }
                 }
@@ -109,15 +103,7 @@ export class ListPage {
         
     }
 
-    presentToast(msg, position) {
-        //top, middle, bottom
-        let toast = this.toastCtrl.create({
-            message: msg,
-            position: position,
-            duration: 3000
-        });
-        toast.present();
-    }
+    
 
     delAll(){
               
@@ -136,7 +122,7 @@ export class ListPage {
                     handler: () => {
                         this.storage.ready().then(() => {
                             this.storage.clear();
-                            this.presentToast('Workout History Deleted.', 'top');
+                            Common.presentToast(this.toastCtrl, 'Workout History Deleted.', 'top', '');
                             this.setDefault();
                         });  
                     }

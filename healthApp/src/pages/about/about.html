@@ -28,47 +28,34 @@
         </ion-row>
       </ion-grid>
     </ion-card-content>
-    <!--<ion-grid>
-      <ion-row>
-        <ion-col col-2></ion-col>
-        <ion-col col-1>
-          <button style='font-size:10px;' block (click)='start()' ion-button color="danger">start</button>
-        </ion-col>
-        <ion-col col-1>
-          <button style='font-size:10px;' block (click)='stop()' ion-button>stop</button>
-        </ion-col>
-        <ion-col col-5>
-          <button style='font-size:30px;' block ion-button color="light">{{dpTime}}</button>
-        </ion-col>
-        <ion-col col-1>
-          <button style='font-size:10px;' block (click)='reset()' ion-button color="secondary">reset</button>
-        </ion-col>
-        <ion-col col-1>
-          <button style='font-size:10px;' block (click)='done()' ion-button color="danger">done</button>  
-        </ion-col>
-        <ion-col col-2></ion-col>
-      </ion-row>
-    </ion-grid>-->
   </ion-card>
 </ion-header>
 
 <ion-content padding id='workoutContent'>  
   <ion-list>
-    <div *ngFor='let workout of workouts' style='margin-bottom: 10px;' [style.border]='workout.done>=workout.goal ? "solid 1.5px green": "solid 1.5px white"' >
+    <div *ngFor='let workout of workouts' 
+          style='margin-bottom: 10px; max-width: 500px; float:left;' 
+          [style.border]='workout.done>=workout.goal ? "solid 5px green": "solid 5px white"' >
       <ion-item>
         <ion-thumbnail item-left>
-          <img src="assets/icon/{{workout.img}}.png" (error)='defaultImg(workout)'/>
+          <img src="assets/icon/{{workout.img}}.png" (error)='Common.defaultImg(workout)'/>
         </ion-thumbnail>
-        <h2><strong>{{workout.name}}&nbsp;</strong><small>{{workout.weight}} {{workout.weightUnit}}</small><small style='float:right;'>{{workout.message}}</small></h2>
+        <h1>
+          <strong>{{workout.name}}&nbsp;</strong>
+          <small>{{workout.weight}} {{workout.weightUnit}}</small>
+        </h1>
+        <h2>
+          <p style='float:right;'>{{workout.message}}</p>
+        </h2>
         <div style='margin-left:20px; margin-top:10px;'>
-          <p><strong style='font-size:20px;color:green;'>{{workout.done}}</strong> Done </p>
-          <p><strong style='font-size:20px;color:red;'>{{workout.goal}}</strong> Goal </p>
+          <p><strong style='font-size:30px;color:green;'>{{workout.done}}</strong> Done </p>
+          <p><strong style='font-size:30px;color:red;'>{{workout.goal}}</strong> Goal </p>
           <p></p>
         </div>
         <ion-grid>
           <ion-row>
             <ion-col col-4 *ngFor='let unit of workout.units; let i = index;'>
-              <button block (click)='workoutClick(workout, unit)' ion-button>
+              <button block (click)='workoutClick(workout, unit)' ion-button style='font-size: 20px;'>
                 +{{unit}}
               </button>
             </ion-col>

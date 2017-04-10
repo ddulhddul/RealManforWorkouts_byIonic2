@@ -3,6 +3,7 @@ import { NavController, NavParams, ToastController, AlertController } from 'ioni
 import { Observable } from 'rxjs/Rx';
 import { Subscription } from "rxjs";
 import { Storage } from '@ionic/storage';
+import * as Common from '../../common/common';
 
 @Component({
   selector: 'page-about',
@@ -130,12 +131,12 @@ export class AboutPage {
   workoutClick(workout, unit){
     if(!this.isStarted) this.start();
     workout.done += unit;
-    this.presentToast('+'+unit, 'top', '500');
+    Common.presentToast(this.toastCtrl, '+'+unit, 'top', '1000');
     workout.message = this.dpTime;
   }
 
   done(){
-    this.presentToast('Saved', 'top', '');
+    Common.presentToast(this.toastCtrl, 'Saved', 'top', '');
     this.stop();
     this.storage.ready().then(() => {
         let json = {workouts:[], time: 0, dpTime: '', cumTime: 0};
@@ -146,19 +147,5 @@ export class AboutPage {
         this.storage.set('workout'+this.yyyymmdd, JSON.stringify(json));
         this.navCtrl.pop();
     });
-  }
-
-  presentToast(msg, position, sec) {
-      //top, middle, bottom
-      let toast = this.toastCtrl.create({
-          message: msg,
-          position: position,
-          duration: sec || 3000
-      });
-      toast.present();
-  }
-
-  defaultImg(target){
-    target.img = 'icon';
   }
 }

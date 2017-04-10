@@ -10,19 +10,19 @@
 
 <ion-content class='outer-content'>
     <ion-list>
-        <div *ngFor="let date of dateList; let i = index;">
+        <div *ngFor="let data of workoutList; let i = index;">
             <ion-item-sliding>
-                <ion-item style='color:grey; font-size: 14px;' (click)='goWorkoutPage(date)'>{{date | date:'fullDate'}}</ion-item>
+                <ion-item style='color:grey; font-size: 14px;' (click)='goWorkoutPage(data.date)'>{{data.date | date:'fullDate'}}</ion-item>
                 <ion-item-options>
-                    <button ion-button color="danger" icon-left (click)='delWorkoutYmd(date, i)'>
+                    <button ion-button color="danger" icon-left (click)='delWorkoutYmd(data.date, i)'>
                         <ion-icon name="delete"></ion-icon>
                         Delete
                     </button>
                     <!--<ion-icon small name="close" item-right isActivate=false (click)='delWorkoutYmd(date, i)'></ion-icon>-->
                 </ion-item-options>
             </ion-item-sliding>
-            <div *ngIf='workoutList[i]' (click)='goWorkoutPage(date)'>
-                <div *ngFor='let workout of workoutList[i]'>
+            <div *ngIf='data.workouts' (click)='goWorkoutPage(data.date)'>
+                <div *ngFor='let workout of data.workouts'>
                     <ion-item>
                         <div style='float:left;margin-left:15px;'>
                             <strong>&nbsp;&nbsp; {{workout.name}}</strong>
