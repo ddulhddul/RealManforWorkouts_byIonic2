@@ -19,3 +19,10 @@ cordova plugin add cordova-sqlite-storage --save
 npm install --save @ionic/storage
 ionic plugin add cordova-sqlite-storage
 ```
+
+## type
+    primary
+    secondary
+    danger
+    light
+    dark

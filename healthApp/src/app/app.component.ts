@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { ListPage } from '../pages/workoutlist/workoutlist';
+import { CalendarPage } from '../pages/calendar/calendar';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -19,6 +20,7 @@ export class MyApp {
   homePage:any = HomePage;
   aboutPage:any = AboutPage;
   contactPage:any = ContactPage;
+  calendarPage:any = CalendarPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               app: App, public menu: MenuController, storage: Storage) {

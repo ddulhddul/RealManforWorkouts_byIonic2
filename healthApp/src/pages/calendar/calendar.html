@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Calendar
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div style='text-align: center;'>
+        <h1>
+            <ion-icon style='font-size:50px;float:left;margin-left:20%;' (click)='prev(curDate)' name="arrow-dropleft" item-center></ion-icon>
+            {{curDate.getFullYear()}}.{{curDate.getMonth()+1}}
+            <ion-icon style='font-size:50px;float:right;margin-right:20%;' (click)='next(curDate)' name="arrow-dropright" item-center></ion-icon>
+        </h1>
+    </div>
+    <div>
+    </div>
+    <table style='width:100%;'>
+        <tr>
+            <td style='width:14%;float:left;border-top:solid 1px black;background-color: darkgrey'>Sun</td>
+            <td style='width:14%;float:left;border-top:solid 1px black;background-color: darkgrey'>Mon</td>
+            <td style='width:14%;float:left;border-top:solid 1px black;background-color: darkgrey'>Tue</td>
+            <td style='width:14%;float:left;border-top:solid 1px black;background-color: darkgrey'>Wed</td>
+            <td style='width:14%;float:left;border-top:solid 1px black;background-color: darkgrey'>Thu</td>
+            <td style='width:14%;float:left;border-top:solid 1px black;background-color: darkgrey'>Fri</td>
+            <td style='width:14%;float:left;border-top:solid 1px black;background-color: darkgrey'>Sat</td>
+        </tr>
+        <tr *ngFor='let week of calendar'>
+            <td *ngFor='let data of week'
+                style='width:14%;float:left;border-top:solid 1px black;min-height: 50px;'
+                [style.color]='data.date.getMonth() != curDate.getMonth() ? "grey" : "black"'>
+                <strong>{{data.date | date:'dd'}}</strong>
+                <div 
+                    style='overflow: hidden;white-space: nowrap;'
+                    *ngFor='let workout of data.workouts'
+                    [style.backgroundColor]='workout.done>=workout.goal?"green":"grey"'
+                    >
+                    {{workout.done}}
+                    &nbsp;
+                    {{workout.name}}
+                </div>
+            </td>
+        </tr>
+    </table>
+</ion-content>
