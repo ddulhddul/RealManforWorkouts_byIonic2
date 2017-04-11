@@ -1,34 +1,61 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
+    <ion-icon name="menu" menuToggle></ion-icon>&nbsp;
       Calendar
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-    <div style='text-align: center;'>
-        <h1>
-            <ion-icon style='font-size:50px;float:left;margin-left:20%;' (click)='prev(curDate)' name="arrow-dropleft" item-center></ion-icon>
-            {{curDate.getFullYear()}}.{{curDate.getMonth()+1}}
-            <ion-icon style='font-size:50px;float:right;margin-right:20%;' (click)='next(curDate)' name="arrow-dropright" item-center></ion-icon>
-        </h1>
-    </div>
+<ion-content class='grid-basic-page'>
+    <style>
+        .tableHead td{
+            width:14%;
+            float:left;
+            border-top:solid 1px black;
+            background-color: darkgrey
+        }
+
+        .tableBody td{
+            width:14%;
+            float:left;
+            border-top:solid 1px black;
+            min-height: 50px;
+        }
+    </style>
+    <ion-row align-items-center>
+        <ion-col>
+            <div>
+                <ion-icon style='font-size:50px;float:left;margin-left:20%;' (click)='prev(curDate)' name="arrow-dropleft" item-center></ion-icon>
+            </div>
+        </ion-col>
+        <ion-col>
+            <div style='text-align:center;font-size:40px;'>
+                <strong>
+                    {{curDate.getFullYear()}}.{{curDate.getMonth()+1}}
+                </strong>
+            </div>
+        </ion-col>
+        <ion-col>
+            <div>
+                <ion-icon style='font-size:50px;float:right;margin-right:20%;' (click)='next(curDate)' name="arrow-dropright" item-center></ion-icon>
+            </div>
+        </ion-col>
+    </ion-row>
     <div>
     </div>
-    <table style='width:100%;'>
-        <tr>
-            <td style='width:14%;float:left;border-top:solid 1px black;background-color: darkgrey'>Sun</td>
-            <td style='width:14%;float:left;border-top:solid 1px black;background-color: darkgrey'>Mon</td>
-            <td style='width:14%;float:left;border-top:solid 1px black;background-color: darkgrey'>Tue</td>
-            <td style='width:14%;float:left;border-top:solid 1px black;background-color: darkgrey'>Wed</td>
-            <td style='width:14%;float:left;border-top:solid 1px black;background-color: darkgrey'>Thu</td>
-            <td style='width:14%;float:left;border-top:solid 1px black;background-color: darkgrey'>Fri</td>
-            <td style='width:14%;float:left;border-top:solid 1px black;background-color: darkgrey'>Sat</td>
+    <table style='width:100%;margin-left:1%;'>
+        <tr class="tableHead">
+            <td>Sun</td>
+            <td>Mon</td>
+            <td>Tue</td>
+            <td>Wed</td>
+            <td>Thu</td>
+            <td>Fri</td>
+            <td>Sat</td>
         </tr>
-        <tr *ngFor='let week of calendar'>
+        <tr *ngFor='let week of calendar' class='tableBody'>
             <td *ngFor='let data of week'
-                style='width:14%;float:left;border-top:solid 1px black;min-height: 50px;'
                 [style.color]='data.date.getMonth() != curDate.getMonth() ? "grey" : "black"'>
                 <strong>{{data.date | date:'dd'}}</strong>
                 <div 
