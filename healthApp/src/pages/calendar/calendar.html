@@ -23,13 +23,13 @@
     }
 </style>
 
-<ion-content class='grid-basic-page' style='margin-top: 10px;'>
+<ion-content>
     <ion-slides (ionSlideDidChange)='slideChanged($event)' initialSlide=1>
-        <ion-slide *ngFor='let cal of calendarArr'>
-            <ion-row align-items-center>
+        <ion-slide *ngFor='let cal of calendarArr' style='align-items:baseline;'>
+            <ion-row align-items-start>
                 <ion-col>
                     <div>
-                        <ion-icon style='font-size:50px;float:left;margin-left:20%;' (click)='prev(cal.date)' name="arrow-dropleft" item-center></ion-icon>
+                        <ion-icon style='font-size:50px;float:left;margin-left:20%;' (click)='prev()' name="arrow-dropleft" item-center></ion-icon>
                     </div>
                 </ion-col>
                 <ion-col>
@@ -41,7 +41,7 @@
                 </ion-col>
                 <ion-col>
                     <div>
-                        <ion-icon style='font-size:50px;float:right;margin-right:20%;' (click)='next(cal.date)' name="arrow-dropright" item-center></ion-icon>
+                        <ion-icon style='font-size:50px;float:right;margin-right:20%;' (click)='next()' name="arrow-dropright" item-center></ion-icon>
                     </div>
                 </ion-col>
             </ion-row>
@@ -63,7 +63,7 @@
                         [style.backgroundColor]='data.date.getMonth() == cal.date.getMonth() ? "": "rgba(224, 224, 224, 0.72)"'>
                         <strong>{{data.date | date:'dd'}}</strong>
                         <div 
-                            style='overflow: hidden;white-space: nowrap;'
+                            style='overflow: hidden;white-space: nowrap;color:black !important;'
                             *ngFor='let workout of data.workouts'
                             [style.backgroundColor]='workout.done>=workout.goal?"green":"grey"'
                             >

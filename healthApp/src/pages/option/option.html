@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+        <ion-icon name="menu" menuToggle></ion-icon>&nbsp;
+        Options
+        <ion-icon style='float:right;' small name="close" isActivate=false (click)='delAll()'></ion-icon>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+        daytoMonth
+        <button ion-button outline item-right icon-left (click)='daytoMonth()'>
+        <!--<ion-icon name="star"></ion-icon>-->
+        daytoMonth
+        </button>
+    </ion-item>
+    <ion-item>
+        WorkList Days to Months
+        <button ion-button outline item-right icon-left (click)='dayToMonth()'>
+        <!--<ion-icon name="star"></ion-icon>-->
+        Execute
+        </button>
+    </ion-item>
+    <ion-item>
+        Delete All
+        <button ion-button outline item-right icon-left (click)='deleteAll()'>
+        <!--<ion-icon name="star"></ion-icon>-->
+        Delete
+        </button>
+    </ion-item>
+  </ion-list>
+</ion-content>

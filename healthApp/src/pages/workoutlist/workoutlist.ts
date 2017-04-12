@@ -66,8 +66,8 @@ export class ListPage {
         }, 500);
     }
 
-    goWorkoutPage(dateNum){
-        this.navCtrl.push(AboutPage, {date_ymd: Common.yyyymmdd(dateNum)});
+    goWorkoutPage(date:Date){
+        this.navCtrl.push(AboutPage, {date: date});
     }
 
     ionViewWillEnter(){
@@ -99,38 +99,5 @@ export class ListPage {
             ]
         });
         confirm.present();
-
-        
     }
-
-    
-
-    delAll(){
-              
-        let confirm = this.alertCtrl.create({
-            title: 'Delete',
-            message: 'Would you like to delete all the history?',
-            buttons: [
-                {
-                    text: 'Disagree',
-                    handler: () => {
-                        
-                    }
-                },
-                {
-                    text: 'Agree',
-                    handler: () => {
-                        this.storage.ready().then(() => {
-                            this.storage.clear();
-                            Common.presentToast(this.toastCtrl, 'Workout History Deleted.', 'top', '');
-                            this.setDefault();
-                        });  
-                    }
-                }
-            ]
-        });
-        confirm.present();
-
-    }
-
 }

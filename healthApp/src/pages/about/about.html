@@ -1,34 +1,32 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{yyyymmdd}}</ion-title>
+    <ion-title>{{date | date:'fullDate'}}</ion-title>
   </ion-navbar>
-  <ion-card>
-    <ion-card-content style='text-align: center; font-size: 50px;'>
-      <ion-grid>
-        <ion-row>
-          <ion-col col-12>
-            {{dpTime}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col col-2></ion-col>
-          <ion-col col-2 style='font-size: 30px;'>
-            <ion-icon style='color:green;' (click)='start()' name="play" item-center></ion-icon>
-          </ion-col>
-          <ion-col col-2 style='font-size: 30px;'>
-            <ion-icon style='color:red;' (click)='stop()' name="square"></ion-icon>
-          </ion-col>
-          <ion-col col-2 style='font-size: 30px;'>
-            <ion-icon style='color:blue;' (click)='reset()' name="refresh"></ion-icon>
-          </ion-col>
-          <ion-col col-2 style='font-size: 30px;'>
-            <ion-icon style='color:black;' (click)='done()' name="checkmark"></ion-icon>
-          </ion-col>
-          <ion-col col-2></ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <div style='text-align:center;font-size: 50px;'>
+          {{dpTime}}
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-2></ion-col>
+      <ion-col col-2 style='text-align:center; font-size: 30px;'>
+        <ion-icon style='color:green;' (click)='start()' name="play" item-center></ion-icon>
+      </ion-col>
+      <ion-col col-2 style='text-align:center; font-size: 30px;'>
+        <ion-icon style='color:red;' (click)='stop()' name="square"></ion-icon>
+      </ion-col>
+      <ion-col col-2 style='text-align:center; font-size: 30px;'>
+        <ion-icon style='color:blue;' (click)='reset()' name="refresh"></ion-icon>
+      </ion-col>
+      <ion-col col-2 style='text-align:center; font-size: 30px;'>
+        <ion-icon style='color:black;' (click)='done()' name="checkmark"></ion-icon>
+      </ion-col>
+      <ion-col col-2></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-header>
 
 <ion-content padding id='workoutContent'>  
@@ -40,13 +38,13 @@
         <ion-thumbnail item-left>
           <img src="assets/icon/{{workout.img}}.png" (error)='Common.defaultImg(workout)'/>
         </ion-thumbnail>
-        <h1>
-          <strong>{{workout.name}}&nbsp;</strong>
-          <small>{{workout.weight}} {{workout.weightUnit}}</small>
-        </h1>
-        <h2>
-          <p style='float:right;'>{{workout.message}}</p>
-        </h2>
+        <div>
+          <h1>
+            <strong>{{workout.name}}&nbsp;</strong>
+            <small>{{workout.weight}} {{workout.weightUnit}}</small>
+          </h1>
+        </div>
+        <div style='font-size:20px;'>{{workout.message}}</div>
         <div style='margin-left:20px; margin-top:10px;'>
           <p><strong style='font-size:30px;color:green;'>{{workout.done}}</strong> Done </p>
           <p><strong style='font-size:30px;color:red;'>{{workout.goal}}</strong> Goal </p>

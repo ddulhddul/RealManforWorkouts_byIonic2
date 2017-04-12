@@ -8,6 +8,7 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { ListPage } from '../pages/workoutlist/workoutlist';
 import { CalendarPage } from '../pages/calendar/calendar';
+import { OptionPage } from '../pages/option/option';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -21,6 +22,7 @@ export class MyApp {
   aboutPage:any = AboutPage;
   contactPage:any = ContactPage;
   calendarPage:any = CalendarPage;
+  optionPage:any = OptionPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               app: App, public menu: MenuController, storage: Storage) {
@@ -38,14 +40,11 @@ export class MyApp {
       this.nav.pop()
     }
     this.rootPage=page;
-    // if(this.rootPage==page){
-    //   this.nav.setRoot(page);
-    // }else{
-    //   if(this.nav.canGoBack()){
-    //     this.nav.pop()
-    //   }
-    //   this.nav.push(page);
-    // }
+    this.menu.close();
+  }
+  
+  openPopPage(page){
+    this.nav.push(page);
     this.menu.close();
   }
 }

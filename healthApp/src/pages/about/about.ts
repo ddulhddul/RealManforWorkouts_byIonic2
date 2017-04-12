@@ -16,7 +16,7 @@ export class AboutPage {
   cumTime: number;
   subscription: Subscription;
   workouts: Array<any>;
-  yyyymmdd: string;
+  date: Date;
 
   constructor(public navCtrl: NavController, 
               public storage: Storage,
@@ -31,9 +31,9 @@ export class AboutPage {
 
   getParamWorkout(){
     if(this.navParams){
-      this.yyyymmdd = this.navParams.get('date_ymd') || this.yyyymmdd;
+      this.date = this.navParams.get('date') || new Date();
       this.storage.ready().then(() => {
-        this.storage.get('workout'+this.yyyymmdd).then((val) => {
+        this.storage.get('workout'+Common.yyyymmdd(this.date.getTime())).then((val) => {
             if(val){
               let json = JSON.parse(val);
               
@@ -72,11 +72,7 @@ export class AboutPage {
         img: 'dumbel'
       }
     ];
-    let date = new Date();
-    let yyyy = date.getFullYear();
-    let mm:any = date.getMonth()+1;
-    let dd:any = date.getDate();
-    this.yyyymmdd = yyyy+(mm<10?'0'+mm:mm)+(dd<10?'0'+dd:dd);
+    this.date = new Date();
   }
 
   start(){
@@ -144,8 +140,12 @@ export class AboutPage {
         json.time = this.time;
         json.cumTime = this.cumTime;
         json.dpTime = this.dpTime;
-        this.storage.set('workout'+this.yyyymmdd, JSON.stringify(json));
-        this.navCtrl.pop();
+        this.storage.set('workout'+Common.yyyymmdd(this.date.getTime()), JSON.stringify(json));
+        if(this.navCtrl.canGoBack()){
+          this.navCtrl.pop();
+        }else{
+          this.navCtrl.popToRoot;
+        }
     });
   }
 }

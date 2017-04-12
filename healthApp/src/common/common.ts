@@ -7,6 +7,14 @@ export function yyyymmdd(dateNum){
     return yyyy+(mm<10?'0'+mm:mm)+(dd<10?'0'+dd:dd);
 }
 
+export function yyyymm(dateNum){
+    let date = new Date(dateNum);
+    let yyyy = date.getFullYear();
+    let mm:any = date.getMonth()+1;
+    
+    return yyyy+(mm<10?'0'+mm:mm);
+}
+
 export function presentToast(toastCtrl, msg, position, duration) {
     //top, middle, bottom
     let toast = toastCtrl.create({

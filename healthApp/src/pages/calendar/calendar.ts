@@ -39,9 +39,35 @@ export class CalendarPage {
             calendar: this.showCalendar(date3),
             date: date3
         });
+
+        this.loadWorkoutHist();
     }
 
-    showCalendar(date:Date){
+    loadWorkoutHist(index?:number){
+        this.storage.ready().then(() => {
+            for (let i = (index===undefined?0:index); i < (index===undefined?this.calendarArr.length:index+1); i++) {
+                for (let j = 0; j < this.calendarArr[i].calendar.length; j++) {
+                    for (let k = 0; k < this.calendarArr[i].calendar[j].length; k++) {
+                        this.getWorkout(this.calendarArr[i].calendar[j][k], i, j, k);
+                    }
+                    
+                }
+            }
+        });
+    }
+
+    getWorkout(param, i, j, k){
+
+        this.storage.get('workout'+Common.yyyymmdd(param.date.getTime())).then((val)=>{
+            if(val){
+                let obj = JSON.parse(val);
+                obj.date = param.date;
+                this.calendarArr[i].calendar[j][k] = obj;
+            }
+        });
+    }
+
+    showCalendar(date:Date, loadDate?:boolean){
         let targetDate = date || new Date();
         let calendar = [];
         let targetFirstDate = new Date(targetDate.getFullYear(), targetDate.getMonth(), 1);
@@ -59,7 +85,18 @@ export class CalendarPage {
                 let dateTime = targetFirstDate.getTime();
                 let pushObj = {date:null};
                 pushObj.date = new Date(dateTime);
-                week.push(pushObj);
+                if(loadDate){
+                    this.storage.get('workout'+Common.yyyymmdd(pushObj.date.getTime())).then((val)=>{
+                        if(val){
+                            let obj = JSON.parse(val);
+                            obj.date = pushObj.date;
+                            pushObj = obj;
+                        }
+                        week.push(pushObj);
+                    });
+                }else{
+                    week.push(pushObj);
+                }
             }
             calendar.push(week);
             if(targetFirstDate.getFullYear()+(targetFirstDate.getMonth()<10?'0':'')+targetFirstDate.getMonth()
@@ -70,11 +107,11 @@ export class CalendarPage {
         return calendar;
     }
 
-    prev(param:Date){
+    prev(){
         this.slides.slidePrev(500,true);
     }
     
-    next(param:Date){
+    next(){
         this.slides.slideNext(500,true);
     }
 
@@ -85,17 +122,19 @@ export class CalendarPage {
         if(currentIndex == this.calendarArr.length-1){
             let date = new Date(toLoadDate.setMonth(toLoadDate.getMonth()+1));
             this.calendarArr.push({
-                calendar: this.showCalendar(date),
+                calendar: this.showCalendar(date, true),
                 date: date
             });
+            // this.loadWorkoutHist(this.calendarArr.length-1);
 
         }else if(currentIndex == 0){
             let date = new Date(toLoadDate.setMonth(toLoadDate.getMonth()-1));
             this.calendarArr.unshift({
-                calendar: this.showCalendar(date),
+                calendar: this.showCalendar(date, true),
                 date: date
             });
             this.slides.slideNext(0,false);
+            // this.loadWorkoutHist(0);
         }
     }
 
