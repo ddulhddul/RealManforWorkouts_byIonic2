@@ -36,7 +36,7 @@
           [style.border]='workout.done>=workout.goal ? "solid 5px green": "solid 5px white"' >
       <ion-item>
         <ion-thumbnail item-left>
-          <img src="assets/icon/{{workout.img}}.png" (error)='Common.defaultImg(workout)'/>
+          <img src="assets/icon/{{workout.img}}.png" (error)='defaultImg(workout)'/>
         </ion-thumbnail>
         <div>
           <h1>
