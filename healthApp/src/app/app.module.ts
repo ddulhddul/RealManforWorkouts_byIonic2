@@ -12,6 +12,8 @@ import { OptionPage } from '../pages/option/option';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
+import { Storage } from '@ionic/storage';
+import * as Common from '../common/common';
 
 @NgModule({
   declarations: [
@@ -45,4 +47,14 @@ import { IonicStorageModule } from '@ionic/storage';
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
-export class AppModule {}
+export class AppModule {
+
+  constructor(public storage: Storage){
+    this.storage.ready().then(() => {
+        this.storage.get('workoutClass').then((val) => {
+          if(!val) this.storage.set('workoutClass', JSON.stringify(Common.defaultWorkouts()));
+        });
+    });
+  }
+
+}
