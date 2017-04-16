@@ -8,10 +8,13 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ListPage } from '../pages/workoutlist/workoutlist';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { OptionPage } from '../pages/option/option';
+import { ClassPage } from '../pages/class/class';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
+import { Storage } from '@ionic/storage';
+import * as Common from '../common/common';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import { IonicStorageModule } from '@ionic/storage';
     TabsPage,
     ListPage,
     CalendarPage,
-    OptionPage
+    OptionPage,
+    ClassPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -37,7 +41,8 @@ import { IonicStorageModule } from '@ionic/storage';
     TabsPage,
     ListPage,
     CalendarPage,
-    OptionPage
+    OptionPage,
+    ClassPage
   ],
   providers: [
     StatusBar,
@@ -45,4 +50,14 @@ import { IonicStorageModule } from '@ionic/storage';
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
-export class AppModule {}
+export class AppModule {
+
+  constructor(public storage: Storage){
+    this.storage.ready().then(() => {
+        this.storage.get('workoutClass').then((val) => {
+          if(!val) this.storage.set('workoutClass', JSON.stringify(Common.defaultWorkouts()));
+        });
+    });
+  }
+
+}

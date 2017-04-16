@@ -9,6 +9,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { ListPage } from '../pages/workoutlist/workoutlist';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { OptionPage } from '../pages/option/option';
+import { ClassPage } from '../pages/class/class';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -23,6 +24,7 @@ export class MyApp {
   contactPage:any = ContactPage;
   calendarPage:any = CalendarPage;
   optionPage:any = OptionPage;
+  classPage:any = ClassPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               app: App, public menu: MenuController, storage: Storage) {
