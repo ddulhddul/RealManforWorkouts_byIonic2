@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { NavController, Slides, LoadingController } from 'ionic-angular';
+import { NavController, Slides } from 'ionic-angular';
 import * as Common from '../../common/common';
 
 @Component({
@@ -12,36 +12,16 @@ export class CalendarPage {
     @ViewChild(Slides) slides: Slides;
     calendarFirstDate:Date;
     calendarArr:any;
-    yyyy:Array<number>;
-    mm:Array<number>;
-    curYYYY:number;
-    curMM:number;
 
     constructor(
             public navCtrl: NavController,
-            public loadingCtrl: LoadingController,
             public storage: Storage) {
-        let curdate = new Date();
-        this.yyyy = []; this.mm = [];
-        let yyyy = curdate.getFullYear();
-        for(let i=-1;i<100;i++) this.yyyy.push(yyyy-i);
-        for(let i=1;i<=12;i++) this.mm.push(i);
-        this.defaultSet(curdate);
-    }
-
-    changeYYYY(val){
-        this.defaultSet(new Date(val, this.curMM-1, 1));
-    }
-
-    changeMM(val){
-        this.defaultSet(new Date(this.curYYYY, val-1, 1));
+        this.defaultSet(new Date());
     }
 
     defaultSet(date:Date){
         this.calendarArr = [];       
-        this.curYYYY = date.getFullYear();
-        this.curMM = date.getMonth()+1;
-        let date1 = new Date(date.getTime()),date2 = new Date(date.getTime()),date3 = new Date(date.getTime());
+        let date1 = new Date(),date2 = new Date(),date3 = new Date();
         date1 = new Date(date1.setMonth(date.getMonth()-1));
         this.calendarArr.push({
             calendar: this.showCalendar(date1),
@@ -137,35 +117,25 @@ export class CalendarPage {
 
     slideChanged(swiper:any){
         
-        let loading = this.loadingCtrl.create({
-            content: 'Please wait...'
-        });
-        
         let currentIndex = this.slides.getActiveIndex();
         let toLoadDate = new Date(this.calendarArr[currentIndex].date.getTime());
-        this.curYYYY = toLoadDate.getFullYear();
-        this.curMM = toLoadDate.getMonth()+1;
         if(currentIndex == this.calendarArr.length-1){
-            loading.present();
             let date = new Date(toLoadDate.setMonth(toLoadDate.getMonth()+1));
             this.calendarArr.push({
-                calendar: this.showCalendar(date),
+                calendar: this.showCalendar(date, true),
                 date: date
             });
-            this.loadWorkoutHist(this.calendarArr.length-1);
+            // this.loadWorkoutHist(this.calendarArr.length-1);
 
         }else if(currentIndex == 0){
-            loading.present();
             let date = new Date(toLoadDate.setMonth(toLoadDate.getMonth()-1));
             this.calendarArr.unshift({
-                calendar: this.showCalendar(date),
+                calendar: this.showCalendar(date, true),
                 date: date
             });
             this.slides.slideNext(0,false);
-            this.loadWorkoutHist(0);
+            // this.loadWorkoutHist(0);
         }
-
-        loading.dismiss();
     }
 
 }

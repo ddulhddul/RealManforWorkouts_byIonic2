@@ -28,18 +28,3 @@ export function presentToast(toastCtrl, msg, position, duration) {
 export function defaultImg(target){
     target.img = 'icon';
 }
-
-export function defaultWorkouts(){
-    return [
-        {
-            workoutId: 'pushUp',
-            name: 'Push Up',
-            img: 'pushUp'
-        },
-        {
-            workoutId: 'dumbel',
-            name: 'Dumbel',
-            img: 'dumbel'
-        }
-    ];
-}

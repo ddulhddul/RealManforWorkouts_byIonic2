@@ -26,10 +26,3 @@ ionic plugin add cordova-sqlite-storage
     danger
     light
     dark
-
-## Storage
-key | value
-- | -
-workoutYYYYMMDD:object | date, time, cumTime, dpTime, workouts(workoutId, name, done, goal, units, img)
-workoutClass:Array | workoutId, name
-templates:Array | workoutId, name, goal, units, weight, weightUnit
