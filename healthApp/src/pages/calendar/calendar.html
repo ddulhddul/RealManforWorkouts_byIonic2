@@ -8,7 +8,7 @@
 </ion-header>
 
 <style>
-    .tableHead td{
+    .tableHead th{
         width:14%;
         float:left;
         border-top:solid 1px black;
@@ -24,38 +24,50 @@
 </style>
 
 <ion-content>
+    <ion-list>
     <ion-slides (ionSlideDidChange)='slideChanged($event)' initialSlide=1>
         <ion-slide *ngFor='let cal of calendarArr' style='align-items:baseline;'>
             <ion-row align-items-start>
                 <ion-col>
-                    <div>
-                        <ion-icon style='font-size:50px;float:left;margin-left:20%;' (click)='prev()' name="arrow-dropleft" item-center></ion-icon>
-                    </div>
-                </ion-col>
-                <ion-col>
-                    <div style='text-align:center;font-size:40px;'>
-                        <strong>
-                            {{cal.date.getFullYear()}}.{{cal.date.getMonth()+1}}
-                        </strong>
-                    </div>
-                </ion-col>
-                <ion-col>
-                    <div>
-                        <ion-icon style='font-size:50px;float:right;margin-right:20%;' (click)='next()' name="arrow-dropright" item-center></ion-icon>
+                    <div style='max-width:230px;'>
+                        <ion-select (ionChange)='changeYYYY($event)' style='font-size:30px;min-width:100px;float:left;'>
+                            <ion-option *ngFor='let y of yyyy' 
+                            [value]="y" [selected]="y==cal.date.getFullYear()?true:false">{{y}}</ion-option>
+                        </ion-select>
+                        <ion-select (ionChange)='changeMM($event)' style='font-size:30px;min-width:50px;float:right;'>
+                            <ion-option *ngFor='let m of mm' 
+                            [value]="m" [selected]="m==cal.date.getMonth()+1?true:false">{{m}}</ion-option>
+                        </ion-select>
                     </div>
                 </ion-col>
             </ion-row>
-            <div>
-            </div>
+            <ion-row align-items-start>
+                <ion-col>
+                    <!--<div>
+                        <ion-icon style='font-size:50px;float:left;margin-left:20%;' (click)='prev()' name="arrow-dropleft" item-center></ion-icon>
+                    </div>-->
+                    <button ion-button outline item-left icon-left (click)='prev()'>
+                    < Prev
+                    </button>
+                </ion-col>
+                <ion-col>
+                    <!--<div>
+                        <ion-icon style='font-size:50px;float:right;margin-right:20%;' (click)='next()' name="arrow-dropright" item-center></ion-icon>
+                    </div>-->
+                    <button ion-button outline item-right icon-right (click)='next()'>
+                    Next >
+                    </button>
+                </ion-col>
+            </ion-row>
             <table style='width:100%;margin-left:1%;'>
                 <tr class="tableHead">
-                    <td>Sun</td>
-                    <td>Mon</td>
-                    <td>Tue</td>
-                    <td>Wed</td>
-                    <td>Thu</td>
-                    <td>Fri</td>
-                    <td>Sat</td>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
                 </tr>
                 <tr *ngFor='let week of cal.calendar' class='tableBody'>
                     <td *ngFor='let data of week'
@@ -63,12 +75,12 @@
                         [style.backgroundColor]='data.date.getMonth() == cal.date.getMonth() ? "": "rgba(224, 224, 224, 0.72)"'>
                         <strong>{{data.date | date:'dd'}}</strong>
                         <div 
-                            style='overflow: hidden;white-space: nowrap;color:black !important;'
+                            style='overflow: hidden;white-space: nowrap;color:black !important; font-size:10px;'
                             *ngFor='let workout of data.workouts'
-                            [style.backgroundColor]='workout.done>=workout.goal?"green":"grey"'
+                            [style.border]='workout.done>=workout.goal?"solid 1px green":"solid 1px red"'
                             >
-                            {{workout.done}}
-                            &nbsp;
+                            <strong>{{workout.done}}</strong>/{{workout.goal}}
+                            <br>
                             {{workout.name}}
                         </div>
                     </td>
@@ -76,6 +88,7 @@
             </table>
         </ion-slide>
     </ion-slides>
+    </ion-list>
 </ion-content>
 
 
