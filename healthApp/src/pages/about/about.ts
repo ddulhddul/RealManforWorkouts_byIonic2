@@ -148,4 +148,8 @@ export class AboutPage {
         }
     });
   }
+
+  defaultImg(workout){
+    Common.defaultImg(workout);
+  }
 }
