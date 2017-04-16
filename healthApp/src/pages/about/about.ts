@@ -11,6 +11,7 @@ import * as Common from '../../common/common';
 })
 export class AboutPage {
   isStarted: boolean;
+  editable: boolean;
   time: number;
   dpTime: string;
   cumTime: number;
@@ -24,6 +25,7 @@ export class AboutPage {
               public toastCtrl: ToastController,
               public alertCtrl: AlertController
               ) {
+    
     this.setDefault();
     this.getParamWorkout();
     
@@ -48,6 +50,7 @@ export class AboutPage {
   }
 
   setDefault(){
+    this.editable = false;
     this.time = 0;
     this.cumTime = 0;
     this.dpTime = '00:00:00';
@@ -78,6 +81,7 @@ export class AboutPage {
   start(){
     if(this.isStarted) return;
     this.isStarted = true;
+    this.editable = false;
     let timer = Observable.timer(0, 1000);
     this.subscription = timer.subscribe(t => {
       this.time = this.cumTime + t;

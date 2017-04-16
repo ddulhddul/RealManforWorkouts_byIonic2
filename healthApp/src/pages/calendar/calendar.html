@@ -29,16 +29,16 @@
         <ion-slide *ngFor='let cal of calendarArr' style='align-items:baseline;'>
             <ion-row align-items-start>
                 <ion-col>
-                    <div style='max-width:230px;'>
-                        <ion-select (ionChange)='changeYYYY($event)' style='font-size:30px;min-width:100px;float:left;'>
+                    <ion-item style='max-width:230px;'>
+                        <ion-select (ionChange)='changeYYYY($event)' style='font-size:30px;min-width:150px;float:left;'>
                             <ion-option *ngFor='let y of yyyy' 
                             [value]="y" [selected]="y==cal.date.getFullYear()?true:false">{{y}}</ion-option>
                         </ion-select>
-                        <ion-select (ionChange)='changeMM($event)' style='font-size:30px;min-width:50px;float:right;'>
+                        <ion-select (ionChange)='changeMM($event)' style='font-size:30px;min-width:120px;float:right;'>
                             <ion-option *ngFor='let m of mm' 
                             [value]="m" [selected]="m==cal.date.getMonth()+1?true:false">{{m}}</ion-option>
                         </ion-select>
-                    </div>
+                    </ion-item>
                 </ion-col>
             </ion-row>
             <ion-row align-items-start>

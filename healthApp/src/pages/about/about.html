@@ -29,7 +29,7 @@
   </ion-grid>
 </ion-header>
 
-<ion-content padding id='workoutContent'>  
+<ion-content padding id='workoutContent'>
   <ion-list>
     <div *ngFor='let workout of workouts' 
           style='margin-bottom: 10px; max-width: 500px; float:left;' 
@@ -41,25 +41,51 @@
         <div>
           <h1>
             <strong>{{workout.name}}&nbsp;</strong>
-            <small>{{workout.weight}} {{workout.weightUnit}}</small>
+            <small *ngIf='!editable'>
+              {{workout.weight}} {{workout.weightUnit}}
+            </small>
+            <small *ngIf='editable'>
+              <input type="number" [(ngModel)]='workout.weight' style='width:50px;'/>{{workout.weightUnit}}
+            </small>
           </h1>
         </div>
         <div style='font-size:20px;'>{{workout.message}}</div>
         <div style='margin-left:20px; margin-top:10px;'>
           <p><strong style='font-size:30px;color:green;'>{{workout.done}}</strong> Done </p>
-          <p><strong style='font-size:30px;color:red;'>{{workout.goal}}</strong> Goal </p>
+          <p>
+            <ion-icon name="arrow-back" *ngIf='editable' (click)='workout.goal=workout.goal-5'></ion-icon>
+            <strong style='font-size:30px;color:red;'>{{workout.goal}}</strong> Goal 
+            <ion-icon name="arrow-forward" *ngIf='editable' (click)='workout.goal=workout.goal+5'></ion-icon>
+          </p>
           <p></p>
         </div>
         <ion-grid>
-          <ion-row>
+          <ion-row *ngIf='!editable'>
             <ion-col col-4 *ngFor='let unit of workout.units; let i = index;'>
               <button block (click)='workoutClick(workout, unit)' ion-button style='font-size: 20px;'>
-                +{{unit}}
+                {{unit}}
               </button>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf='editable'>
+            <ion-col col-12>
+              <h1 style='color:blue;'>Units</h1>
+            </ion-col>
+            <ion-col col-4 *ngFor='let unit of workout.units; let i = index;'>
+              <input type="number" [(ngModel)]='workout.units[i]' style='width:95%;'/>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-item>
     </div>
   </ion-list>
+
+  <ion-fab right bottom *ngIf='!isStarted'>
+    <button ion-fab color="danger" (click)='editable=true' *ngIf='!editable'>
+      Edit
+    </button>
+    <button ion-fab color="danger" (click)='editable=false' *ngIf='editable'>
+      <ion-icon name="checkmark"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
