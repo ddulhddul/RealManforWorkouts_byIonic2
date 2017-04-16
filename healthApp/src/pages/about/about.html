@@ -44,7 +44,7 @@
             <small *ngIf='!editable'>
               {{workout.weight}} {{workout.weightUnit}}
             </small>
-            <small *ngIf='editable'>
+            <small *ngIf='editable && workout.weightUnit'>
               <input type="number" [(ngModel)]='workout.weight' style='width:50px;'/>{{workout.weightUnit}}
             </small>
           </h1>
