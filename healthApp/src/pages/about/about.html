@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{date | date:'fullDate'}}</ion-title>
+    <ion-title>{{date | date:'EEE, MMM d, y'}}</ion-title>
   </ion-navbar>
   <ion-grid>
     <ion-row>
@@ -32,7 +32,7 @@
 <ion-content padding id='workoutContent'>
   <ion-list>
     <div *ngFor='let workout of workouts' 
-          style='margin-bottom: 10px; max-width: 500px; float:left;' 
+          style='margin-bottom: 10px; max-width: 480px; float:left;' 
           [style.border]='workout.done>=workout.goal ? "solid 5px green": "solid 5px white"' >
       <ion-item>
         <ion-thumbnail item-left>
@@ -45,38 +45,44 @@
               {{workout.weight}} {{workout.weightUnit}}
             </small>
             <small *ngIf='editable && workout.weightUnit'>
-              <input type="number" [(ngModel)]='workout.weight' style='width:50px;'/>{{workout.weightUnit}}
+              <input type="number" [(ngModel)]='workout.weight' style='width:50px;' required #weight='ngModel'
+                [style.borderLeft]='!weight.valid? "solid 5px red": "solid 5px green"'/>{{workout.weightUnit}}
             </small>
           </h1>
         </div>
-        <div style='font-size:20px;'>{{workout.message}}</div>
-        <div style='margin-left:20px; margin-top:10px;'>
-          <p><strong style='font-size:30px;color:green;'>{{workout.done}}</strong> Done </p>
-          <p>
-            <ion-icon name="arrow-back" *ngIf='editable' (click)='workout.goal=workout.goal-5'></ion-icon>
-            <strong style='font-size:30px;color:red;'>{{workout.goal}}</strong> Goal 
-            <ion-icon name="arrow-forward" *ngIf='editable' (click)='workout.goal=workout.goal+5'></ion-icon>
-          </p>
-          <p></p>
+        <div align='right' style='font-size:20px;'>{{workout.message}}</div>
+        <div style='margin-top:10px;'>
+            <div style='float:left;'>
+              Done <strong style='font-size:30px;color:green;'>{{workout.done}}</strong>
+            </div>
+            <div style='float:left;'>
+              <ion-icon name="arrow-back" *ngIf='editable' (click)='workout.goal=workout.goal-5'></ion-icon>
+              Goal <strong style='font-size:30px;color:red;'>{{workout.goal}}</strong>
+              <ion-icon name="arrow-forward" *ngIf='editable' (click)='workout.goal=workout.goal+5'></ion-icon>
+            </div>
         </div>
-        <ion-grid>
-          <ion-row *ngIf='!editable'>
-            <ion-col col-4 *ngFor='let unit of workout.units; let i = index;'>
-              <button block (click)='workoutClick(workout, unit)' ion-button style='font-size: 20px;'>
-                {{unit}}
-              </button>
-            </ion-col>
-          </ion-row>
-          <ion-row *ngIf='editable'>
-            <ion-col col-12>
-              <h1 style='color:blue;'>Units</h1>
-            </ion-col>
-            <ion-col col-4 *ngFor='let unit of workout.units; let i = index;'>
-              <input type="number" [(ngModel)]='workout.units[i]' style='width:95%;'/>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
       </ion-item>
+      <ion-grid>
+        <ion-row *ngIf='!editable'>
+          <ion-col col-4 *ngFor='let unit of workout.units; let i = index;'>
+            <button block ion-button outline item-left icon-left 
+              (click)='workoutClick(workout, unit)'
+              style='font-size: 20px;'>
+              <div *ngIf='unit>=0'>+</div>
+              {{unit}}
+            </button>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf='editable'>
+          <ion-col col-12>
+            <h1 style='color:blue;'><strong>Units</strong></h1>
+          </ion-col>
+          <ion-col col-4 *ngFor='let unit of workout.units; let i = index;'>
+            <input type="number" [(ngModel)]='workout.units[i]' style='width:95%;' required #name='ngModel'
+              [style.borderLeft]='!name.valid? "solid 5px red": "solid 5px green"'/>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
   </ion-list>
 

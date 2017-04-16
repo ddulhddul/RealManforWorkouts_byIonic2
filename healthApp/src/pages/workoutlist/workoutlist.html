@@ -11,7 +11,11 @@
     <ion-list>
         <div *ngFor="let data of workoutList; let i = index;">
             <ion-item-sliding>
-                <ion-item style='color:grey; font-size: 14px;' (click)='goWorkoutPage(data.date)'>{{data.date | date:'fullDate'}}</ion-item>
+                <ion-item style='color:grey; font-size: 14px;' (click)='goWorkoutPage(data.date)'>
+                    <div style='float:left;'>{{data.date | date:'EEE, MMM d, y'}}</div>
+                    <div style='margin-left:10px;float:left;' *ngIf='data.dpTime'>({{data.dpTime}})</div>
+                    <div style='float:right;' *ngIf='data.dpTime'><<</div>
+                </ion-item>
                 <ion-item-options>
                     <button ion-button color="danger" icon-left (click)='delWorkoutYmd(data.date, i)'>
                         <ion-icon name="delete"></ion-icon>

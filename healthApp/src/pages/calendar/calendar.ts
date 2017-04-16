@@ -38,6 +38,7 @@ export class CalendarPage {
     }
 
     defaultSet(date:Date){
+        date = date || new Date();
         this.calendarArr = [];       
         this.curYYYY = date.getFullYear();
         this.curMM = date.getMonth()+1;

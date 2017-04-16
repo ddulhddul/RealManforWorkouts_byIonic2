@@ -130,8 +130,9 @@ export class AboutPage {
 
   workoutClick(workout, unit){
     if(!this.isStarted) this.start();
+    unit = unit || 0;
     workout.done += unit;
-    Common.presentToast(this.toastCtrl, '+'+unit, 'top', '1000');
+    Common.presentToast(this.toastCtrl, unit<0? unit: '+'+unit, 'top', '1000');
     workout.message = this.dpTime;
   }
 

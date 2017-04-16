@@ -29,34 +29,47 @@
         <ion-slide *ngFor='let cal of calendarArr' style='align-items:baseline;'>
             <ion-row align-items-start>
                 <ion-col>
-                    <ion-item style='max-width:230px;'>
-                        <ion-select (ionChange)='changeYYYY($event)' style='font-size:30px;min-width:150px;float:left;'>
-                            <ion-option *ngFor='let y of yyyy' 
-                            [value]="y" [selected]="y==cal.date.getFullYear()?true:false">{{y}}</ion-option>
-                        </ion-select>
-                        <ion-select (ionChange)='changeMM($event)' style='font-size:30px;min-width:120px;float:right;'>
-                            <ion-option *ngFor='let m of mm' 
-                            [value]="m" [selected]="m==cal.date.getMonth()+1?true:false">{{m}}</ion-option>
-                        </ion-select>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row align-items-start>
-                <ion-col>
                     <!--<div>
                         <ion-icon style='font-size:50px;float:left;margin-left:20%;' (click)='prev()' name="arrow-dropleft" item-center></ion-icon>
                     </div>-->
-                    <button ion-button outline item-left icon-left (click)='prev()'>
-                    < Prev
-                    </button>
+                    <div style='float:left'>
+                        <button ion-button outline item-left icon-left (click)='prev()'>
+                        < Prev
+                        </button>
+                    </div>
+                </ion-col>
+                <ion-col>
+                    <div align='center'>
+                        <button ion-button outline (click)='defaultSet()'>
+                        Today
+                        </button>
+                    </div>
                 </ion-col>
                 <ion-col>
                     <!--<div>
                         <ion-icon style='font-size:50px;float:right;margin-right:20%;' (click)='next()' name="arrow-dropright" item-center></ion-icon>
                     </div>-->
-                    <button ion-button outline item-right icon-right (click)='next()'>
-                    Next >
-                    </button>
+                    <div style='float:right'>
+                        <button ion-button outline item-right icon-right (click)='next()'>
+                        Next >
+                        </button>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-12>
+                    <div align='center'>
+                        <ion-item style='max-width:230px;'>
+                            <ion-select (ionChange)='changeYYYY($event)' style='font-size:30px;min-width:150px;float:left;'>
+                                <ion-option *ngFor='let y of yyyy' 
+                                [value]="y" [selected]="y==cal.date.getFullYear()?true:false">{{y}}</ion-option>
+                            </ion-select>
+                            <ion-select (ionChange)='changeMM($event)' style='font-size:30px;min-width:120px;float:right;'>
+                                <ion-option *ngFor='let m of mm' 
+                                [value]="m" [selected]="m==cal.date.getMonth()+1?true:false">{{m}}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                    </div>
                 </ion-col>
             </ion-row>
             <table style='width:100%;margin-left:1%;'>
