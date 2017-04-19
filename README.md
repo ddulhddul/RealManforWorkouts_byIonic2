@@ -8,6 +8,7 @@ ionic serve
 
 cordova platform add android
 ionic build android --prod
+ionic run android --device --prod
 ```
 
 ## stopwatch
@@ -26,3 +27,4 @@ ionic plugin add cordova-sqlite-storage
     danger
     light
     dark
+    

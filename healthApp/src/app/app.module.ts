@@ -8,6 +8,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ListPage } from '../pages/workoutlist/workoutlist';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { OptionPage } from '../pages/option/option';
+import { TestPage } from '../pages/test/test';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -24,7 +25,8 @@ import * as Common from '../common/common';
     TabsPage,
     ListPage,
     CalendarPage,
-    OptionPage
+    OptionPage,
+    TestPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -39,7 +41,8 @@ import * as Common from '../common/common';
     TabsPage,
     ListPage,
     CalendarPage,
-    OptionPage
+    OptionPage,
+    TestPage
   ],
   providers: [
     StatusBar,
