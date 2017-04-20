@@ -1,3 +1,5 @@
+import { Injectable } from '@angular/core';
+import * as Common from './common';
 const DB_NAME: string = '__ionicstorage';
 const win: any = window;
 
@@ -39,6 +41,7 @@ export const isFunction = (val: any) => typeof val === 'function';
 export const isObject = (val: any) => typeof val === 'object';
 export const isArray = Array.isArray;
 
+@Injectable()
 export class SqlStorage {
   static BACKUP_LOCAL = 2;
   static BACKUP_LIBRARY = 1;
@@ -46,8 +49,8 @@ export class SqlStorage {
 
   private _db: any;
 
-  constructor(options = {}) {
-
+  constructor() {
+    let options = {};
     let dbOptions = this.defaults(options, {
       name: DB_NAME,
       backupFlag: SqlStorage.BACKUP_LOCAL,
@@ -86,9 +89,17 @@ export class SqlStorage {
 
   // Initialize the DB with our required tables
   _tryInit() {
-    this.query('CREATE TABLE IF NOT EXISTS kv (key text primary key, value text)').catch(err => {
-      console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
-    });
+    
+    console.log('sqlStorage init...');
+    let initQueuries = Common.sqlStorageInit();
+    for (let i = 0; i < initQueuries.length; i++) {
+      this.query(
+          initQueuries[i]
+        ).catch(err => {
+        // console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
+      });
+    }
+
   }
 
   /**

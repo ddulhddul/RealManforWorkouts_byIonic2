@@ -28,3 +28,5 @@ ionic plugin add cordova-sqlite-storage
     light
     dark
     
+## [Sqlite](http://www.tutorialspoint.com/sqlite)
+    [sql querys](https://github.com/ddulhddul/HealthApp-byIonic2/blob/master/SQL.md)

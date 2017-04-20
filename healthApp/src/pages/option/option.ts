@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, ToastController, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import * as Common from '../../common/common';
+import { SqlStorage } from '../../common/sql';
 
 @Component({
   selector: 'page-option',
@@ -13,6 +14,7 @@ export class OptionPage {
             public storage: Storage,
             public navCtrl: NavController,
             public toastCtrl: ToastController,
+            public sql: SqlStorage,
             public alertCtrl: AlertController){
 
   }
@@ -129,6 +131,19 @@ export class OptionPage {
             ]
         });
         confirm.present();
+
+    }
+
+    createInit(){
+        let initQueuries = Common.sqlStorageInit();
+        for (let i = 0; i < initQueuries.length; i++) {
+            this.sql.query(
+                initQueuries[i]
+                ).catch(err => {
+                // console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
+            });
+        }
+        Common.presentToast(this.toastCtrl, 'Workout Created', 'top', '');
 
     }
 

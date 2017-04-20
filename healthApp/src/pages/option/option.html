@@ -3,7 +3,6 @@
     <ion-title>
         <ion-icon name="menu" menuToggle></ion-icon>&nbsp;
         Options
-        <ion-icon style='float:right;' small name="close" isActivate=false (click)='delAll()'></ion-icon>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -29,6 +28,13 @@
         <button ion-button outline item-right icon-left (click)='deleteAll()'>
         <!--<ion-icon name="star"></ion-icon>-->
         Delete
+        </button>
+    </ion-item>
+    <ion-item>
+        Create init SqlStorage Data
+        <button ion-button outline item-right icon-left (click)='createInit()'>
+        <!--<ion-icon name="star"></ion-icon>-->
+        Create
         </button>
     </ion-item>
   </ion-list>

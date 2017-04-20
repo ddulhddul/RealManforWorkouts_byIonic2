@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Workout
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+<ion-list>
+    <ion-item *ngFor='let workout of workouts'>
+        <ion-thumbnail item-left>
+            <img src="assets/icon/{{workout.IMG || workout.WORKOUT_ID}}.png">
+        </ion-thumbnail>
+        <h2>{{workout.WORKOUT_NAME}}</h2>
+        <p>GOAL:{{workout.GOAL}} UNITS:{{workout.UNITS}}</p>
+        <p *ngIf='workout.WEIGHT_UNIT'>WEIGHT:{{workout.WEIGHT}} {{workout.WEIGHT_UNIT}}</p>
+    </ion-item>
+</ion-list>
+
+<ion-fab right bottom>
+    <button ion-fab color="danger" (click)='presentModal()'>
+        <ion-icon name="add"></ion-icon>
+    </button>
+</ion-fab>
+
+</ion-content>
