@@ -1,14 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
+    <ion-title style='float:left;' padding>
       Workout Detail
     </ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">
-        <span ion-text color="primary" showWhen="ios">Cancel</span>
-        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
-      </button>
-    </ion-buttons>
+    <ion-icon name="close" (click)="dismiss()" style='float:right;' padding></ion-icon> 
   </ion-toolbar>
 </ion-header>
 
@@ -17,36 +12,49 @@
 <ion-content>
     <form (ngSubmit)="onSubmit(workoutForm)" #workoutForm="ngForm">
       <ion-list>
-      <ion-item>
-        <ion-label floating for="name">Name</ion-label>
-        <ion-input type="text" id="name"
-               required
-               [(ngModel)]="model.name" name="name"
-               #name="ngModel"></ion-input>
-        <div [hidden]="name.valid || name.pristine"
-             class="alert alert-danger">
-          Name is required
-        </div>
-      </ion-item>
-      <ion-item>
-        <ion-label floating for="goal">Goal</ion-label>
-        <ion-input type="text" id="goal"
-               [(ngModel)]="model.goal" name="goal"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating for="weight">Weight</ion-label>
-        <ion-input type="text" id="weight"
-               [(ngModel)]="model.weight" name="weight"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating for="weightUnit">WeightUnit</ion-label>
-        <ion-input type="text" id="weightUnit"
-               [(ngModel)]="model.weightUnit" name="weightUnit"></ion-input>
-      </ion-item>
-      <ion-item padding>
-        <button ion-button type="submit" block>Submit</button>
-        {{message}}
-      </ion-item>
+        <ion-item>
+          <div align='center'>
+            <img src="assets/icon/{{model.img || model.id}}.png" (error)='model.img = "icon"'>
+          </div>
+        </ion-item>
+        <ion-item>
+          <ion-label floating for="name">Name</ion-label>
+          <ion-input type="text" id="name"
+                required
+                [(ngModel)]="model.name" name="name"
+                #name="ngModel"></ion-input>
+                <!--oninvalid="this.setCustomValidity('Name is Required')"
+                oninput="setCustomValidity('')"-->
+          <div [hidden]="name.valid || name.pristine"
+              class="alert alert-danger">
+            Name is required
+          </div>
+        </ion-item>
+        <ion-item>
+          <ion-label floating for="weight">Weight</ion-label>
+          <ion-input type="number" id="weight"
+                [(ngModel)]="model.weight" name="weight"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating for="weightUnit">WeightUnit</ion-label>
+          <ion-input type="text" id="weightUnit"
+                [(ngModel)]="model.weightUnit" name="weightUnit"></ion-input>
+        </ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-4><ion-item><ion-label floating>Unit</ion-label><ion-input type="number" [(ngModel)]='model.unit1' name='unit1'></ion-input></ion-item></ion-col>
+            <ion-col col-4><ion-item><ion-label floating>Unit</ion-label><ion-input type="number" [(ngModel)]='model.unit2' name='unit2'></ion-input></ion-item></ion-col>
+            <ion-col col-4><ion-item><ion-label floating>Unit</ion-label><ion-input type="number" [(ngModel)]='model.unit3' name='unit3'></ion-input></ion-item></ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-item>
+          <ion-label floating for="goal">Goal</ion-label>
+          <ion-input type="number" id="goal" required
+                [(ngModel)]="model.goal" name="goal"></ion-input>
+        </ion-item>
+        <ion-item>
+          <button ion-button type="submit" block>Submit</button>
+        </ion-item>
       </ion-list>
     </form>
 

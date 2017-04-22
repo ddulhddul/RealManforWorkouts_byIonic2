@@ -7,15 +7,29 @@
 </ion-header>
 
 <ion-content>
+<ion-item>
+    <ion-label>Search</ion-label>
+    <ion-input type="text" (input)='powerFilter()' [(ngModel)]='searchVal'></ion-input>
+</ion-item>
 <ion-list>
-    <ion-item *ngFor='let workout of workouts'>
-        <ion-thumbnail item-left>
-            <img src="assets/icon/{{workout.IMG || workout.WORKOUT_ID}}.png">
-        </ion-thumbnail>
-        <h2>{{workout.WORKOUT_NAME}}</h2>
-        <p>GOAL:{{workout.GOAL}} UNITS:{{workout.UNITS}}</p>
-        <p *ngIf='workout.WEIGHT_UNIT'>WEIGHT:{{workout.WEIGHT}} {{workout.WEIGHT_UNIT}}</p>
-    </ion-item>
+    <div *ngFor='let workout of workouts'>
+        <ion-item-sliding>
+            <ion-item (click)='presentModal(workout)'>
+                <ion-thumbnail item-left>
+                    <img src="assets/icon/{{workout.IMG || workout.WORKOUT_ID}}.png" (error)='workout.IMG = "icon"'>
+                </ion-thumbnail>
+                <h2>{{workout.WORKOUT_NAME}}</h2>
+                <p>GOAL:{{workout.GOAL}} UNITS:{{workout.UNITS}}</p>
+                <p *ngIf='workout.WEIGHT_UNIT'>WEIGHT:{{workout.WEIGHT}} {{workout.WEIGHT_UNIT}}</p>
+            </ion-item>
+            <ion-item-options>
+                <button ion-button color="danger" icon-left (click)='deleteItem(workout)'>
+                    <ion-icon name="delete"></ion-icon>
+                    Delete
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </div>
 </ion-list>
 
 <ion-fab right bottom>
