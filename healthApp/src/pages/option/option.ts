@@ -37,7 +37,7 @@ export class OptionPage {
                     handler: () => {
                         // this.storage.ready().then(() => {
                         //     this.storage.clear();
-                        //     this.commonFunc.presentToast(this.toastCtrl, 'Workout History Deleted.', 'top', '');
+                        //     this.commonFunc.presentToast('Workout History Deleted.', 'top', '');
                         // });  
                         this.storage.ready().then(() => {
                             this.storage.forEach( (value, key, iterationNumber) => {
@@ -47,7 +47,7 @@ export class OptionPage {
                                     this.storage.remove(key);
                                 }
                             });
-                            this.commonFunc.presentToast(this.toastCtrl, 'Successfully removed.', 'top', '');
+                            this.commonFunc.presentToast('Successfully removed.', 'top', '');
                         });  
                     }
                 }
@@ -98,7 +98,7 @@ export class OptionPage {
                             // this.storage.forEach( (value, key, iterationNumber) => {
                             //     console.log(key, value);
                             // });
-                            this.commonFunc.presentToast(this.toastCtrl, 'Successfully Transformed.', 'top', '');
+                            this.commonFunc.presentToast('Successfully Transformed.', 'top', '');
                         });  
                     }
                 }
@@ -125,7 +125,7 @@ export class OptionPage {
                     handler: () => {
                         this.storage.ready().then(() => {
                             this.storage.clear();
-                            this.commonFunc.presentToast(this.toastCtrl, 'Workout History Deleted.', 'top', '');
+                            this.commonFunc.presentToast('Workout History Deleted.', 'top', '');
                         });  
                     }
                 }
@@ -144,7 +144,7 @@ export class OptionPage {
                 // console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
             });
         }
-        this.commonFunc.presentToast(this.toastCtrl, 'Workout Created', 'top', '');
+        this.commonFunc.presentToast('Workout Created', 'top', '');
 
     }
 

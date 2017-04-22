@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { WorkoutDetailPage } from './workoutDetail';
 import { SqlStorage } from '../../common/sql';
+import { Common } from '../../common/common';
 
 @Component({
   selector: 'page-workout',
@@ -15,6 +16,7 @@ export class WorkoutPage {
     constructor(
         public navCtrl: NavController,
         public sql: SqlStorage,
+        public commonFunc: Common,
         public modalCtrl: ModalController
         ) {
     }
@@ -60,6 +62,7 @@ export class WorkoutPage {
         this.sql.query(`
             DELETE FROM WORKOUT WHERE WORKOUT_ID = '${workout.WORKOUT_ID}'
         `).then((res)=>{
+            this.commonFunc.presentToast('Deleted.')
             this.ionViewWillEnter();
         });
     }

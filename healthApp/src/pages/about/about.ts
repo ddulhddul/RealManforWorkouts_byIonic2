@@ -133,12 +133,12 @@ export class AboutPage {
     if(!this.isStarted) this.start();
     unit = unit || 0;
     workout.done += unit;
-    this.commonFunc.presentToast(this.toastCtrl, unit<0? unit: '+'+unit, 'top', '1000');
+    this.commonFunc.presentToast(unit<0? unit: '+'+unit, 'top', '1000');
     workout.message = this.dpTime;
   }
 
   done(){
-    this.commonFunc.presentToast(this.toastCtrl, 'Saved', 'top', '');
+    this.commonFunc.presentToast('Saved', 'top', '');
     this.stop();
     this.storage.ready().then(() => {
         let json = {workouts:[], time: 0, dpTime: '', cumTime: 0};

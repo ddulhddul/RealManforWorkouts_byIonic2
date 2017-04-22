@@ -93,7 +93,7 @@ export class ListPage {
                         this.workoutList[index] = {date: date};
                         this.storage.ready().then(() => {
                             this.storage.remove('workout'+yyyymmdd);
-                            this.commonFunc.presentToast(this.toastCtrl, yyyymmdd+'\'s Workout History Deleted.', 'top', '');
+                            this.commonFunc.presentToast(yyyymmdd+'\'s Workout History Deleted.', 'top', '');
                         });
                     }
                 }

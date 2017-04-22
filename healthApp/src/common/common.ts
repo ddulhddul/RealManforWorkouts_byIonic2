@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
+import { ToastController } from 'ionic-angular';
 
 @Injectable()
 export class Common{
+    
+    constructor(
+        public toast: ToastController
+    ){}
+    
     yyyymmdd(dateNum){
         let date = new Date(dateNum);
         let yyyy = date.getFullYear();
@@ -19,11 +25,11 @@ export class Common{
         return yyyy+(mm<10?'0'+mm:mm);
     }
 
-    presentToast(toastCtrl, msg, position, duration) {
+    presentToast(msg, position?, duration?) {
         //top, middle, bottom
-        let toast = toastCtrl.create({
+        let toast = this.toast.create({
             message: msg,
-            position: position,
+            position: position || 'top',
             duration: duration || 3000
         });
         toast.present();
