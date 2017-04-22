@@ -16,10 +16,12 @@ export class TestPage {
   list:Array<any>;
   
   constructor(
-      public navCtrl: NavController) {
+      public navCtrl: NavController,
+      public sql: SqlStorage
+      ) {
     
     this.message = 'constructor...';
-    this.storage = new SqlStorage();
+    this.storage = this.sql;
 
     this.search();
 

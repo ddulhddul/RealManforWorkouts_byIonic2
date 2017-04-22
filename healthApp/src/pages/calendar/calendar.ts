@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { NavController, Slides, LoadingController } from 'ionic-angular';
-import * as Common from '../../common/common';
+import { Common } from '../../common/common';
 
 @Component({
   selector: 'page-calendar',
@@ -20,6 +20,7 @@ export class CalendarPage {
     constructor(
             public navCtrl: NavController,
             public loadingCtrl: LoadingController,
+            public commonFunc: Common,
             public storage: Storage) {
         let curdate = new Date();
         this.yyyy = []; this.mm = [];
@@ -79,7 +80,7 @@ export class CalendarPage {
 
     getWorkout(param, i, j, k){
 
-        this.storage.get('workout'+Common.yyyymmdd(param.date.getTime())).then((val)=>{
+        this.storage.get('workout'+this.commonFunc.yyyymmdd(param.date.getTime())).then((val)=>{
             if(val){
                 let obj = JSON.parse(val);
                 obj.date = param.date;
@@ -107,7 +108,7 @@ export class CalendarPage {
                 let pushObj = {date:null};
                 pushObj.date = new Date(dateTime);
                 if(loadDate){
-                    this.storage.get('workout'+Common.yyyymmdd(pushObj.date.getTime())).then((val)=>{
+                    this.storage.get('workout'+this.commonFunc.yyyymmdd(pushObj.date.getTime())).then((val)=>{
                         if(val){
                             let obj = JSON.parse(val);
                             obj.date = pushObj.date;

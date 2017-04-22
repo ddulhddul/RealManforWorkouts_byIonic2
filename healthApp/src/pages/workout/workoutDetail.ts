@@ -3,7 +3,7 @@ import { workoutForm } from './workoutForm'
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { SqlStorage } from '../../common/sql';
 import { Storage } from '@ionic/storage';
-import * as Common from '../../common/common';
+import { Common } from '../../common/common';
 
 @Component({
   selector: 'page-workoutDetail',
@@ -18,6 +18,7 @@ export class WorkoutDetailPage {
         public sql: SqlStorage,
         public storage: Storage,
         public params: NavParams,
+        public commonFunc: Common,
         public viewCtrl: ViewController
         ) {
 

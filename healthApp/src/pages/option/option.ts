@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import * as Common from '../../common/common';
+import { Common } from '../../common/common';
 import { SqlStorage } from '../../common/sql';
 
 @Component({
@@ -15,6 +15,7 @@ export class OptionPage {
             public navCtrl: NavController,
             public toastCtrl: ToastController,
             public sql: SqlStorage,
+            public commonFunc: Common,
             public alertCtrl: AlertController){
 
   }
@@ -36,7 +37,7 @@ export class OptionPage {
                     handler: () => {
                         // this.storage.ready().then(() => {
                         //     this.storage.clear();
-                        //     Common.presentToast(this.toastCtrl, 'Workout History Deleted.', 'top', '');
+                        //     this.commonFunc.presentToast(this.toastCtrl, 'Workout History Deleted.', 'top', '');
                         // });  
                         this.storage.ready().then(() => {
                             this.storage.forEach( (value, key, iterationNumber) => {
@@ -46,7 +47,7 @@ export class OptionPage {
                                     this.storage.remove(key);
                                 }
                             });
-                            Common.presentToast(this.toastCtrl, 'Successfully removed.', 'top', '');
+                            this.commonFunc.presentToast(this.toastCtrl, 'Successfully removed.', 'top', '');
                         });  
                     }
                 }
@@ -97,7 +98,7 @@ export class OptionPage {
                             // this.storage.forEach( (value, key, iterationNumber) => {
                             //     console.log(key, value);
                             // });
-                            Common.presentToast(this.toastCtrl, 'Successfully Transformed.', 'top', '');
+                            this.commonFunc.presentToast(this.toastCtrl, 'Successfully Transformed.', 'top', '');
                         });  
                     }
                 }
@@ -124,7 +125,7 @@ export class OptionPage {
                     handler: () => {
                         this.storage.ready().then(() => {
                             this.storage.clear();
-                            Common.presentToast(this.toastCtrl, 'Workout History Deleted.', 'top', '');
+                            this.commonFunc.presentToast(this.toastCtrl, 'Workout History Deleted.', 'top', '');
                         });  
                     }
                 }
@@ -135,7 +136,7 @@ export class OptionPage {
     }
 
     createInit(){
-        let initQueuries = Common.sqlStorageInit();
+        let initQueuries = this.commonFunc.sqlStorageInit();
         for (let i = 0; i < initQueuries.length; i++) {
             this.sql.query(
                 initQueuries[i]
@@ -143,7 +144,7 @@ export class OptionPage {
                 // console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
             });
         }
-        Common.presentToast(this.toastCtrl, 'Workout Created', 'top', '');
+        this.commonFunc.presentToast(this.toastCtrl, 'Workout Created', 'top', '');
 
     }
 

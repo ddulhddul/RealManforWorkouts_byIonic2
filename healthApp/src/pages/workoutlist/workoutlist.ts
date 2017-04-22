@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { AboutPage } from '../about/about';
 import { NavController, ToastController, AlertController } from 'ionic-angular';
-import * as Common from '../../common/common';
+import { Common } from '../../common/common';
 
 @Component({
   selector: 'workoutlist',
@@ -17,7 +17,8 @@ export class ListPage {
             public storage: Storage,
             public navCtrl: NavController,
             public toastCtrl: ToastController,
-            public alertCtrl: AlertController
+            public alertCtrl: AlertController,
+            public commonFunc: Common
         ) {
     }
 
@@ -29,7 +30,7 @@ export class ListPage {
 
             //today's data
             let curDateTime = this.curDate.getTime();
-            let yyyymmdd = Common.yyyymmdd(curDateTime);
+            let yyyymmdd = this.commonFunc.yyyymmdd(curDateTime);
             let pushObj;
             this.storage.get('workout'+yyyymmdd).then((val) => {
                 pushObj = {date:null};
@@ -47,7 +48,7 @@ export class ListPage {
             let yyyymmdd, pushObj;
             for (let i = 1; i <= this.daysUnit; i++) {
                 let dateNum = this.curDate.setDate(this.curDate.getDate()-1);
-                yyyymmdd = Common.yyyymmdd(dateNum);
+                yyyymmdd = this.commonFunc.yyyymmdd(dateNum);
                 this.storage.get('workout'+yyyymmdd).then((val) => {
                     pushObj = {date:null};
                     if(val) pushObj = JSON.parse(val);
@@ -75,7 +76,7 @@ export class ListPage {
     }
 
     delWorkoutYmd(date, index){
-        let yyyymmdd = Common.yyyymmdd(date);
+        let yyyymmdd = this.commonFunc.yyyymmdd(date);
         let confirm = this.alertCtrl.create({
             title: 'Delete',
             message: 'Would you like to delete '+yyyymmdd+'\'s history?',
@@ -92,7 +93,7 @@ export class ListPage {
                         this.workoutList[index] = {date: date};
                         this.storage.ready().then(() => {
                             this.storage.remove('workout'+yyyymmdd);
-                            Common.presentToast(this.toastCtrl, yyyymmdd+'\'s Workout History Deleted.', 'top', '');
+                            this.commonFunc.presentToast(this.toastCtrl, yyyymmdd+'\'s Workout History Deleted.', 'top', '');
                         });
                     }
                 }

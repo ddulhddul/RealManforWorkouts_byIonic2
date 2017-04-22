@@ -18,7 +18,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { Storage } from '@ionic/storage';
 import { SqlStorage } from '../common/sql';
 import { FormsModule }   from '@angular/forms';
-import * as Common from '../common/common';
+import { Common } from '../common/common';
 
 @NgModule({
   declarations: [
@@ -57,6 +57,7 @@ import * as Common from '../common/common';
     StatusBar,
     SplashScreen,
     SqlStorage,
+    Common,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

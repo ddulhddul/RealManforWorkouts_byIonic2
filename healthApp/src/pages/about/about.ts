@@ -3,7 +3,7 @@ import { NavController, NavParams, ToastController, AlertController } from 'ioni
 import { Observable } from 'rxjs/Rx';
 import { Subscription } from "rxjs";
 import { Storage } from '@ionic/storage';
-import * as Common from '../../common/common';
+import { Common } from '../../common/common';
 
 @Component({
   selector: 'page-about',
@@ -23,7 +23,8 @@ export class AboutPage {
               public storage: Storage,
               private navParams: NavParams,
               public toastCtrl: ToastController,
-              public alertCtrl: AlertController
+              public alertCtrl: AlertController,
+              public commonFunc: Common
               ) {
     
     this.setDefault();
@@ -35,7 +36,7 @@ export class AboutPage {
     if(this.navParams){
       this.date = this.navParams.get('date') || new Date();
       this.storage.ready().then(() => {
-        this.storage.get('workout'+Common.yyyymmdd(this.date.getTime())).then((val) => {
+        this.storage.get('workout'+this.commonFunc.yyyymmdd(this.date.getTime())).then((val) => {
             if(val){
               let json = JSON.parse(val);
               
@@ -132,12 +133,12 @@ export class AboutPage {
     if(!this.isStarted) this.start();
     unit = unit || 0;
     workout.done += unit;
-    Common.presentToast(this.toastCtrl, unit<0? unit: '+'+unit, 'top', '1000');
+    this.commonFunc.presentToast(this.toastCtrl, unit<0? unit: '+'+unit, 'top', '1000');
     workout.message = this.dpTime;
   }
 
   done(){
-    Common.presentToast(this.toastCtrl, 'Saved', 'top', '');
+    this.commonFunc.presentToast(this.toastCtrl, 'Saved', 'top', '');
     this.stop();
     this.storage.ready().then(() => {
         let json = {workouts:[], time: 0, dpTime: '', cumTime: 0};
@@ -145,7 +146,7 @@ export class AboutPage {
         json.time = this.time;
         json.cumTime = this.cumTime;
         json.dpTime = this.dpTime;
-        this.storage.set('workout'+Common.yyyymmdd(this.date.getTime()), JSON.stringify(json));
+        this.storage.set('workout'+this.commonFunc.yyyymmdd(this.date.getTime()), JSON.stringify(json));
         if(this.navCtrl.canGoBack()){
           this.navCtrl.pop();
         }else{
@@ -155,6 +156,6 @@ export class AboutPage {
   }
 
   defaultImg(workout){
-    Common.defaultImg(workout);
+    this.commonFunc.defaultImg(workout);
   }
 }

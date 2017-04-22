@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as Common from './common';
+import { Common } from './common';
 const DB_NAME: string = '__ionicstorage';
 const win: any = window;
 
@@ -49,7 +49,9 @@ export class SqlStorage {
 
   private _db: any;
 
-  constructor() {
+  constructor(
+    public commonFunc: Common
+  ) {
     let options = {};
     let dbOptions = this.defaults(options, {
       name: DB_NAME,
@@ -91,7 +93,7 @@ export class SqlStorage {
   _tryInit() {
     
     console.log('sqlStorage init...');
-    let initQueuries = Common.sqlStorageInit();
+    let initQueuries = this.commonFunc.sqlStorageInit();
     for (let i = 0; i < initQueuries.length; i++) {
       this.query(
           initQueuries[i]
