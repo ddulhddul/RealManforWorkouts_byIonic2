@@ -63,6 +63,7 @@ export class AboutPage {
         done: 0,
         goal: 100,
         units: [5,10,15],
+        message : '00:00:00',
         img: 'pushUp'
       },
       {
@@ -73,6 +74,7 @@ export class AboutPage {
         units: [5,10,15],
         weight: 7,
         weightUnit: 'kg',
+        message : '00:00:00',
         img: 'dumbel'
       }
     ];
@@ -157,5 +159,9 @@ export class AboutPage {
 
   defaultImg(workout){
     this.commonFunc.defaultImg(workout);
+  }
+
+  editDone(){
+    if(document.getElementsByClassName('ng-invalid').length == 0) this.editable=false;
   }
 }

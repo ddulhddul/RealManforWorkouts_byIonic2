@@ -40,20 +40,20 @@ export class WorkoutDetailPage {
                 obj.UNITS,
                 obj.GOAL,
                 obj.IMG,
+                units[0],
+                units[1],
+                units[2],
                 obj.WEIGHT,
                 obj.WEIGHT_UNIT,
                 obj.LAST_GOAL,
-                obj.LAST_WEIGHT,
-                units[0],
-                units[1],
-                units[2]
+                obj.LAST_WEIGHT
             );
 
         }
     }
 
-    dismiss(){
-        this.viewCtrl.dismiss();
+    dismiss(param?){
+        this.viewCtrl.dismiss(param);
     }
 
     onSubmit(form:any){

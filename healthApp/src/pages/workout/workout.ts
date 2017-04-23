@@ -39,18 +39,16 @@ export class WorkoutPage {
         let params = {param:''};
         if(val) params.param = JSON.stringify(val);
 
-        console.log('pre param : ',params)
         let modal = this.modalCtrl.create(
             WorkoutDetailPage, params
         );
         modal.present();
         modal.onDidDismiss((data) => {
-            this.ionViewWillEnter();
+            if(!data) this.ionViewWillEnter();
         });
     }
 
     deleteItem(workout:any){
-        console.log('value... : ',workout);
         this.sql.query(`
             DELETE FROM WORKOUT WHERE WORKOUT_ID = '${workout.WORKOUT_ID}'
         `).then((res)=>{

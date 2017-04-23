@@ -3,7 +3,7 @@
     <ion-title style='float:left;' padding>
       Workout Detail
     </ion-title>
-    <ion-icon name="close" (click)="dismiss()" style='float:right;' padding></ion-icon> 
+    <ion-icon name="close" (click)="dismiss('close')" style='float:right;' padding></ion-icon> 
   </ion-toolbar>
 </ion-header>
 
@@ -40,18 +40,20 @@
           <ion-input type="text" id="weightUnit"
                 [(ngModel)]="model.weightUnit" name="weightUnit"></ion-input>
         </ion-item></ion-card>
-        <ion-grid>
-          <ion-row>
-            <ion-col col-4><ion-card><ion-item><ion-label floating>Unit</ion-label><ion-input required type="number" [(ngModel)]='model.unit1' name='unit1'></ion-input></ion-item></ion-card></ion-col>
-            <ion-col col-4><ion-card><ion-item><ion-label floating>Unit</ion-label><ion-input required type="number" [(ngModel)]='model.unit2' name='unit2'></ion-input></ion-item></ion-card></ion-col>
-            <ion-col col-4><ion-card><ion-item><ion-label floating>Unit</ion-label><ion-input required type="number" [(ngModel)]='model.unit3' name='unit3'></ion-input></ion-item></ion-card></ion-col>
-          </ion-row>
-        </ion-grid>
         <ion-card><ion-item>
           <ion-label floating for="goal">Goal</ion-label>
           <ion-input type="number" id="goal" required
                 [(ngModel)]="model.goal" name="goal"></ion-input>
         </ion-item></ion-card>
+        <ion-card>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-4><ion-item><ion-label floating>Unit</ion-label><ion-input required type="number" [(ngModel)]='model.unit1' name='unit1'></ion-input></ion-item></ion-col>
+              <ion-col col-4><ion-item><ion-label floating>Unit</ion-label><ion-input required type="number" [(ngModel)]='model.unit2' name='unit2'></ion-input></ion-item></ion-col>
+              <ion-col col-4><ion-item><ion-label floating>Unit</ion-label><ion-input required type="number" [(ngModel)]='model.unit3' name='unit3'></ion-input></ion-item></ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
         <ion-item>
           <button ion-button type="submit" block>Submit</button>
         </ion-item>
