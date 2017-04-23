@@ -8,18 +8,20 @@
 </ion-header>
 
 <ion-content>
-<ion-item>
-    <ion-label>Search</ion-label>
-    <ion-input type="text" (input)='powerFilter()' [(ngModel)]='searchVal'></ion-input>
-</ion-item>
+<ion-card>
+    <ion-item>
+        <ion-label>Search</ion-label>
+        <ion-input type="text" [(ngModel)]='searchVal'></ion-input>
+    </ion-item>
+</ion-card>
 <ion-list>
-    <div *ngFor='let workout of workouts'>
+    <div *ngFor='let workout of workouts | searchPipe:searchVal'>
         <ion-item-sliding>
             <ion-item (click)='presentModal(workout)'>
                 <ion-thumbnail item-left>
                     <img src="assets/icon/{{workout.IMG || workout.WORKOUT_ID}}.png" (error)='workout.IMG = "icon"'>
                 </ion-thumbnail>
-                <h2>{{workout.WORKOUT_NAME}}</h2>
+                <div [innerHTML]='workout.dp || workout.WORKOUT_NAME'></div>
                 <p>GOAL:{{workout.GOAL}} UNITS:{{workout.UNITS}}</p>
                 <p *ngIf='workout.WEIGHT_UNIT'>WEIGHT:{{workout.WEIGHT}} {{workout.WEIGHT_UNIT}}</p>
             </ion-item>

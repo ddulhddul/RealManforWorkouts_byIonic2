@@ -3,6 +3,7 @@ import { NavController, ModalController } from 'ionic-angular';
 import { WorkoutDetailPage } from './workoutDetail';
 import { SqlStorage } from '../../common/sql';
 import { Common } from '../../common/common';
+import { SearchPipe } from './searchPipe';
 
 @Component({
   selector: 'page-workout',
@@ -10,7 +11,6 @@ import { Common } from '../../common/common';
 })
 export class WorkoutPage {
     workouts: Array<any>;
-    originWorkouts: Array<any>;
     searchVal: string;
 
     constructor(
@@ -23,7 +23,6 @@ export class WorkoutPage {
 
     ionViewWillEnter(){
         this.workouts = [];
-        this.originWorkouts = [];
         this.sql.query(`
             SELECT * FROM WORKOUT ORDER BY WORKOUT_NAME
         `).then((res)=>{
@@ -31,7 +30,6 @@ export class WorkoutPage {
                 let rows = res.res.rows;
                 for (let i = 0; i < rows.length; i++) {
                     this.workouts.push(rows[i]);
-                    this.originWorkouts.push(rows[i]);       
                 }
             }
         });
@@ -48,12 +46,6 @@ export class WorkoutPage {
         modal.present();
         modal.onDidDismiss((data) => {
             this.ionViewWillEnter();
-        });
-    }
-
-    powerFilter(){
-        this.workouts = this.originWorkouts.filter((val:any)=>{
-            return val.WORKOUT_NAME.toUpperCase().indexOf(this.searchVal.toUpperCase()) != -1;
         });
     }
 

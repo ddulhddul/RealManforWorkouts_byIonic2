@@ -10,6 +10,7 @@ import { CalendarPage } from '../pages/calendar/calendar';
 import { OptionPage } from '../pages/option/option';
 import { TestPage } from '../pages/test/test';
 import { WorkoutPage } from '../pages/workout/workout';
+import { SearchPipe } from '../pages/workout/searchPipe';
 import { WorkoutDetailPage } from '../pages/workout/workoutDetail';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -32,6 +33,7 @@ import { Common } from '../common/common';
     OptionPage,
     TestPage,
     WorkoutPage,
+    SearchPipe,
     WorkoutDetailPage
   ],
   imports: [
