@@ -3,7 +3,6 @@ import { NavController, ModalController } from 'ionic-angular';
 import { WorkoutDetailPage } from './workoutDetail';
 import { SqlStorage } from '../../common/sql';
 import { Common } from '../../common/common';
-import { SearchPipe } from './searchPipe';
 
 @Component({
   selector: 'page-workout',
@@ -44,7 +43,7 @@ export class WorkoutPage {
         );
         modal.present();
         modal.onDidDismiss((data) => {
-            if(!data) this.ionViewWillEnter();
+            if(data) this.ionViewWillEnter();
         });
     }
 

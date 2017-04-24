@@ -3,7 +3,7 @@
     <ion-title style='float:left;' padding>
       Workout Detail
     </ion-title>
-    <ion-icon name="close" (click)="dismiss('close')" style='float:right;' padding></ion-icon> 
+    <ion-icon name="close" (click)="dismiss()" style='float:right;' padding></ion-icon> 
   </ion-toolbar>
 </ion-header>
 
@@ -18,7 +18,7 @@
           </div>
         </ion-item>
         <ion-card><ion-item>
-          <ion-label floating for="name">Name</ion-label>
+          <ion-label fixed for="name">Name</ion-label>
           <ion-input type="text" id="name"
                 required
                 [(ngModel)]="model.name" name="name"
@@ -31,17 +31,17 @@
           </div>
         </ion-item></ion-card>
         <ion-card><ion-item>
-          <ion-label floating for="weight">Weight</ion-label>
+          <ion-label fixed for="weight">Weight</ion-label>
           <ion-input type="number" id="weight"
                 [(ngModel)]="model.weight" name="weight"></ion-input>
         </ion-item></ion-card>
         <ion-card><ion-item>
-          <ion-label floating for="weightUnit">WeightUnit</ion-label>
+          <ion-label fixed for="weightUnit">WeightUnit</ion-label>
           <ion-input type="text" id="weightUnit"
                 [(ngModel)]="model.weightUnit" name="weightUnit"></ion-input>
         </ion-item></ion-card>
         <ion-card><ion-item>
-          <ion-label floating for="goal">Goal</ion-label>
+          <ion-label fixed for="goal">Goal</ion-label>
           <ion-input type="number" id="goal" required
                 [(ngModel)]="model.goal" name="goal"></ion-input>
         </ion-item></ion-card>

@@ -13,7 +13,7 @@ export class SearchPipe implements PipeTransform {
         if(searchVal){
             if(!reg.test(nm)) return false;
             obj.dp = nm.replace(reg, '<strong>$1</strong>');
-        }else delete obj.dp;
+        }else obj.dp = undefined;
         return true;
     });
   }
