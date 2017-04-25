@@ -1,10 +1,11 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-        <ion-icon name="menu" menuToggle></ion-icon>&nbsp;
+  <ion-toolbar>
+    <ion-title padding style='float:left;padding-left:0px;'>
+        <ion-icon *ngIf='!addFlag' name="menu" menuToggle></ion-icon>&nbsp;
         Workout
     </ion-title>
-  </ion-navbar>
+    <ion-icon *ngIf='addFlag' name="close" (click)="dismiss()" style='float:right;' padding></ion-icon> 
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -25,7 +26,7 @@
                 <p>GOAL:{{workout.GOAL}} UNITS:{{workout.UNITS}}</p>
                 <p *ngIf='workout.WEIGHT_UNIT'>WEIGHT:{{workout.WEIGHT}} {{workout.WEIGHT_UNIT}}</p>
             </ion-item>
-            <ion-item-options>
+            <ion-item-options *ngIf='!addFlag'>
                 <button ion-button color="danger" icon-left (click)='deleteItem(workout)'>
                     <ion-icon name="delete"></ion-icon>
                     Delete
@@ -35,7 +36,7 @@
     </div>
 </ion-list>
 
-<ion-fab right bottom>
+<ion-fab right bottom *ngIf='!addFlag'>
     <button ion-fab color="danger" (click)='presentModal()'>
         <ion-icon name="add"></ion-icon>
     </button>

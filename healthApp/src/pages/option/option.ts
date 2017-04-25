@@ -148,5 +148,15 @@ export class OptionPage {
 
     }
 
+    DropWORKOUT_TEMPLATE(){
+        this.sql.query(
+            'DROP TABLE WORKOUT_TEMPLATE'
+        ).then((res)=>{
+            this.commonFunc.presentToast('WORKOUT_TEMPLATE Dropped...', 'top', '');
+        }).catch(err => {
+            // console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
+        });
+    }
+
 
 }

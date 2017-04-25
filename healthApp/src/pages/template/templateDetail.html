@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title style='float:left;' padding>
+      Template Detail
+    </ion-title>
+    <ion-icon name="close" (click)="dismiss()" style='float:right;' padding></ion-icon> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form (ngSubmit)="onSubmit(templateForm)" #templateForm="ngForm">
+      <ion-list>
+        <ion-card><ion-item>
+          <ion-label fixed for="name">Name</ion-label>
+          <ion-input type="text" id="name" [(ngModel)]='model.name' name='name'
+                #name="ngModel" required></ion-input>
+        </ion-item></ion-card>
+        
+        <ion-card *ngFor='let workout of workouts'>
+          {{workout.WORKOUT_NAME}}  
+          <img style='width:20%' src="assets/icon/{{workout.IMG || workout.WORKOUT_ID}}.png" (error)='workout.IMG = "icon"'>
+        </ion-card>
+        
+        <ion-card><ion-item (click)='presentModal("add")' style='text-align:center;'>
+          Add
+        </ion-item></ion-card>
+        <ion-item>
+          <button ion-button type="submit" block>Submit</button>
+        </ion-item>
+      </ion-list>
+    </form>
+</ion-content>

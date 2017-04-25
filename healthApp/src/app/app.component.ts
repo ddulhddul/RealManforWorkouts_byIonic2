@@ -11,6 +11,7 @@ import { CalendarPage } from '../pages/calendar/calendar';
 import { OptionPage } from '../pages/option/option';
 import { TestPage } from '../pages/test/test';
 import { WorkoutPage } from '../pages/workout/workout';
+import { TemplatePage } from '../pages/template/template';
 
 import { Storage } from '@ionic/storage';
 
@@ -29,6 +30,7 @@ export class MyApp {
   optionPage:any = OptionPage;
   testPage:any = TestPage;
   workoutPage:any = WorkoutPage;
+  templatePage:any = TemplatePage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               app: App, public menu: MenuController, storage: Storage) {

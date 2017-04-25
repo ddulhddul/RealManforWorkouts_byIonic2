@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <ion-icon name="menu" menuToggle></ion-icon>&nbsp;
+      Workout Template
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor='let template of templates'>
+        <ion-card-header>
+            {{template.TEMPLATE_NAME}}
+        </ion-card-header>
+        <ion-card-content>
+            {{template.WORKOUT_NAME_CONCAT}}
+        </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+<ion-fab right bottom>
+    <button ion-fab color="danger" (click)='presentModal()'>
+        <ion-icon name="add"></ion-icon>
+    </button>
+</ion-fab>
+</ion-content>

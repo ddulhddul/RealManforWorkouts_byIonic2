@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ViewController, NavParams, ModalController } from 'ionic-angular';
 import { WorkoutDetailPage } from './workoutDetail';
 import { SqlStorage } from '../../common/sql';
 import { Common } from '../../common/common';
@@ -11,13 +11,18 @@ import { Common } from '../../common/common';
 export class WorkoutPage {
     workouts: Array<any>;
     searchVal: string;
+    addFlag: boolean = false;
 
     constructor(
         public navCtrl: NavController,
         public sql: SqlStorage,
         public commonFunc: Common,
+        public params: NavParams,
+        public viewCtrl: ViewController,
         public modalCtrl: ModalController
         ) {
+        let param = this.params.get('param');
+        if(param) this.addFlag = true;
     }
 
     ionViewWillEnter(){
@@ -34,7 +39,16 @@ export class WorkoutPage {
         });
     }
 
+    dismiss(param?){
+        this.viewCtrl.dismiss(param);
+    }
+
     presentModal(val) {
+        if(this.addFlag){
+            this.dismiss(val);
+            return;
+        }
+
         let params = {param:''};
         if(val) params.param = JSON.stringify(val);
 

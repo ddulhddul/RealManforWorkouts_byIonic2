@@ -12,6 +12,8 @@ import { TestPage } from '../pages/test/test';
 import { WorkoutPage } from '../pages/workout/workout';
 import { SearchPipe } from '../pages/workout/searchPipe';
 import { WorkoutDetailPage } from '../pages/workout/workoutDetail';
+import { TemplatePage } from '../pages/template/template';
+import { TemplateDetailPage } from '../pages/template/templateDetail';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,7 +35,9 @@ import { Common } from '../common/common';
     TestPage,
     WorkoutPage,
     SearchPipe,
-    WorkoutDetailPage
+    WorkoutDetailPage,
+    TemplateDetailPage,
+    TemplatePage
   ],
   imports: [
     FormsModule,
@@ -52,7 +56,9 @@ import { Common } from '../common/common';
     OptionPage,
     TestPage,
     WorkoutPage,
-    WorkoutDetailPage
+    WorkoutDetailPage,
+    TemplateDetailPage,
+    TemplatePage
   ],
   providers: [
     StatusBar,
@@ -62,16 +68,4 @@ import { Common } from '../common/common';
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
-export class AppModule {
-  constructor(private sql: SqlStorage){
-
-  }
-  // constructor(public storage: Storage){
-  //   this.storage.ready().then(() => {
-  //       this.storage.get('workoutClass').then((val) => {
-  //         if(!val) this.storage.set('workoutClass', JSON.stringify(Common.defaultWorkouts()));
-  //       });
-  //   });
-  // }
-
-}
+export class AppModule {}

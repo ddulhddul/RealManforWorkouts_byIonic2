@@ -131,17 +131,21 @@ export class Common{
             LAST_WEIGHT NUMBER,
             IMG TEXT
         )`,
+
+        `DROP TABLE WORKOUT_TEMPLATE`,
         `CREATE TABLE WORKOUT_TEMPLATE(
-            TEMPLATE_NO NUMBER PRIMARY KEY NOT NULL,
+            TEMPLATE_NO NUMBER NOT NULL,
             TEMPLATE_NAME TEXT NOT NULL,
             WORKOUT_ID TEXT,
+            WORKOUT_NAME TEXT,
             UNITS TEXT,
             GOAL NUMBER DEFAULT 0,
             WEIGHT NUMBER,
             WEIGHT_UNIT TEXT,
             SELECTED TEXT
         )`,
-        `CREATE INDEX TEMPLATE_NO_IDX ON WORKOUT_TEMPLATE(TEMPLATE_NO)`,
+        `CREATE INDEX TEMPLATE_NO_IDX ON WORKOUT_TEMPLATE(TEMPLATE_NO)`
+
         ];
     }
 }

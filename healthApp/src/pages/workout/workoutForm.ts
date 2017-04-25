@@ -4,7 +4,7 @@ export class workoutForm {
     public name: string = '',
     public units: Array<number> = [],
     public goal: number = 0,
-    public img: string = '',
+    public img: string = 'icon',
     public unit1: number = 0,
     public unit2: number = 0,
     public unit3: number = 0,
