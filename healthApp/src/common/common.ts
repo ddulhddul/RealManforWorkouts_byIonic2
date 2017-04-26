@@ -131,8 +131,6 @@ export class Common{
             LAST_WEIGHT NUMBER,
             IMG TEXT
         )`,
-
-        `DROP TABLE WORKOUT_TEMPLATE`,
         `CREATE TABLE WORKOUT_TEMPLATE(
             TEMPLATE_NO NUMBER NOT NULL,
             TEMPLATE_NAME TEXT NOT NULL,

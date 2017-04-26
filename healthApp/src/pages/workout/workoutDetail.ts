@@ -77,7 +77,7 @@ export class WorkoutDetailPage {
                 '${obj.id}',
                 '${obj.name}',
                 '${units}',
-                '${obj.goal || ''}',
+                '${obj.goal}',
                 '${obj.weight || ''}',
                 '${obj.weightUnit || ''}',
                 '${obj.id}'

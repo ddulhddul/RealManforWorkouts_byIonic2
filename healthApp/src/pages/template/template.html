@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-card *ngFor='let template of templates'>
+    <ion-card *ngFor='let template of templates' (click)='detailPage(template)'>
         <ion-card-header>
             {{template.TEMPLATE_NAME}}
         </ion-card-header>

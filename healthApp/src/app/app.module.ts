@@ -14,6 +14,7 @@ import { SearchPipe } from '../pages/workout/searchPipe';
 import { WorkoutDetailPage } from '../pages/workout/workoutDetail';
 import { TemplatePage } from '../pages/template/template';
 import { TemplateDetailPage } from '../pages/template/templateDetail';
+import { TemplateDetailComponent } from '../pages/template/templateDetailComponent';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -37,7 +38,8 @@ import { Common } from '../common/common';
     SearchPipe,
     WorkoutDetailPage,
     TemplateDetailPage,
-    TemplatePage
+    TemplatePage,
+    TemplateDetailComponent
   ],
   imports: [
     FormsModule,
@@ -58,7 +60,8 @@ import { Common } from '../common/common';
     WorkoutPage,
     WorkoutDetailPage,
     TemplateDetailPage,
-    TemplatePage
+    TemplatePage,
+    TemplateDetailComponent
   ],
   providers: [
     StatusBar,

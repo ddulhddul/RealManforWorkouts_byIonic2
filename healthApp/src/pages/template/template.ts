@@ -54,4 +54,11 @@ export class TemplatePage {
             if(data) this.loadTemplates();
         });
     }
+
+    detailPage(template:any){
+        this.presentModal({
+            templateNo : template.TEMPLATE_NO,
+            templateName : template.TEMPLATE_NAME
+        })
+    }
 }
