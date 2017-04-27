@@ -1,5 +1,5 @@
   <ion-list style='text-align:center;'>
-    <div *ngFor='let workout of workouts' 
+    <div *ngFor='let workout of workouts; let i = index;' 
           style='margin-bottom: 10px; max-width: 350px; display:inline-block;'
           padding>
       <div *ngIf='!isTemplate'
@@ -7,6 +7,10 @@
         [style.borderTop]='workout.done>=workout.goal? "solid 3px green" : "solid 3px red"'
         [style.color]='workout.done>=workout.goal? "green" : "red"'>
             {{workout.done>=workout.goal ? 'Completed' : 'Not Yet'}}
+      </div>
+      <div *ngIf='isTemplate || editable'>
+        <ion-icon name="arrow-dropup" style='width:50px;' (click)='itemUp(i)'></ion-icon> 
+        <ion-icon name="arrow-dropdown" style='width:50px;' (click)='itemDown(i)'></ion-icon> 
       </div>
       <ion-item>
         <ion-thumbnail item-left>
@@ -22,6 +26,7 @@
             <input type="number" [(ngModel)]='workout.weight' style='width:50px;' required #weight='ngModel'
               [style.borderLeft]='!weight.valid? "solid 5px red": "solid 5px green"'/>{{workout.weightUnit}}
           </span>
+          <ion-icon *ngIf='isTemplate || editable' name="close" (click)="deleteWorkout(i)" style='float:right;'></ion-icon> 
         </div>
         <div style='margin-top:10px;'
             [align]='editable?"center":"right"'>

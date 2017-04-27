@@ -131,14 +131,6 @@ export class AboutPage {
     confirm.present();
   }
 
-  workoutClick(workout, unit){
-    if(!this.isStarted) this.start();
-    unit = unit || 0;
-    workout.done += unit;
-    this.commonFunc.presentToast(unit<0? unit: '+'+unit, 'top', '1000');
-    workout.message = this.dpTime;
-  }
-
   done(){
     this.commonFunc.presentToast('Saved', 'top', '');
     this.stop();
@@ -155,13 +147,5 @@ export class AboutPage {
           this.navCtrl.popToRoot;
         }
     });
-  }
-
-  defaultImg(workout){
-    this.commonFunc.defaultImg(workout);
-  }
-
-  editDone(){
-    if(document.getElementsByClassName('ng-invalid').length == 0) this.editable=false;
   }
 }

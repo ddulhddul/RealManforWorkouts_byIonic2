@@ -9,14 +9,24 @@
 
 <ion-content>
   <ion-list>
-    <ion-card *ngFor='let template of templates' (click)='detailPage(template)'>
-        <ion-card-header>
-            {{template.TEMPLATE_NAME}}
-        </ion-card-header>
-        <ion-card-content>
-            {{template.WORKOUT_NAME_CONCAT}}
-        </ion-card-content>
-    </ion-card>
+    <ion-item-sliding *ngFor='let template of templates'>
+      <ion-item>
+        <ion-card (click)='detailPage(template)'>
+            <ion-card-header>
+                {{template.TEMPLATE_NAME}}
+            </ion-card-header>
+            <ion-card-content>
+                {{template.WORKOUT_NAME_CONCAT}}
+            </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button color="danger" icon-left (click)='deleteTemplate(template)'>
+            <ion-icon name="delete"></ion-icon>
+            Delete
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 
 <ion-fab right bottom>

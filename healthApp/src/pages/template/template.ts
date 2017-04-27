@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SqlStorage } from '../../common/sql';
 import { NavController, ModalController } from 'ionic-angular';
 import { TemplateDetailPage } from './templateDetail';
+import { Common } from '../../common/common';
 
 @Component({
   selector: 'page-template',
@@ -13,6 +14,7 @@ export class TemplatePage {
     constructor(
         public navCtrl: NavController,
         public modalCtrl: ModalController,
+        public commonFunc: Common,
         public sql: SqlStorage) {
         this.loadTemplates();
     }
@@ -51,7 +53,10 @@ export class TemplatePage {
         );
         modal.present();
         modal.onDidDismiss((data) => {
-            if(data) this.loadTemplates();
+            if(data){
+                this.commonFunc.presentToast('Saved', 'top', '');
+                this.loadTemplates();
+            } 
         });
     }
 
@@ -59,6 +64,18 @@ export class TemplatePage {
         this.presentModal({
             templateNo : template.TEMPLATE_NO,
             templateName : template.TEMPLATE_NAME
+        })
+    }
+
+    deleteTemplate(template){
+        this.sql.query(
+            `DELETE FROM WORKOUT_TEMPLATE
+                WHERE TEMPLATE_NO = ${template.TEMPLATE_NO}`
+        ).then((res)=>{
+            this.commonFunc.presentToast('Deleted.', 'top', '');
+            this.loadTemplates();
+        }).catch((err)=>{
+            console.log('db error...',err)   
         })
     }
 }
