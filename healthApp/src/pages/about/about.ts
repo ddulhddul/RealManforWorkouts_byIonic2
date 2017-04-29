@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController, ModalController } from 'ionic-angular';
 import { Observable } from 'rxjs/Rx';
 import { Subscription } from "rxjs";
-import { Storage } from '@ionic/storage';
 import { Common } from '../../common/common';
 import { SqlStorage } from '../../common/sql';
 import { TemplatePage } from '../template/template';
@@ -23,7 +22,6 @@ export class AboutPage {
   date: Date = new Date();
 
   constructor(public navCtrl: NavController, 
-              public storage: Storage,
               private navParams: NavParams,
               public toastCtrl: ToastController,
               public alertCtrl: AlertController,

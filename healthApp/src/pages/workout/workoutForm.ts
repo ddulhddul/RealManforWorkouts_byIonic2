@@ -13,5 +13,6 @@ export class workoutForm {
     public done?: number,
     public lastGoal?: number,
     public lastWeight?: string,
+    public cumTime?: number
   ) {  }
 }

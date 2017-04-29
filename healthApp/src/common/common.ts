@@ -13,8 +13,7 @@ export class Common{
         let yyyy = date.getFullYear();
         let mm:any = date.getMonth()+1;
         let dd:any = date.getDate();
-        
-        return yyyy+(mm<10?'0'+mm:mm)+(dd<10?'0'+dd:dd);
+        return ''+yyyy+(mm<10?'0'+mm:mm)+(dd<10?'0'+dd:dd);
     }
 
     yyyymm(dateNum){
