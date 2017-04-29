@@ -30,6 +30,11 @@
 </ion-header>
 
 <ion-content padding id='workoutContent'>
+  <div style='margin-left:20%; margin-right:20%;'>
+    <button ion-button outline block (click)='addTemplate()'>
+    Template
+    </button>
+  </div>
   <page-templateDetailComponent 
       [workouts]='workouts'
       [editable]='editable'

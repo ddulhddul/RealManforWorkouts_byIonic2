@@ -1,10 +1,11 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      <ion-icon name="menu" menuToggle></ion-icon>&nbsp;
+  <ion-toolbar>
+    <ion-title style='float:left;' padding>
+      <ion-icon *ngIf='!isModal' name="menu" menuToggle></ion-icon>&nbsp;
       Workout Template
     </ion-title>
-  </ion-navbar>
+    <ion-icon *ngIf='isModal' name="close" (click)="dismiss()" style='float:right;' padding></ion-icon> 
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>

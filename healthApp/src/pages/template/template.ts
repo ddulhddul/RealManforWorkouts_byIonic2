@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SqlStorage } from '../../common/sql';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, NavParams, ViewController } from 'ionic-angular';
 import { TemplateDetailPage } from './templateDetail';
 import { Common } from '../../common/common';
 
@@ -9,14 +9,17 @@ import { Common } from '../../common/common';
   templateUrl: 'template.html'
 })
 export class TemplatePage {
-
+    isModal: boolean = false;
     templates: Array<any>;
     constructor(
         public navCtrl: NavController,
         public modalCtrl: ModalController,
+        public params: NavParams,
+        public viewCtrl: ViewController,
         public commonFunc: Common,
         public sql: SqlStorage) {
         this.loadTemplates();
+        this.isModal = !!this.params.get('isModal');
     }
 
     loadTemplates(){
@@ -61,6 +64,11 @@ export class TemplatePage {
     }
 
     detailPage(template:any){
+        if(this.isModal){
+            this.dismiss(template);
+            return;
+        }
+
         this.presentModal({
             templateNo : template.TEMPLATE_NO,
             templateName : template.TEMPLATE_NAME
@@ -77,5 +85,9 @@ export class TemplatePage {
         }).catch((err)=>{
             console.log('db error...',err)   
         })
+    }
+
+    dismiss(param?){
+        this.viewCtrl.dismiss(param);
     }
 }

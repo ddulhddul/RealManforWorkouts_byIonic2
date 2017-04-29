@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, AlertController, ModalController } from 'ionic-angular';
 import { Observable } from 'rxjs/Rx';
 import { Subscription } from "rxjs";
 import { Storage } from '@ionic/storage';
 import { Common } from '../../common/common';
+import { SqlStorage } from '../../common/sql';
+import { TemplatePage } from '../template/template';
+import { workoutForm } from '../workout/workoutForm';
 
 @Component({
   selector: 'page-about',
@@ -16,7 +19,7 @@ export class AboutPage {
   dpTime: string;
   cumTime: number;
   subscription: Subscription;
-  workouts: Array<any>;
+  workouts: Array<workoutForm> = [];
   date: Date;
 
   constructor(public navCtrl: NavController, 
@@ -24,6 +27,8 @@ export class AboutPage {
               private navParams: NavParams,
               public toastCtrl: ToastController,
               public alertCtrl: AlertController,
+              public modalCtrl: ModalController,
+              public sql: SqlStorage,
               public commonFunc: Common
               ) {
     
@@ -56,28 +61,11 @@ export class AboutPage {
     this.cumTime = 0;
     this.dpTime = '00:00:00';
     this.isStarted = false;
-    this.workouts = [
-      {
-        workoutId: 'pushUp',
-        name: 'Push Up',
-        done: 0,
-        goal: 100,
-        units: [5,10,15],
-        message : '00:00:00',
-        img: 'pushUp'
-      },
-      {
-        workoutId: 'dumbel',
-        name: 'Dumbel',
-        done: 0,
-        goal: 100,
-        units: [5,10,15],
-        weight: 7,
-        weightUnit: 'kg',
-        message : '00:00:00',
-        img: 'dumbel'
-      }
-    ];
+    let workouts = this.workouts;
+    for (let i = 0; i < workouts.length; i++) {
+      let element = workouts[i];
+      element.done = 0;
+    }
     this.date = new Date();
   }
 
@@ -151,6 +139,54 @@ export class AboutPage {
 
   editDone(){
     if(document.getElementsByClassName('ng-invalid').length == 0) this.editable=false;
+  }
+
+  addTemplate(){
+    let params = {isModal:true};
+    let modal = this.modalCtrl.create(TemplatePage, params);
+    modal.present();
+    modal.onDidDismiss((data) => {
+      if(data){
+        this.workouts = [];
+        this.sql.query(`
+          SELECT 
+            T.WORKOUT_ID,
+            IFNULL(W.WORKOUT_NAME, T.WORKOUT_NAME) WORKOUT_NAME,
+            T.UNITS,
+            T.GOAL,
+            T.WEIGHT,
+            T.WEIGHT_UNIT,
+            W.IMG
+          FROM WORKOUT_TEMPLATE T
+          LEFT OUTER JOIN WORKOUT W
+          ON T.WORKOUT_ID = W.WORKOUT_ID
+          WHERE T.TEMPLATE_NO = ${data.TEMPLATE_NO}
+        `).then((res)=>{
+          if(res.res){
+              let rows = res.res.rows;
+              for (let i = 0; i < rows.length; i++) {
+                  let result = rows[i];
+                  let units = result.UNITS.split(',')
+                  this.workouts.push(new workoutForm(
+                    result.WORKOUT_ID,
+                    result.WORKOUT_NAME,
+                    units,
+                    result.GOAL,
+                    result.IMG,
+                    units[0],
+                    units[1],
+                    units[2],
+                    result.WEIGHT,
+                    result.WEIGHT_UNIT,
+                    0
+                  ));
+              }
+          }
+        }).catch((err)=>{
+          console.log('Call Template Err...', err);
+        })
+      } 
+    });
   }
 
 }

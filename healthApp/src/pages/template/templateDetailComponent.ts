@@ -20,7 +20,8 @@ export class TemplateDetailComponent {
   
   workoutClick(workout, unit){
     // if(!this.isStarted) this.start();
-    unit = unit || 0;
+    unit = Number(unit) || 0;
+    console.log(workout.done, unit)
     workout.done += unit;
     this.commonFunc.presentToast(unit<0? unit: '+'+unit, 'top', '1000');
     workout.message = this.dpTime;

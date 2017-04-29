@@ -10,6 +10,7 @@ export class workoutForm {
     public unit3: number = 0,
     public weight?: number,
     public weightUnit?: string,
+    public done?: number,
     public lastGoal?: number,
     public lastWeight?: string,
   ) {  }
