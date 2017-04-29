@@ -148,4 +148,9 @@ export class AboutPage {
         }
     });
   }
+
+  editDone(){
+    if(document.getElementsByClassName('ng-invalid').length == 0) this.editable=false;
+  }
+
 }

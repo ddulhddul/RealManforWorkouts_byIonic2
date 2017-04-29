@@ -26,10 +26,6 @@ export class TemplateDetailComponent {
     workout.message = this.dpTime;
   }
 
-  editDone(){
-    if(document.getElementsByClassName('ng-invalid').length == 0) this.editable=false;
-  }
-
   deleteWorkout(index){
     this.workouts.splice(index,1);
   }
@@ -37,9 +33,9 @@ export class TemplateDetailComponent {
   itemUp(index){
     if(index == 0) return;
     let workouts = this.workouts;
-    let temp = workouts[index];
-    workouts[index] = workouts[index-1];
-    workouts[index-1] = temp;
+    let temp = workouts[index-1];
+    workouts[index-1] = workouts[index];
+    workouts[index] = temp;
   }
 
   itemDown(index){

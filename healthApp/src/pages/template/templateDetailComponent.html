@@ -2,15 +2,15 @@
     <div *ngFor='let workout of workouts; let i = index;' 
           style='margin-bottom: 10px; max-width: 350px; display:inline-block;'
           padding>
+      <div *ngIf='isTemplate || editable' style='font-size:40px;' align='left'>
+        <ion-icon name="arrow-dropup" (click)='itemUp(i)'></ion-icon> 
+        <ion-icon name="arrow-dropdown" (click)='itemDown(i)'></ion-icon> 
+      </div>
       <div *ngIf='!isTemplate'
         style='font-weight: bold;text-align:center; font-size:30px;'
         [style.borderTop]='workout.done>=workout.goal? "solid 3px green" : "solid 3px red"'
         [style.color]='workout.done>=workout.goal? "green" : "red"'>
             {{workout.done>=workout.goal ? 'Completed' : 'Not Yet'}}
-      </div>
-      <div *ngIf='isTemplate || editable'>
-        <ion-icon name="arrow-dropup" style='width:50px;' (click)='itemUp(i)'></ion-icon> 
-        <ion-icon name="arrow-dropdown" style='width:50px;' (click)='itemDown(i)'></ion-icon> 
       </div>
       <ion-item>
         <ion-thumbnail item-left>
@@ -31,7 +31,9 @@
         <div style='margin-top:10px;'
             [align]='editable?"center":"right"'>
             <div *ngIf='!isTemplate'>
+              <ion-icon name="arrow-back" *ngIf='editable' (click)='workout.done=workout.done-5'></ion-icon>
               Done <strong style='font-size:30px;color:green;'>{{workout.done}}</strong>
+              <ion-icon name="arrow-forward" *ngIf='editable' (click)='workout.done=workout.done+5'></ion-icon>
             </div>
             <div>
               <ion-icon name="arrow-back" *ngIf='editable' (click)='workout.goal=workout.goal-5'></ion-icon>
@@ -65,11 +67,4 @@
       </ion-card>
     </div>
   </ion-list>
-  <ion-fab right bottom *ngIf='!isStarted && !isTemplate'>
-    <button ion-fab color="danger" (click)='editable=true' *ngIf='!editable'>
-      Edit
-    </button>
-    <button ion-fab color="danger" (click)='editDone()' *ngIf='editable'>
-      <ion-icon name="checkmark"></ion-icon>
-    </button>
-  </ion-fab>
+

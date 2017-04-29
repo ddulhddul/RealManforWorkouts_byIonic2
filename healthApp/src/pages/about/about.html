@@ -32,6 +32,16 @@
 <ion-content padding id='workoutContent'>
   <page-templateDetailComponent 
       [workouts]='workouts'
+      [editable]='editable'
       [(dpTime)]='dpTime'>
-  </page-templateDetailComponent>
+  </page-templateDetailComponent>  
 </ion-content>
+
+<ion-fab right bottom *ngIf='!isStarted && !isTemplate'>
+  <button ion-fab color="danger" (click)='editable=true' *ngIf='!editable'>
+    Edit
+  </button>
+  <button ion-fab color="danger" (click)='editDone()' *ngIf='editable'>
+    <ion-icon name="checkmark"></ion-icon>
+  </button>
+</ion-fab>
