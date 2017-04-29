@@ -158,5 +158,15 @@ export class OptionPage {
         });
     }
 
+    Drop(table){
+        this.sql.query(
+            `DROP TABLE ${table}`
+        ).then((res)=>{
+            this.commonFunc.presentToast(table+' Dropped...', 'top', '');
+        }).catch(err => {
+            console.error('failed...', err);
+        });
+    }
+
 
 }

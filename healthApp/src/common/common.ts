@@ -25,6 +25,18 @@ export class Common{
         return yyyy+(mm<10?'0'+mm:mm);
     }
 
+    timeToDpTime(time:number){
+        let hour = Math.floor(time/3600); time=time%3600
+        let min = Math.floor(time/60); 
+        let sec = time%60;
+
+        let preHour = hour<10? '0':'';
+        let preMin = min<10? ':0':':';
+        let preSec = sec<10? ':0':':';
+        
+        return preHour+hour+preMin+min+preSec+sec;
+    }
+
     presentToast(msg, position?, duration?) {
         //top, middle, bottom
         let toast = this.toast.create({
@@ -61,7 +73,8 @@ export class Common{
             WORKOUT_ORDER NUMBER,
             WORKOUT_ID TEXT,
             WORKOUT_NAME TEXT,
-            WORKOUT_TIME TEXT,
+            WORKOUT_TIME NUMBER,
+            UNITS TEXT,
             GOAL NUMBER DEFAULT 0,
             DONE NUMBER,
             WEIGHT NUMBER,

@@ -20,7 +20,7 @@ export class AboutPage {
   cumTime: number;
   subscription: Subscription;
   workouts: Array<workoutForm> = [];
-  date: Date;
+  date: Date = new Date();
 
   constructor(public navCtrl: NavController, 
               public storage: Storage,
@@ -34,25 +34,53 @@ export class AboutPage {
     
     this.setDefault();
     this.getParamWorkout();
-    
   }
 
   getParamWorkout(){
-    if(this.navParams){
-      this.date = this.navParams.get('date') || new Date();
-      this.storage.ready().then(() => {
-        this.storage.get('workout'+this.commonFunc.yyyymmdd(this.date.getTime())).then((val) => {
-            if(val){
-              let json = JSON.parse(val);
-              
-              this.workouts = json.workouts;
-              this.time = json.time;
-              this.cumTime = json.cumTime;
-              this.dpTime = json.dpTime;
-            } 
-        })
-      });
-    }
+    
+    let paramData = this.navParams.get('date');
+
+    if(paramData) this.date = paramData;
+    let yyyymmdd = this.commonFunc.yyyymmdd(this.date.getTime());
+    
+    this.sql.query(`
+      SELECT 
+        HIST.WORKOUT_ID,
+        IFNULL(W.WORKOUT_NAME, HIST.WORKOUT_NAME) WORKOUT_NAME,
+        HIST.UNITS,
+        HIST.GOAL,
+        HIST.DONE,
+        HIST.WEIGHT,
+        HIST.WEIGHT_UNIT,
+        W.IMG,
+        HIST.WORKOUT_TIME
+      FROM WORKOUT_HIST HIST
+      LEFT OUTER JOIN WORKOUT W
+      ON HIST.WORKOUT_ID = W.WORKOUT_ID
+      WHERE HIST.DATE_YMD = '${yyyymmdd}'
+      ORDER BY HIST.WORKOUT_ORDER
+    `).then((res)=>{
+      let rows = res.res.rows;
+      for (let i = 0; i < rows.length; i++) {
+          let result = rows[i];
+          let units = result.UNITS.split(',')
+          this.workouts.push(new workoutForm(
+            result.WORKOUT_ID,
+            result.WORKOUT_NAME,
+            units,
+            result.GOAL,
+            result.IMG,
+            units[0],
+            units[1],
+            units[2],
+            result.WEIGHT,
+            result.WEIGHT_UNIT,
+            result.DONE
+          ));
+          this.cumTime = result.WORKOUT_TIME;
+          this.dpTime = this.commonFunc.timeToDpTime(result.WORKOUT_TIME);
+      }
+    }).catch(err=>console.log('err',err))
   }
 
   setDefault(){
@@ -66,7 +94,6 @@ export class AboutPage {
       let element = workouts[i];
       element.done = 0;
     }
-    this.date = new Date();
   }
 
   start(){
@@ -76,19 +103,7 @@ export class AboutPage {
     let timer = Observable.timer(0, 1000);
     this.subscription = timer.subscribe(t => {
       this.time = this.cumTime + t;
-      let time = this.time;
-      let hour = Math.floor(time/3600); time=time%3600
-      let min = Math.floor(time/60); 
-      let sec = time%60;
-
-      let preHour = '';
-      let preMin = ':';
-      let preSec = ':';
-      if(hour<10) preHour = '0';
-      if(min<10) preMin = ':0';
-      if(sec<10) preSec = ':0';
-      
-      this.dpTime = preHour+hour+preMin+min+preSec+sec;
+      this.dpTime = this.commonFunc.timeToDpTime(this.time);
     });
   }
   stop(){
@@ -122,19 +137,50 @@ export class AboutPage {
   done(){
     this.commonFunc.presentToast('Saved', 'top', '');
     this.stop();
-    this.storage.ready().then(() => {
-        let json = {workouts:[], time: 0, dpTime: '', cumTime: 0};
-        json.workouts = this.workouts;
-        json.time = this.time;
-        json.cumTime = this.cumTime;
-        json.dpTime = this.dpTime;
-        this.storage.set('workout'+this.commonFunc.yyyymmdd(this.date.getTime()), JSON.stringify(json));
-        if(this.navCtrl.canGoBack()){
-          this.navCtrl.pop();
-        }else{
-          this.navCtrl.popToRoot;
-        }
-    });
+    let yyyymmdd = this.commonFunc.yyyymmdd(this.date.getTime());
+    this.sql.query(`DELETE FROM WORKOUT_HIST WHERE DATE_YMD = ${yyyymmdd}`).then((res)=>{
+
+      let workouts = this.workouts;
+      for (let i = 0; i < workouts.length; i++) {
+        let element = workouts[i];
+        let units = element.units.join(",");
+
+        this.sql.query(`
+          INSERT INTO WORKOUT_HIST(
+              DATE_YMD,
+              WORKOUT_ORDER,
+              WORKOUT_ID,
+              WORKOUT_NAME,
+              WORKOUT_TIME,
+              GOAL,
+              DONE,
+              WEIGHT,
+              WEIGHT_UNIT,
+              UNITS
+          ) VALUES (
+              '${yyyymmdd}',
+              ${i+1},
+              '${element.id}',
+              '${element.name}',
+              ${this.cumTime},
+              ${element.goal},
+              ${element.done},
+              '${element.weight}',
+              '${element.weightUnit}',
+              '${units}'
+          )
+        `).catch((err)=>console.log('Done Err',err))
+        .then((res)=>{
+          if(i == workouts.length-1){
+            if(this.navCtrl.canGoBack()){
+              this.navCtrl.pop();
+            }else{
+              this.navCtrl.popToRoot;
+            }
+          }
+        })
+      }
+    }).catch((err)=>console.log('Delete Hist Err', err))
   }
 
   editDone(){
