@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+        <ion-icon name="menu" menuToggle></ion-icon>&nbsp;
+        Graph
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<style>
+    chart{
+        height:200px;
+    }
+</style>
+<ion-content>
+    <ion-card>
+        <ion-list>
+            <ion-item>
+                <ion-label>Workout</ion-label>
+                <ion-select [(ngModel)]="workout" (ionChange)='srchGraph($event)'>
+                    <ion-option *ngFor='let w of allWorkouts' [value]="w.id">{{w.name}}</ion-option>
+                </ion-select>
+            </ion-item>
+        </ion-list>
+    </ion-card>
+    <div *ngIf='!workout' style='text-align:center;'>
+        <br><br>Plase Select Workout
+    </div>
+    <ion-list>
+        <ion-item *ngIf='workout' padding>
+            <chart *ngFor='let obj of graphArr' [type]="obj.type" [data]="obj.data" [options]="obj.options" style='margin-bottom:50px;'></chart>
+        </ion-item>
+    </ion-list>
+</ion-content>

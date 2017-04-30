@@ -12,6 +12,7 @@ import { TestPage } from '../pages/test/test';
 import { WorkoutPage } from '../pages/workout/workout';
 import { SearchPipe } from '../pages/workout/searchPipe';
 import { WorkoutDetailPage } from '../pages/workout/workoutDetail';
+import { GraphPage } from '../pages/graph/graph';
 import { TemplatePage } from '../pages/template/template';
 import { TemplateDetailPage } from '../pages/template/templateDetail';
 import { TemplateDetailComponent } from '../pages/template/templateDetailComponent';
@@ -21,6 +22,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
 import { SqlStorage } from '../common/sql';
 import { FormsModule }   from '@angular/forms';
+import { ChartModule } from 'angular2-chartjs';
 import { Common } from '../common/common';
 
 @NgModule({
@@ -39,10 +41,12 @@ import { Common } from '../common/common';
     WorkoutDetailPage,
     TemplateDetailPage,
     TemplatePage,
-    TemplateDetailComponent
+    TemplateDetailComponent,
+    GraphPage
   ],
   imports: [
     FormsModule,
+    ChartModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
@@ -61,7 +65,8 @@ import { Common } from '../common/common';
     WorkoutDetailPage,
     TemplateDetailPage,
     TemplatePage,
-    TemplateDetailComponent
+    TemplateDetailComponent,
+    GraphPage
   ],
   providers: [
     StatusBar,

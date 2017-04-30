@@ -12,6 +12,7 @@ import { OptionPage } from '../pages/option/option';
 import { TestPage } from '../pages/test/test';
 import { WorkoutPage } from '../pages/workout/workout';
 import { TemplatePage } from '../pages/template/template';
+import { GraphPage } from '../pages/graph/graph';
 
 import { Storage } from '@ionic/storage';
 
@@ -20,7 +21,7 @@ import { Storage } from '@ionic/storage';
 })
 export class MyApp {
   @ViewChild('content') nav
-  rootPage:any = CalendarPage;
+  rootPage:any = GraphPage;
   listPage:any = ListPage;
   homePage:any = HomePage;
   aboutPage:any = AboutPage;
@@ -30,6 +31,7 @@ export class MyApp {
   testPage:any = TestPage;
   workoutPage:any = WorkoutPage;
   templatePage:any = TemplatePage;
+  graphPage:any = GraphPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               app: App, public menu: MenuController, storage: Storage) {

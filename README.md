@@ -33,3 +33,8 @@ ionic plugin add cordova-sqlite-storage
 
 ## Color
     Color Combos
+
+## [chartjs](https://www.npmjs.com/package/angular2-chartjs)
+```linux
+npm install angular2-chartjs
+```
