@@ -25,7 +25,7 @@
 
 <ion-content>
     <ion-list>
-    <ion-slides (ionSlideDidChange)='slideChanged($event)' initialSlide=1>
+    <ion-slides ><!--(ionSlideDidChange)='slideChanged($event)' initialSlide=1-->
         <ion-slide *ngFor='let cal of calendarArr' style='align-items:baseline;'>
             <ion-row align-items-start>
                 <ion-col>

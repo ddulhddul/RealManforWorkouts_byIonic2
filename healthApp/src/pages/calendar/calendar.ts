@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { NavController, Slides, LoadingController } from 'ionic-angular';
+import { SqlStorage } from '../../common/sql';
 import { Common } from '../../common/common';
 
 @Component({
@@ -16,18 +16,28 @@ export class CalendarPage {
     mm:Array<number>;
     curYYYY:number;
     curMM:number;
+    loading:any;
 
     constructor(
             public navCtrl: NavController,
             public loadingCtrl: LoadingController,
             public commonFunc: Common,
-            public storage: Storage) {
+            public sql: SqlStorage) {
         let curdate = new Date();
         this.yyyy = []; this.mm = [];
         let yyyy = curdate.getFullYear();
         for(let i=-1;i<100;i++) this.yyyy.push(yyyy-i);
         for(let i=1;i<=12;i++) this.mm.push(i);
+
+        this.loading = this.loadingCtrl.create({
+            content: `
+                <div class="custom-spinner-container">
+                    <div class="custom-spinner-box"></div>
+                </div>`
+        });
+
         this.defaultSet(curdate);
+        // this.slides.lockSwipes(true);
     }
 
     changeYYYY(val){
@@ -45,129 +55,155 @@ export class CalendarPage {
         this.curMM = date.getMonth()+1;
         let date1 = new Date(date.getTime()),date2 = new Date(date.getTime()),date3 = new Date(date.getTime());
         date1 = new Date(date1.setMonth(date.getMonth()-1));
-        this.calendarArr.push({
-            calendar: this.showCalendar(date1),
-            date: date1
-        });
-
-        date2 = new Date(date2.setMonth(date.getMonth()));
-        this.calendarArr.push({
-            calendar: this.showCalendar(date2),
-            date: date2
-        });
-
         date3 = new Date(date3.setMonth(date.getMonth()+1));
-        this.calendarArr.push({
-            calendar: this.showCalendar(date3),
-            date: date3
-        });
 
-        this.loadWorkoutHist();
+        this.showCalendar(date2);
+        // this.showCalendar(date1, true);
+        // this.showCalendar(date3);
     }
 
-    loadWorkoutHist(index?:number){
-        this.storage.ready().then(() => {
-            for (let i = (index===undefined?0:index); i < (index===undefined?this.calendarArr.length:index+1); i++) {
-                for (let j = 0; j < this.calendarArr[i].calendar.length; j++) {
-                    for (let k = 0; k < this.calendarArr[i].calendar[j].length; k++) {
-                        this.getWorkout(this.calendarArr[i].calendar[j][k], i, j, k);
-                    }
-                    
-                }
-            }
-        });
-    }
-
-    getWorkout(param, i, j, k){
-
-        this.storage.get('workout'+this.commonFunc.yyyymmdd(param.date.getTime())).then((val)=>{
-            if(val){
-                let obj = JSON.parse(val);
-                obj.date = param.date;
-                this.calendarArr[i].calendar[j][k] = obj;
-            }
-        });
-    }
-
-    showCalendar(date:Date, loadDate?:boolean){
+    showCalendar(date:Date, reverse?:boolean, callback?:any){
         let targetDate = date || new Date();
-        let calendar = [];
+        
         let targetFirstDate = new Date(targetDate.getFullYear(), targetDate.getMonth(), 1);
         targetFirstDate.setDate(
-            targetFirstDate.getDate() - targetFirstDate.getDay()-1
+            targetFirstDate.getDate() - targetFirstDate.getDay()
         );
-
-        calendarLoop:
-        while(true){
-            let week:Array<any> = [];
-            for (let i = 0; i < 7; i++) {
-                targetFirstDate.setDate(
-                    targetFirstDate.getDate() +1
-                );
-                let dateTime = targetFirstDate.getTime();
-                let pushObj = {date:null};
-                pushObj.date = new Date(dateTime);
-                if(loadDate){
-                    this.storage.get('workout'+this.commonFunc.yyyymmdd(pushObj.date.getTime())).then((val)=>{
-                        if(val){
-                            let obj = JSON.parse(val);
-                            obj.date = pushObj.date;
-                            pushObj = obj;
-                        }
-                        week.push(pushObj);
+        let targetLastDate = new Date(targetDate.getFullYear(), targetDate.getMonth()+1, 0);
+        targetLastDate.setDate(
+            targetLastDate.getDate() + (6-targetLastDate.getDay())
+        );
+        let startDate = this.commonFunc.yyyymmdd(targetFirstDate.getTime());
+        let endDate = this.commonFunc.yyyymmdd(targetLastDate.getTime());
+        
+        this.sql.query(`
+            SELECT
+                IFNULL(H.WORKOUT_NAME,W.WORKOUT_NAME) WORKOUT_NAME,
+                H.WEIGHT,
+                H.WEIGHT_UNIT,
+                H.GOAL,
+                H.DONE,
+                H.WORKOUT_TIME,
+                H.DATE_YMD
+            FROM WORKOUT_HIST H
+            LEFT OUTER JOIN WORKOUT W
+            ON H.WORKOUT_ID = W.WORKOUT_ID
+            WHERE H.DATE_YMD BETWEEN '${startDate}' AND '${endDate}'
+            ORDER BY H.DATE_YMD ASC, H.WORKOUT_ORDER ASC
+        `).then((res)=>{
+            let rows = res.res.rows;
+            let y = Number(startDate.substr(0,4)),
+                m = Number(startDate.substr(4,2)) - 1,
+                d = Number(startDate.substr(6,2));
+            let tempDate = new Date(y,m,d);
+            let curYYYYMMDD = this.commonFunc.yyyymmdd(tempDate.getTime());
+            
+            let rowLen = rows.length;
+            let index = 0;
+            let doWhileCnt = 0;
+            let calendar = [];
+            let week = [];
+            do{    
+                
+                if(index < rowLen){
+                    let workouts = [];
+                    let cumTime;
+                    for (; index < rowLen; index++) {
+                        let param = rows[index];
+                        if(curYYYYMMDD == param.DATE_YMD){
+                            workouts.push({
+                                name : param.WORKOUT_NAME,
+                                goal : param.GOAL,
+                                done : param.DONE,
+                                weight : param.WEIGHT,
+                                weightUnit : param.WEIGHT_UNIT
+                            })
+                            cumTime = param.WORKOUT_TIME
+                        }else break;
+                    }
+                    week.push({
+                        date : new Date(tempDate.getTime()),
+                        cumTime: cumTime,
+                        workouts: workouts
                     });
                 }else{
-                    week.push(pushObj);
+                    week.push({
+                        date : new Date(tempDate.getTime())
+                    });
                 }
+                tempDate.setDate(tempDate.getDate()+1);
+                curYYYYMMDD = this.commonFunc.yyyymmdd(tempDate.getTime());
+
+                if(++doWhileCnt%7 == 0 && doWhileCnt>1){
+                    calendar.push(week);
+                    week = [];
+                }
+            }while(curYYYYMMDD <= endDate)
+            
+            // if(reverse){
+            //     this.calendarArr.unshift({
+            //         calendar: calendar,
+            //         date: targetDate
+            //     });
+
+            // }else{
+            //     this.calendarArr.push({
+            //         calendar: calendar,
+            //         date: targetDate
+            //     });
+            // }
+            this.calendarArr = [{
+                    calendar: calendar,
+                    date: targetDate
+                }];
+            if(callback) callback();
+            // this.loading.dismiss();
+
+        }).catch(err=>{
+            console.log('calendar select error', err);
+            if(reverse){
+                this.calendarArr.unshift({
+                    date: targetDate
+                });
+
+            }else{
+                this.calendarArr.push({
+                    date: targetDate
+                });
             }
-            calendar.push(week);
-            if(targetFirstDate.getFullYear()+(targetFirstDate.getMonth()<10?'0':'')+targetFirstDate.getMonth()
-                > targetDate.getFullYear()+(targetDate.getMonth()<10?'0':'')+targetDate.getMonth()){
-                break calendarLoop;
-            }
-        }
-        return calendar;
+            // this.loading.dismiss();
+        })
     }
 
     prev(){
-        this.slides.slidePrev(500,true);
+        // this.slides.slidePrev(500,true);
+        this.slideChanged();
     }
     
     next(){
-        this.slides.slideNext(500,true);
+        this.slideChanged('next');
+        // this.slides.slideNext(500,true);
     }
 
-    slideChanged(swiper:any){
-        
-        let loading = this.loadingCtrl.create({
-            content: 'Please wait...'
-        });
+    slideChanged(str?){
         
         let currentIndex = this.slides.getActiveIndex();
         let toLoadDate = new Date(this.calendarArr[currentIndex].date.getTime());
         this.curYYYY = toLoadDate.getFullYear();
         this.curMM = toLoadDate.getMonth()+1;
-        if(currentIndex == this.calendarArr.length-1){
-            loading.present();
+        if(str == 'next'){
+            // this.loading.present();
             let date = new Date(toLoadDate.setMonth(toLoadDate.getMonth()+1));
-            this.calendarArr.push({
-                calendar: this.showCalendar(date),
-                date: date
-            });
-            this.loadWorkoutHist(this.calendarArr.length-1);
+            this.showCalendar(date);
 
         }else if(currentIndex == 0){
-            loading.present();
+            // this.loading.present();
             let date = new Date(toLoadDate.setMonth(toLoadDate.getMonth()-1));
-            this.calendarArr.unshift({
-                calendar: this.showCalendar(date),
-                date: date
-            });
-            this.slides.slideNext(0,false);
-            this.loadWorkoutHist(0);
+            this.showCalendar(date, true);
+            // this.slides.slideNext(0,false);
         }
 
-        loading.dismiss();
+        
     }
 
 }
