@@ -17,7 +17,7 @@
         <ion-list>
             <ion-item>
                 <ion-label>Workout</ion-label>
-                <ion-select [(ngModel)]="workout" (ionChange)='srchGraph($event)'>
+                <ion-select [(ngModel)]="workout" (ionChange)='srchGraph($event)' interface="popover">
                     <ion-option *ngFor='let w of allWorkouts' [value]="w.id">{{w.name}}</ion-option>
                 </ion-select>
             </ion-item>

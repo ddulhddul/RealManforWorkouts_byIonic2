@@ -63,11 +63,11 @@
                 <ion-col col-12>
                     <div align='center'>
                         <ion-item style='max-width:230px;'>
-                            <ion-select (ionChange)='changeYYYY($event)' style='font-size:30px;min-width:150px;float:left;'>
+                            <ion-select (ionChange)='changeYYYY($event)' style='font-size:30px;min-width:150px;float:left;' interface="popover">
                                 <ion-option *ngFor='let y of yyyy' 
                                 [value]="y" [selected]="y==cal.date.getFullYear()?true:false">{{y}}</ion-option>
                             </ion-select>
-                            <ion-select (ionChange)='changeMM($event)' style='font-size:30px;min-width:120px;float:right;'>
+                            <ion-select (ionChange)='changeMM($event)' style='font-size:30px;min-width:120px;float:right;' interface="popover">
                                 <ion-option *ngFor='let m of mm' 
                                 [value]="m" [selected]="m==cal.date.getMonth()+1?true:false">{{m}}</ion-option>
                             </ion-select>
