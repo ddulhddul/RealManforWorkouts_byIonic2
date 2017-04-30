@@ -14,12 +14,15 @@
         border-top:solid 1px black;
         background-color: darkgrey
     }
-
+    .tableBody{
+        display:flex;
+    }
     .tableBody td{
         width:14%;
         float:left;
         border-top:solid 1px black;
         min-height: 60px;
+        align-items: stretch;
     }
 </style>
 
@@ -84,8 +87,10 @@
                 </tr>
                 <tr *ngFor='let week of cal.calendar' class='tableBody'>
                     <td *ngFor='let data of week'
+                        (click)='goWorkoutPage(data.date)'
                         [style.color]='data.date.getMonth() != cal.date.getMonth() ? "grey": data.date.getDay()==0? "red" : "black"'
-                        [style.backgroundColor]='data.date.getMonth() == cal.date.getMonth() ? "": "rgba(224, 224, 224, 0.72)"'>
+                        [style.backgroundColor]='data.date.getMonth() == cal.date.getMonth() ? "": "rgba(224, 224, 224, 0.72)"'
+                        [style.border]="data.date.getFullYear() == today.getFullYear() && data.date.getMonth() == today.getMonth() && data.date.getDate() == today.getDate() ? 'solid 4px blue':''">
                         <strong>{{data.date | date:'dd'}}</strong>
                         <div 
                             style='overflow: hidden;white-space: nowrap;color:black !important; font-size:10px;'

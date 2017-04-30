@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, Slides, LoadingController } from 'ionic-angular';
 import { SqlStorage } from '../../common/sql';
 import { Common } from '../../common/common';
+import { AboutPage } from '../about/about';
 
 @Component({
   selector: 'page-calendar',
@@ -17,6 +18,7 @@ export class CalendarPage {
     curYYYY:number;
     curMM:number;
     loading:any;
+    today: Date = new Date();
 
     constructor(
             public navCtrl: NavController,
@@ -38,6 +40,10 @@ export class CalendarPage {
 
         this.defaultSet(curdate);
         // this.slides.lockSwipes(true);
+    }
+
+    ionViewWillEnter(){
+        this.defaultSet(new Date(this.curYYYY, this.curMM-1, 1));
     }
 
     changeYYYY(val){
@@ -204,6 +210,10 @@ export class CalendarPage {
         }
 
         
+    }
+
+    goWorkoutPage(date:Date){
+        this.navCtrl.push(AboutPage, {date: date});
     }
 
 }
