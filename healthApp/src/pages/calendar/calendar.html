@@ -100,6 +100,9 @@
                             <strong>{{workout.done}}</strong>/{{workout.goal}}
                             <br>
                             {{workout.name}}
+                            <small *ngIf='workout.weight && workout.weightUnit'>
+                            {{workout.weight}}{{workout.weightUnit}}
+                            </small>
                         </div>
                     </td>
                 </tr>
