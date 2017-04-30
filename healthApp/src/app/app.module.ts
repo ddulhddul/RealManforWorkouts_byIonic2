@@ -24,6 +24,7 @@ import { SqlStorage } from '../common/sql';
 import { FormsModule }   from '@angular/forms';
 import { ChartModule } from 'angular2-chartjs';
 import { Common } from '../common/common';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { Common } from '../common/common';
   imports: [
     FormsModule,
     ChartModule,
+    BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],

@@ -32,9 +32,11 @@ ionic plugin add cordova-sqlite-storage
 [sql querys](https://github.com/ddulhddul/HealthApp-byIonic2/blob/master/SQL.md)
 
 ## Color
-    Color Combos
+Color Combos
 
 ## [chartjs](https://www.npmjs.com/package/angular2-chartjs)
 ```linux
 npm install angular2-chartjs
 ```
+
+## ionic update(current 3.1.1)[https://github.com/driftyco/ionic/blob/master/CHANGELOG.md](https://github.com/driftyco/ionic/blob/master/CHANGELOG.md)
