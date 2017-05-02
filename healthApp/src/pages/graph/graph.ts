@@ -12,6 +12,8 @@ export class GraphPage {
     allWorkouts: Array<Object> = [];
     isExistWeight: boolean = false;
     graphArr:Array<any> = [];
+    isSrching:boolean = false; // prevent srch twice
+
     chartColors = {
         red: 'rgb(255, 99, 132)',
         orange: 'rgb(255, 159, 64)',
@@ -46,7 +48,9 @@ export class GraphPage {
     }
 
     srchGraph(val:any){
-        this.graphArr = [];
+        if(this.isSrching) return;
+        else this.isSrching = true;
+        console.log('srchGraph in')
         this.sql.query(`
             SELECT 
                 H.DATE_YMD,
@@ -58,6 +62,7 @@ export class GraphPage {
             WHERE WORKOUT_ID = '${val}'
             ORDER BY H.DATE_YMD, H.DONE DESC
         `).then((res)=>{
+            this.graphArr = [];
             let rows = res.res.rows;
             this.isExistWeight = false;
 
@@ -78,7 +83,7 @@ export class GraphPage {
                 }
                 if(element.WEIGHT && element.WEIGHT_UNIT) this.isExistWeight = true;
             }
-
+            console.log('push Graph load')
             this.graphArr.push({
                 type : 'line',
                 data : {labels: labels,
@@ -105,6 +110,7 @@ export class GraphPage {
                 }
             })
             if(this.isExistWeight) this.srchGraphWeight(val);
+            else this.isSrching = false;
 
         }).catch((err)=>console.log('srchGraph err',err))
     }
@@ -159,6 +165,8 @@ export class GraphPage {
                     }
                 }
             })
+            this.isSrching = false;
+            
         }).catch((err)=>console.log('srchGraphWeight err',err))
     }
 
