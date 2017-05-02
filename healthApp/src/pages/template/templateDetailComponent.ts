@@ -46,4 +46,8 @@ export class TemplateDetailComponent {
     workouts[index] = workouts[index+1];
     workouts[index+1] = temp;
   }
+
+  customTrackBy(index: number, obj: any): any {
+    return  index;
+  }
 }

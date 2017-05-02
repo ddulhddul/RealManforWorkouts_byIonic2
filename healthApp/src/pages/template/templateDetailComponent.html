@@ -59,7 +59,7 @@
         <ion-card>
         <ion-grid *ngIf='editable'>
           <ion-row>
-            <ion-col col-4 *ngFor='let unit of workout.units; let i = index;'>
+            <ion-col col-4 *ngFor='let unit of workout.units; let i=index; trackBy:customTrackBy'>
                 <ion-item>
                   <ion-label floating>Unit</ion-label>
                   <ion-input required type="number" [(ngModel)]='workout.units[i]' required></ion-input>
