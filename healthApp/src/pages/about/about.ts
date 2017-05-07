@@ -82,6 +82,7 @@ export class AboutPage {
             result.DONE
           ));
           this.cumTime = result.WORKOUT_TIME;
+          this.time = result.WORKOUT_TIME;
           this.dpTime = this.commonFunc.timeToDpTime(result.WORKOUT_TIME);
       }
     }).catch(err=>console.log('err',err))
@@ -139,7 +140,7 @@ export class AboutPage {
   }
 
   done(resolve?){
-    this.commonFunc.presentToast('Saved', 'top', '');
+    
     this.stop();
     let yyyymmdd = this.commonFunc.yyyymmdd(this.date.getTime());
     this.sql.query(`DELETE FROM WORKOUT_HIST WHERE DATE_YMD = ${yyyymmdd}`).then((res)=>{
@@ -175,6 +176,7 @@ export class AboutPage {
           )
         `).catch((err)=>console.log('Done Err',err))
         .then((res)=>{
+          this.commonFunc.presentToast('Saved', 'top', '');
           if(!resolve){
             if(i == workouts.length-1){
               if(this.navCtrl.canGoBack()){
