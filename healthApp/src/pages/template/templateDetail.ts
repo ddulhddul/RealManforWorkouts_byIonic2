@@ -25,8 +25,11 @@ export class TemplateDetailPage {
             param = JSON.parse(param);
             this.model = new templateForm(param.templateNo, param.templateName);
             this.sql.query(`
-                SELECT * FROM WORKOUT_TEMPLATE
-                WHERE TEMPLATE_NO = '${param.templateNo}'
+                SELECT T.*, W.IMG
+                FROM WORKOUT_TEMPLATE T
+                LEFT OUTER JOIN WORKOUT W
+                ON T.WORKOUT_ID = W.WORKOUT_ID
+                WHERE T.TEMPLATE_NO = '${param.templateNo}'
             `).then((res)=>{
                 for (let i = 0; i < res.res.rows.length; i++) {
                     let element = res.res.rows[i];
@@ -63,7 +66,7 @@ export class TemplateDetailPage {
             return;
         }
         let workout = this.workouts[i];
-
+        
         this.sql.query(`
             INSERT INTO WORKOUT_TEMPLATE
             (
