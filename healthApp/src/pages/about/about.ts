@@ -34,6 +34,12 @@ export class AboutPage {
     this.getParamWorkout();
   }
 
+  ionViewCanLeave(){
+    return new Promise((resolve: Function, reject: Function) => {
+      this.done(resolve);
+    })
+  }
+  
   getParamWorkout(){
     
     let paramData = this.navParams.get('date');
@@ -132,7 +138,7 @@ export class AboutPage {
     confirm.present();
   }
 
-  done(){
+  done(resolve?){
     this.commonFunc.presentToast('Saved', 'top', '');
     this.stop();
     let yyyymmdd = this.commonFunc.yyyymmdd(this.date.getTime());
@@ -169,13 +175,15 @@ export class AboutPage {
           )
         `).catch((err)=>console.log('Done Err',err))
         .then((res)=>{
-          if(i == workouts.length-1){
-            if(this.navCtrl.canGoBack()){
-              this.navCtrl.pop();
-            }else{
-              this.navCtrl.popToRoot;
+          if(!resolve){
+            if(i == workouts.length-1){
+              if(this.navCtrl.canGoBack()){
+                this.navCtrl.pop();
+              }else{
+                this.navCtrl.popToRoot;
+              }
             }
-          }
+          }else resolve();
         })
       }
     }).catch((err)=>console.log('Delete Hist Err', err))
