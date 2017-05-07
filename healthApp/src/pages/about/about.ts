@@ -152,7 +152,6 @@ export class AboutPage {
       for (let i = 0; i < workouts.length; i++) {
         let element = workouts[i];
         let units = element.units.join(",");
-
         this.sql.query(`
           INSERT INTO WORKOUT_HIST(
               DATE_YMD,
@@ -172,7 +171,7 @@ export class AboutPage {
               '${element.name}',
               ${this.cumTime},
               ${element.goal},
-              ${element.done},
+              ${element.done || 0},
               '${element.weight}',
               '${element.weightUnit}',
               '${units}'
@@ -180,8 +179,8 @@ export class AboutPage {
         `).catch((err)=>console.log('Done Err',err))
         .then((res)=>{
           if(i == workouts.length-1){
-            this.commonFunc.presentToast('Saved', 'top', '');
             if(!resolve){
+              this.commonFunc.presentToast('Saved', 'top', '');
               if(this.navCtrl.canGoBack()){
                 this.navCtrl.pop();
               }else{
@@ -265,6 +264,7 @@ export class AboutPage {
                 units[2],
                 data.WEIGHT,
                 data.WEIGHT_UNIT,
+                0,
                 data.LAST_GOAL,
                 data.LAST_WEIGHT
             ));

@@ -32,7 +32,7 @@
                         </div>
                         <div style='float:left;'>
                             <strong>&nbsp;&nbsp; {{workout.name}}</strong>
-                            <small *ngIf='workout.weight'>({{workout.weight}}{{workout.weightUnit}})</small>
+                            <small *ngIf='workout.weight'>{{workout.weight}}{{workout.weightUnit}}</small>
                         </div>
                         <div style='font-size:14px;float:left;margin-left:15px;'>
                             Done {{workout.done}} / Goal {{workout.goal}}

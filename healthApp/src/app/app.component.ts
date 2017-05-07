@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, App, MenuController } from 'ionic-angular';
+import { Platform, App, MenuController, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -13,6 +13,7 @@ import { TestPage } from '../pages/test/test';
 import { WorkoutPage } from '../pages/workout/workout';
 import { TemplatePage } from '../pages/template/template';
 import { GraphPage } from '../pages/graph/graph';
+import { Common } from '../common/common';
 
 import { Storage } from '@ionic/storage';
 
@@ -33,15 +34,33 @@ export class MyApp {
   templatePage:any = TemplatePage;
   graphPage:any = GraphPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+  constructor(public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+              public alert: AlertController, public commonFunc: Common,
               app: App, public menu: MenuController, storage: Storage) {
     menu.enable(true);
-    platform.ready().then(() => {
+    this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
     });
+    this.platform.registerBackButtonAction(this.exit)
+  }
+
+  exit(){
+      // this.commonFunc.presentToast('are you sure to exit?', 'bottom')
+      let alert = this.alert.create({
+        title: 'Confirm',
+        message: 'Do you want to exit?',
+        buttons: [{
+          text: "exit?",
+          handler: () => { this.platform.exitApp() }
+        }, {
+          text: "Cancel",
+          role: 'cancel'
+        }]
+      })
+      alert.present();
   }
 
   openPage(page){

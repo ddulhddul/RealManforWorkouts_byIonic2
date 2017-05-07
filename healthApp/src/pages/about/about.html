@@ -43,13 +43,13 @@
 </ion-content>
 
 <ion-fab right bottom *ngIf='!isStarted && !isTemplate'>
-  <button ion-fab color="danger" (click)='editable=true' *ngIf='!editable' margin>
+  <button ion-fab color="danger" (click)='editable=true' *ngIf='!editable'>
     Edit
   </button>
-  <button ion-fab color="blue" (click)='addWorkout()' *ngIf='editable' margin>
+  <button ion-fab color="blue" (click)='addWorkout()' *ngIf='editable' style='margin-bottom:5px;'>
     <ion-icon name="add"></ion-icon>
   </button>
-  <button ion-fab color="danger" (click)='editDone()' *ngIf='editable' margin>
+  <button ion-fab color="danger" (click)='editDone()' *ngIf='editable'>
     <ion-icon name="checkmark"></ion-icon>
   </button>
 </ion-fab>
