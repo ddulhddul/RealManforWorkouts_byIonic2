@@ -6,6 +6,7 @@ import { Common } from '../../common/common';
 import { SqlStorage } from '../../common/sql';
 import { TemplatePage } from '../template/template';
 import { workoutForm } from '../workout/workoutForm';
+import { WorkoutPage } from '../workout/workout';
 
 @Component({
   selector: 'page-about',
@@ -36,7 +37,8 @@ export class AboutPage {
 
   ionViewCanLeave(){
     return new Promise((resolve: Function, reject: Function) => {
-      this.done(resolve);
+      if(this.workouts && this.workouts.length > 0) this.done(resolve);
+      else resolve();
     })
   }
   
@@ -64,8 +66,9 @@ export class AboutPage {
       WHERE HIST.DATE_YMD = '${yyyymmdd}'
       ORDER BY HIST.WORKOUT_ORDER
     `).then((res)=>{
-      let rows = res.res.rows;
-      for (let i = 0; i < rows.length; i++) {
+      let rows = res.res.rows, len = rows.length;
+      if(!len) this.editable = true;
+      for (let i = 0; i < len; i++) {
           let result = rows[i];
           let units = result.UNITS.split(',')
           this.workouts.push(new workoutForm(
@@ -176,16 +179,16 @@ export class AboutPage {
           )
         `).catch((err)=>console.log('Done Err',err))
         .then((res)=>{
-          this.commonFunc.presentToast('Saved', 'top', '');
-          if(!resolve){
-            if(i == workouts.length-1){
+          if(i == workouts.length-1){
+            this.commonFunc.presentToast('Saved', 'top', '');
+            if(!resolve){
               if(this.navCtrl.canGoBack()){
                 this.navCtrl.pop();
               }else{
                 this.navCtrl.popToRoot;
               }
-            }
-          }else resolve();
+            }else resolve();
+          }
         })
       }
     }).catch((err)=>console.log('Delete Hist Err', err))
@@ -240,6 +243,32 @@ export class AboutPage {
           console.log('Call Template Err...', err);
         })
       } 
+    });
+  }
+
+  addWorkout(){
+    let modal = this.modalCtrl.create(
+        WorkoutPage, {param:"add"}
+    );
+    modal.present();
+    modal.onDidDismiss((data) => {
+        if(data){
+            let units = data.UNITS.split(',');
+            this.workouts.push(new workoutForm(
+                data.WORKOUT_ID, 
+                data.WORKOUT_NAME,
+                [units[0], units[1], units[2]],
+                data.GOAL,
+                data.IMG,
+                units[0],
+                units[1],
+                units[2],
+                data.WEIGHT,
+                data.WEIGHT_UNIT,
+                data.LAST_GOAL,
+                data.LAST_WEIGHT
+            ));
+        }
     });
   }
 
