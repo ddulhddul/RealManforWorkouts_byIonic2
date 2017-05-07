@@ -19,12 +19,14 @@ export class CalendarPage {
     curMM:number;
     loading:any;
     today: Date = new Date();
+    week;
 
     constructor(
             public navCtrl: NavController,
             public loadingCtrl: LoadingController,
             public commonFunc: Common,
             public sql: SqlStorage) {
+        this.week = this.commonFunc.week;
         let curdate = new Date();
         this.yyyy = []; this.mm = [];
         let yyyy = curdate.getFullYear();

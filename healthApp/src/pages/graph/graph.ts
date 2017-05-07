@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SqlStorage } from '../../common/sql';
 import { NavController } from 'ionic-angular';
+import { Common } from '../../common/common';
 
 @Component({
   selector: 'page-graph',
@@ -26,6 +27,7 @@ export class GraphPage {
 
     constructor(
         public sql: SqlStorage,
+        public commonFunc: Common,
         public navCtrl: NavController) {
         this.initWorkoutList()
     }
@@ -71,7 +73,7 @@ export class GraphPage {
             
             for (let i = 0, len = rows.length; i < len; i++) {
                 let element = rows[i];
-                let curDate = element.DATE_YMD.substr(4,4);
+                let curDate = this.commonFunc.yyyymmddToMD(element.DATE_YMD);
                 if(tempDone != element.DONE || i == len-1 || i == 0){
                     if(doneDate != curDate){
                         labels.push(curDate);
@@ -132,7 +134,7 @@ export class GraphPage {
 
             for (let i = 0, len = rows.length; i < len; i++) {
                 let element = rows[i];
-                let curDate = element.DATE_YMD.substr(4,4);
+                let curDate = this.commonFunc.yyyymmddToMD(element.DATE_YMD);
                 if(tempWeight != element.WEIGHT || i == len-1 || i == 0){
                     if(weightDate != curDate){
                         labels2.push(curDate);

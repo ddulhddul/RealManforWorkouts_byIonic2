@@ -4,10 +4,30 @@ import { ToastController } from 'ionic-angular';
 @Injectable()
 export class Common{
     
+    month= [ "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December" ]
+    monthMin= [ "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
+    week= [
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"
+    ]
+
     constructor(
         public toast: ToastController
     ){}
     
+    yyyymmddToMD(yyyymmdd:string){
+        let mm = Number(yyyymmdd.substr(4,2))
+        let dd = Number(yyyymmdd.substr(6,4))
+        return this.monthMin[mm-1]+' '+dd
+    }
+
     yyyymmdd(dateNum){
         let date = new Date(dateNum);
         let yyyy = date.getFullYear();

@@ -77,13 +77,7 @@
             </ion-row>
             <table style='width:100%;margin-left:1%;'>
                 <tr class="tableHead">
-                    <th>Sun</th>
-                    <th>Mon</th>
-                    <th>Tue</th>
-                    <th>Wed</th>
-                    <th>Thu</th>
-                    <th>Fri</th>
-                    <th>Sat</th>
+                    <th *ngFor='let weekS of week'>{{weekS}}</th>
                 </tr>
                 <tr *ngFor='let week of cal.calendar' class='tableBody'>
                     <td *ngFor='let data of week'
