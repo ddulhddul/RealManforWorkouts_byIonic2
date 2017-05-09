@@ -2,8 +2,17 @@
     <div *ngFor='let workout of workouts; let i = index;'
           style='text-align:center;'
           [style.display]='editable?"":"inline-block"'>
-      <div  style='margin-bottom: 10px; max-width: 350px;display:inline-block;'
+      <div  style='margin-bottom: 10px; max-width: 350px;display:inline-block;position:relative;'
             padding>
+        <div style='position:absolute;
+                    font-weight:bold;
+                    font-size:60px;
+                    color: #12127b;
+                    z-index:1;
+                    margin-left:5px;
+                    margin-bottom:5px;'>
+          {{i+1}}
+        </div>
         <div *ngIf='isTemplate || editable' style='font-size:40px;' align='left'>
           <ion-icon name="arrow-dropup" (click)='itemUp(i)'></ion-icon> 
           <ion-icon name="arrow-dropdown" (click)='itemDown(i)'></ion-icon> 

@@ -11,7 +11,7 @@
     .tableHead th{
         width:14%;
         float:left;
-        border-top:solid 1px black;
+        border-top:solid 0.3vw black;
         background-color: darkgrey
     }
     .tableBody{
@@ -20,7 +20,7 @@
     .tableBody td{
         width:14%;
         float:left;
-        border-top:solid 1px black;
+        border-top:solid 0.3vw black;
         min-height: 60px;
         align-items: stretch;
     }
@@ -61,13 +61,16 @@
             </ion-row>
             <ion-row>
                 <ion-col col-12>
-                    <div align='center'>
-                        <ion-item style='max-width:230px;'>
-                            <ion-select (ionChange)='changeYYYY($event)' style='font-size:30px;min-width:150px;float:left;' interface="popover">
+                    <div style='display:inline-block;text-align:center;'>
+                        <ion-item style='width:80vw;
+                                        font-size:7vw;
+                                        display:table-cell;
+                                        text-align:center'>
+                            <ion-select (ionChange)='changeYYYY($event)' style='min-width:150px;float:left;' interface="popover">
                                 <ion-option *ngFor='let y of yyyy' 
                                 [value]="y" [selected]="y==cal.date.getFullYear()?true:false">{{y}}</ion-option>
                             </ion-select>
-                            <ion-select (ionChange)='changeMM($event)' style='font-size:30px;min-width:120px;float:right;' interface="popover">
+                            <ion-select (ionChange)='changeMM($event)' style='min-width:120px;float:right;' interface="popover">
                                 <ion-option *ngFor='let m of mm' 
                                 [value]="m" [selected]="m==cal.date.getMonth()+1?true:false">{{m}}</ion-option>
                             </ion-select>
@@ -75,7 +78,7 @@
                     </div>
                 </ion-col>
             </ion-row>
-            <table style='width:100%;margin-left:1%;'>
+            <table style='width:100%;margin-left:1%;font-size:1.8vw;'>
                 <tr class="tableHead">
                     <th *ngFor='let weekS of week'>{{weekS}}</th>
                 </tr>
@@ -84,12 +87,16 @@
                         (click)='goWorkoutPage(data.date)'
                         [style.color]='data.date.getMonth() != cal.date.getMonth() ? "grey": data.date.getDay()==0? "red" : "black"'
                         [style.backgroundColor]='data.date.getMonth() == cal.date.getMonth() ? "": "rgba(224, 224, 224, 0.72)"'
-                        [style.border]="data.date.getFullYear() == today.getFullYear() && data.date.getMonth() == today.getMonth() && data.date.getDate() == today.getDate() ? 'solid 4px blue':''">
+                        [style.border]="data.date.getFullYear() == today.getFullYear() && data.date.getMonth() == today.getMonth() && data.date.getDate() == today.getDate() ? 'solid 0.5vw #12127b':''">
                         <strong>{{data.date | date:'dd'}}</strong>
                         <div 
-                            style='overflow: hidden;white-space: nowrap;color:black !important; font-size:10px;'
+                            style='overflow: hidden;
+                                    white-space: nowrap;
+                                    color:black !important; 
+                                    margin:1px;
+                                    font-size:2vw;'
                             *ngFor='let workout of data.workouts'
-                            [style.border]='workout.done>=workout.goal?"solid 1px green":"solid 1px red"'
+                            [style.border]='workout.done>=workout.goal?"solid 0.2vw green":"solid 0.3vw red"'
                             >
                             <strong>{{workout.done}}</strong>/{{workout.goal}}
                             <br>
