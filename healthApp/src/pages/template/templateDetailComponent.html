@@ -4,6 +4,10 @@
           [style.display]='editable?"":"inline-block"'>
       <div  style='margin-bottom: 10px; max-width: 350px;display:inline-block;position:relative;'
             padding>
+        <div *ngIf='isTemplate || editable' style='text-align:left;font-size:50px;'>
+          <ion-icon name="arrow-dropup" (click)='itemUp(i)'></ion-icon> 
+          <ion-icon name="arrow-dropdown" (click)='itemDown(i)'></ion-icon> 
+        </div>
         <div style='position:absolute;
                     font-weight:bold;
                     font-size:60px;
@@ -14,8 +18,7 @@
           {{i+1}}
         </div>
         <div *ngIf='isTemplate || editable' style='font-size:40px;position:absolute;right:10px;'>
-          <ion-icon name="arrow-dropup" (click)='itemUp(i)' style='display:table-cell;z-index:1;'></ion-icon> 
-          <ion-icon name="arrow-dropdown" (click)='itemDown(i)' style='display:table-cell;z-index:1;'></ion-icon> 
+          <ion-icon name="close" (click)="deleteWorkout(i)" style='display:table-cell;z-index:1;'></ion-icon> 
         </div>
         <div *ngIf='!isTemplate'
           style='font-weight: bold;text-align:center; font-size:30px;'
@@ -29,27 +32,26 @@
             <div align='center' style='font-size:20px;'>{{workout.message}}</div>
           </ion-thumbnail>
           <div>
-            <strong style='font-size:22px;'>{{workout.name}}&nbsp;</strong>
-            <span *ngIf='!editable'>
+            <strong style='font-size:22px;display:table-cell;'>{{workout.name}}&nbsp;</strong>
+            <span *ngIf='!editable' style='display:table-cell;'>
               {{workout.weight}} {{workout.weightUnit}}
             </span>
-            <span *ngIf='editable && workout.weightUnit'>
-              <input type="number" [(ngModel)]='workout.weight' style='width:50px;' required #weight='ngModel'
-                [style.borderLeft]='!weight.valid? "solid 5px red": "solid 5px green"'/>{{workout.weightUnit}}
-            </span>
-            <ion-icon *ngIf='isTemplate || editable' name="close" (click)="deleteWorkout(i)" style='float:right;'></ion-icon> 
+            <ion-item *ngIf='editable && workout.weightUnit' style='width:50%;display:table-cell;'>
+              <ion-input type="number" [(ngModel)]='workout.weight' style='width:50px;' required #weight='ngModel'></ion-input>
+            </ion-item>
+            <span *ngIf='editable && workout.weightUnit' style='display:table-cell;'>{{workout.weightUnit}}</span>
           </div>
           <div style='margin-top:10px;'
               [align]='editable?"center":"right"'>
               <div *ngIf='!isTemplate'>
-                <ion-icon name="arrow-back" *ngIf='editable' (click)='workout.done=workout.done-5'></ion-icon>
-                Done <strong style='font-size:30px;color:green;'>{{workout.done}}</strong>
-                <ion-icon name="arrow-forward" *ngIf='editable' (click)='workout.done=workout.done+5'></ion-icon>
+                <ion-icon name="remove" *ngIf='editable' (click)='workout.done=workout.done-5'></ion-icon>
+                &nbsp;&nbsp;Done <strong style='font-size:30px;color:green;'>{{workout.done}}&nbsp;&nbsp;</strong>
+                <ion-icon name="add" *ngIf='editable' (click)='workout.done=workout.done+5'></ion-icon>
               </div>
               <div>
-                <ion-icon name="arrow-back" *ngIf='editable' (click)='workout.goal=workout.goal-5'></ion-icon>
-                Goal <strong style='font-size:30px;color:red;'>{{workout.goal}}</strong>
-                <ion-icon name="arrow-forward" *ngIf='editable' (click)='workout.goal=workout.goal+5'></ion-icon>
+                <ion-icon name="remove" *ngIf='editable' (click)='workout.goal=workout.goal-5'></ion-icon>
+                &nbsp;&nbsp;Goal <strong style='font-size:30px;color:red;'>{{workout.goal}}&nbsp;&nbsp;</strong>
+                <ion-icon name="add" *ngIf='editable' (click)='workout.goal=workout.goal+5'></ion-icon>
               </div>
           </div>
         </ion-item>
