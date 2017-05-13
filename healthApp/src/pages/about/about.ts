@@ -237,6 +237,7 @@ export class AboutPage {
                     0
                   ));
               }
+              this.editable = false;
           }
         }).catch((err)=>{
           console.log('Call Template Err...', err);
