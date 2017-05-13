@@ -22,7 +22,7 @@ import { Storage } from '@ionic/storage';
 })
 export class MyApp {
   @ViewChild('content') nav
-  rootPage:any = CalendarPage;
+  rootPage:any = ListPage;
   listPage:any = ListPage;
   homePage:any = HomePage;
   aboutPage:any = AboutPage;
