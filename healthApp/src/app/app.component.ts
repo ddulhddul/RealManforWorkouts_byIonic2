@@ -44,7 +44,7 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
-    this.platform.registerBackButtonAction(this.exit)
+    // this.platform.registerBackButtonAction(this.exit)
   }
 
   exit(){

@@ -179,8 +179,8 @@ export class AboutPage {
         `).catch((err)=>console.log('Done Err',err))
         .then((res)=>{
           if(i == workouts.length-1){
+            this.commonFunc.presentToast('Saved', 'top', 1000);
             if(!resolve){
-              this.commonFunc.presentToast('Saved', 'top', '');
               if(this.navCtrl.canGoBack()){
                 this.navCtrl.pop();
               }else{
