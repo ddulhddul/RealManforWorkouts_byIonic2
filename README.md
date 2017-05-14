@@ -9,6 +9,7 @@ ionic serve
 cordova platform add android
 ionic build android --prod
 ionic run android --device --prod
+ionic cordova build android --prod
 ```
 
 ## stopwatch

@@ -100,55 +100,12 @@ export class Common{
             WEIGHT_UNIT TEXT,
             PRIMARY KEY(DATE_YMD, WORKOUT_ORDER)
         )`,
-        `INSERT INTO WORKOUT
-            (
-                WORKOUT_ID,
-                WORKOUT_NAME,
-                UNITS,
-                GOAL,
-                WEIGHT,
-                WEIGHT_UNIT,
-                LAST_GOAL,
-                LAST_WEIGHT,
-                IMG
-            )
-            VALUES
-            (
-                'pushUp',
-                'Push Up',
-                '5,10,15',
-                100,
-                '',
-                '',
-                '',
-                '',
-                'pushUp'
-            );
-        `,
-            `INSERT INTO WORKOUT
-            (
-                WORKOUT_ID,
-                WORKOUT_NAME,
-                UNITS,
-                GOAL,
-                WEIGHT,
-                WEIGHT_UNIT,
-                LAST_GOAL,
-                LAST_WEIGHT,
-                IMG
-            )
-            VALUES
-            (
-                'dumbel',
-                'Dumbel',
-                '5,10,15',
-                100,
-                '7',
-                'kg',
-                '',
-                '',
-                'dumbel'
-            )`,
+        `INSERT INTO WORKOUT (WORKOUT_ID,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+            ('pushUp','Push Up','5,10,15',100,'','','','','pushUp');`,
+        `INSERT INTO WORKOUT (WORKOUT_ID,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+            ('dumbel','Dumbel','5,10,15',100,'7','kg','','','dumbel')`,
+        `INSERT INTO WORKOUT (WORKOUT_ID,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+            ('benchPress','Bench Press','5,10,15',100,'30','kg','','','benchPress')`,
         `CREATE INDEX DATE_WORKOUT_IDX ON WORKOUT_HIST(DATE_YMD, WORKOUT_ID)`,
         `CREATE INDEX WORKOUT_IDX ON WORKOUT_HIST(WORKOUT_ID)`,
         `CREATE INDEX DATE_IDX ON WORKOUT_HIST(DATE_YMD)`,

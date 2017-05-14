@@ -195,7 +195,8 @@ export class CalendarPage {
 
     slideChanged(str?){
         
-        let currentIndex = this.slides.getActiveIndex();
+        // let currentIndex = this.slides.getActiveIndex();
+        let currentIndex = 0;
         let toLoadDate = new Date(this.calendarArr[currentIndex].date.getTime());
         this.curYYYY = toLoadDate.getFullYear();
         this.curMM = toLoadDate.getMonth()+1;

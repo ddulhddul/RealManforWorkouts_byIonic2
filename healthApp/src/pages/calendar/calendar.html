@@ -6,7 +6,6 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-
 <style>
     .tableHead th{
         width:14%;
@@ -18,6 +17,7 @@
         display:flex;
     }
     .tableBody td{
+        text-align:center;
         width:14%;
         float:left;
         border-top:solid 0.3vw black;
@@ -25,11 +25,10 @@
         align-items: stretch;
     }
 </style>
-
 <ion-content>
     <ion-list>
-    <ion-slides ><!--(ionSlideDidChange)='slideChanged($event)' initialSlide=1-->
-        <ion-slide *ngFor='let cal of calendarArr' style='align-items:baseline;'>
+    <!--<ion-slides >(ionSlideDidChange)='slideChanged($event)' initialSlide=1-->
+        <div *ngFor='let cal of calendarArr' style='align-items:baseline;' >
             <ion-row align-items-start>
                 <ion-col>
                     <!--<div>
@@ -108,8 +107,8 @@
                     </td>
                 </tr>
             </table>
-        </ion-slide>
-    </ion-slides>
+        </div>
+    <!--</ion-slides>-->
     </ion-list>
 </ion-content>
 
