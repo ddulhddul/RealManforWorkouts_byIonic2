@@ -2,7 +2,7 @@
     <div *ngFor='let workout of workouts; let i = index;'
           style='text-align:center;'
           [style.display]='editable?"":"inline-block"'>
-      <div  style='margin-bottom: 10px; max-width: 350px;display:inline-block;position:relative;'
+      <div  style='margin-bottom: 10px; max-width: 400px;display:inline-block;position:relative;'
             padding>
         <div *ngIf='isTemplate || editable' style='text-align:left;font-size:50px;'>
           <ion-icon name="arrow-dropup" (click)='itemUp(i)'></ion-icon> 
