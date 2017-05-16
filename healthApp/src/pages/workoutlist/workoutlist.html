@@ -7,32 +7,30 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class='outer-content'>
-        <ion-item-group *ngFor="let data of workoutList; let i = index;">
-            <ion-item-divider>
-                <div style='float:left' (click)='goWorkoutPage(data.date)'>
-                    {{data.date | date:'EEE, MMM d, y'}}
-                    <i style='margin-left:10px;' *ngIf='data.dpTime'>({{data.dpTime}})</i>
-                </div>
-                <div style='float:right;margin-right:10px' *ngIf='data.dpTime' (click)='delWorkoutYmd(data.date, i)'>X</div>
-            </ion-item-divider>
-            <ion-item *ngIf='data.workouts' (click)='goWorkoutPage(data.date)'>
-                <div *ngFor='let workout of data.workouts'>
-                    <ion-item>
-                        <div style='float:left;margin-left:10px;'>
-                            <ion-icon name="play" [style.color]='workout.done>=workout.goal?"green":"red"'></ion-icon>
-                        </div>
-                        <div style='float:left;'>
-                            <strong>&nbsp;&nbsp; {{workout.name}}</strong>
-                            <small *ngIf='workout.weight'>{{workout.weight}}{{workout.weightUnit}}</small>
-                        </div>
-                        <div style='font-size:14px;float:left;margin-left:15px;'>
-                            Done {{workout.done}} / Goal {{workout.goal}}
-                        </div>
-                    </ion-item>
-                </div>
-            </ion-item>
-        </ion-item-group>
+<ion-content>
+    <ion-item-group *ngFor="let data of workoutList; let i = index;">
+        <ion-item-divider color='light'>
+            <div style='float:left' (click)='goWorkoutPage(data.date)'>
+                {{data.date | date:'EEE, MMM d, y'}}
+                <i style='margin-left:10px;' *ngIf='data.dpTime'>({{data.dpTime}})</i>
+            </div>
+            <div style='float:right;margin-right:10px' *ngIf='data.dpTime' (click)='delWorkoutYmd(data.date, i)'>
+                <ion-icon name="close-circle"></ion-icon>
+            </div>
+        </ion-item-divider>
+        <ion-item (click)='goWorkoutPage(data.date)' *ngFor='let workout of data.workouts'>
+            <div style='float:left;margin-left:10px;'>
+                <ion-icon name="play" [style.color]='workout.done>=workout.goal?"green":"red"'></ion-icon>
+            </div>
+            <div style='float:left;'>
+                <strong>&nbsp;&nbsp; {{workout.name}}</strong>
+                <small *ngIf='workout.weight'>{{workout.weight}}{{workout.weightUnit}}</small>
+            </div>
+            <div style='font-size:14px;float:left;margin-left:15px;'>
+                Done {{workout.done}} / Goal {{workout.goal}}
+            </div>
+        </ion-item>
+    </ion-item-group>
 
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
