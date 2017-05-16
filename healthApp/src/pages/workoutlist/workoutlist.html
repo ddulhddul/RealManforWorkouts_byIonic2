@@ -8,23 +8,15 @@
 </ion-header>
 
 <ion-content class='outer-content'>
-    <ion-list>
-        <div *ngFor="let data of workoutList; let i = index;">
-            <ion-item-sliding>
-                <ion-item style='color:grey; font-size: 14px;' (click)='goWorkoutPage(data.date)'>
-                    <div style='float:left;'>{{data.date | date:'EEE, MMM d, y'}}</div>
-                    <div style='margin-left:10px;float:left;' *ngIf='data.dpTime'>({{data.dpTime}})</div>
-                    <div style='float:right;' *ngIf='data.dpTime'><<</div>
-                </ion-item>
-                <ion-item-options>
-                    <button ion-button color="danger" icon-left (click)='delWorkoutYmd(data.date, i)'>
-                        <ion-icon name="delete"></ion-icon>
-                        Delete
-                    </button>
-                    <!--<ion-icon small name="close" item-right isActivate=false (click)='delWorkoutYmd(date, i)'></ion-icon>-->
-                </ion-item-options>
-            </ion-item-sliding>
-            <div *ngIf='data.workouts' (click)='goWorkoutPage(data.date)'>
+        <ion-item-group *ngFor="let data of workoutList; let i = index;">
+            <ion-item-divider>
+                <div style='float:left' (click)='goWorkoutPage(data.date)'>
+                    {{data.date | date:'EEE, MMM d, y'}}
+                    <i style='margin-left:10px;' *ngIf='data.dpTime'>({{data.dpTime}})</i>
+                </div>
+                <div style='float:right;margin-right:10px' *ngIf='data.dpTime' (click)='delWorkoutYmd(data.date, i)'>X</div>
+            </ion-item-divider>
+            <ion-item *ngIf='data.workouts' (click)='goWorkoutPage(data.date)'>
                 <div *ngFor='let workout of data.workouts'>
                     <ion-item>
                         <div style='float:left;margin-left:10px;'>
@@ -39,9 +31,8 @@
                         </div>
                     </ion-item>
                 </div>
-            </div>
-        </div>
-    </ion-list>
+            </ion-item>
+        </ion-item-group>
 
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
