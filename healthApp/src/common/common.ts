@@ -85,58 +85,89 @@ export class Common{
         ];
     }
 
-    sqlStorageInit(){
-        return [
-        `CREATE TABLE IF NOT EXISTS WORKOUT_HIST(
-            DATE_YMD TEXT NOT NULL,
-            WORKOUT_ORDER NUMBER,
-            WORKOUT_ID TEXT,
-            WORKOUT_NAME TEXT,
-            WORKOUT_TIME NUMBER,
-            UNITS TEXT,
-            GOAL NUMBER DEFAULT 0,
-            DONE NUMBER,
-            WEIGHT NUMBER,
-            WEIGHT_UNIT TEXT,
-            PRIMARY KEY(DATE_YMD, WORKOUT_ORDER)
-        )`,
-        `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
-            ('pushUp','Push Up','5,10,15',100,'','','','','pushUp');`,
-        `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
-            ('dumbel','Dumbbel','5,10,15',100,'7','kg','','','dumbbel')`,
-        `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
-            ('benchPress','Bench Press','5,10,15',100,'30','kg','','','benchPress')`,
-        `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
-            ('flyDumbbel','Fly Dumbbel','5,10,15',100,'30','kg','','','flyDumbbel')`,
-        `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
-            ('shoulderPressBarbell','Shoulder Press-Barbell','5,10,15',100,'30','kg','','','shoulderPressBarbell')`,
-        `CREATE INDEX DATE_WORKOUT_IDX ON WORKOUT_HIST(DATE_YMD, WORKOUT_ID)`,
-        `CREATE INDEX WORKOUT_IDX ON WORKOUT_HIST(WORKOUT_ID)`,
-        `CREATE INDEX DATE_IDX ON WORKOUT_HIST(DATE_YMD)`,
-        `CREATE TABLE WORKOUT(
-            WORKOUT_ID TEXT PRIMARY KEY NOT NULL,
-            WORKOUT_NAME TEXT,
-            UNITS TEXT,
-            GOAL NUMBER DEFAULT 0,
-            WEIGHT NUMBER,
-            WEIGHT_UNIT TEXT,
-            LAST_GOAL NUMBER,
-            LAST_WEIGHT NUMBER,
-            IMG TEXT
-        )`,
-        `CREATE TABLE WORKOUT_TEMPLATE(
-            TEMPLATE_NO NUMBER NOT NULL,
-            TEMPLATE_NAME TEXT NOT NULL,
-            WORKOUT_ID TEXT,
-            WORKOUT_NAME TEXT,
-            UNITS TEXT,
-            GOAL NUMBER DEFAULT 0,
-            WEIGHT NUMBER,
-            WEIGHT_UNIT TEXT,
-            SELECTED TEXT
-        )`,
-        `CREATE INDEX TEMPLATE_NO_IDX ON WORKOUT_TEMPLATE(TEMPLATE_NO)`
+    
+    dropSql = {
+        workoutHist : [
+            `DROP TABLE WORKOUT_HIST`
+        ],
+        workout : [
+            'DROP TABLE WORKOUT'
+        ],
+        workoutTemplate : [
+            'DROP TABLE WORKOUT_TEMPLATE'
+        ]
+    }
+    
+    createSql = {
+        workoutHist : [
+            `CREATE TABLE IF NOT EXISTS WORKOUT_HIST(
+                DATE_YMD TEXT NOT NULL,
+                WORKOUT_ORDER NUMBER,
+                WORKOUT_ID TEXT,
+                WORKOUT_NAME TEXT,
+                WORKOUT_TIME NUMBER,
+                UNITS TEXT,
+                GOAL NUMBER DEFAULT 0,
+                DONE NUMBER,
+                WEIGHT NUMBER,
+                WEIGHT_UNIT TEXT,
+                PRIMARY KEY(DATE_YMD, WORKOUT_ORDER)
+            )`,
+            `CREATE INDEX DATE_WORKOUT_IDX ON WORKOUT_HIST(DATE_YMD, WORKOUT_ID)`,
+            `CREATE INDEX WORKOUT_IDX ON WORKOUT_HIST(WORKOUT_ID)`,
+            `CREATE INDEX DATE_IDX ON WORKOUT_HIST(DATE_YMD)`
+        ],
+        workout : [
+            `CREATE TABLE WORKOUT(
+                WORKOUT_ID TEXT PRIMARY KEY NOT NULL,
+                GRP TEXT,
+                WORKOUT_NAME TEXT,
+                UNITS TEXT,
+                GOAL NUMBER DEFAULT 0,
+                WEIGHT NUMBER,
+                WEIGHT_UNIT TEXT,
+                LAST_GOAL NUMBER,
+                LAST_WEIGHT NUMBER,
+                IMG TEXT
+            )`
+        ],
+        workoutTemplate : [
+            `CREATE TABLE WORKOUT_TEMPLATE(
+                TEMPLATE_NO NUMBER NOT NULL,
+                TEMPLATE_NAME TEXT NOT NULL,
+                WORKOUT_ID TEXT,
+                WORKOUT_NAME TEXT,
+                UNITS TEXT,
+                GOAL NUMBER DEFAULT 0,
+                WEIGHT NUMBER,
+                WEIGHT_UNIT TEXT,
+                SELECTED TEXT
+            )`,
+            `CREATE INDEX TEMPLATE_NO_IDX ON WORKOUT_TEMPLATE(TEMPLATE_NO)`
+        ]
+    }
 
-        ];
+    insertSql = {
+        workout : [
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('pushUp','Body','Push Up','5,10,15',100,'','','','','pushUp');`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('dumbel','Arm','Dumbbel','5,10,15',100,'7','kg','','','dumbbel')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('benchPress','Shoulder','Bench Press','5,10,15',100,'30','kg','','','benchPress')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('flyDumbbel','Shoulder','Fly Dumbbel','5,10,15',100,'30','kg','','','flyDumbbel')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('shoulderPressBarbell','Shoulder','Shoulder Press-Barbell','5,10,15',100,'30','kg','','','shoulderPressBarbell')`,
+        ]
+    }
+    
+    sqlStorageInit(){
+        let sqlList = [];
+        sqlList = sqlList.concat(this.createSql['workoutHist'])
+                        .concat(this.createSql['workout'])
+                        .concat(this.createSql['workoutTemplate'])
+                        .concat(this.insertSql['workout'])
+        return sqlList
     }
 }

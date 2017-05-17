@@ -28,7 +28,8 @@ export class WorkoutPage {
     ionViewWillEnter(){
         this.workouts = [];
         this.sql.query(`
-            SELECT * FROM WORKOUT ORDER BY WORKOUT_NAME
+            SELECT * FROM WORKOUT 
+            ORDER BY GRP, WORKOUT_NAME
         `).then((res)=>{
             if(res.res){
                 let rows = res.res.rows;
