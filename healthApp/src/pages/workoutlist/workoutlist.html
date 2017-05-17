@@ -12,9 +12,9 @@
         <ion-item-divider color='light'>
             <div style='float:left' (click)='goWorkoutPage(data.date)'>
                 {{data.date | date:'EEE, MMM d, y'}}
-                <i style='margin-left:10px;' *ngIf='data.dpTime'>({{data.dpTime}})</i>
+                <font style='margin-left:10px;' *ngIf='data.dpTime'>({{data.dpTime}})</font>
             </div>
-            <div style='float:right;margin-right:10px' *ngIf='data.dpTime' (click)='delWorkoutYmd(data.date, i)'>
+            <div style='float:right;margin-right:10px' *ngIf='data.workouts && data.workouts.length >0' (click)='delWorkoutYmd(data.date, i)'>
                 <ion-icon name="close-circle"></ion-icon>
             </div>
         </ion-item-divider>

@@ -2,7 +2,7 @@
     <div *ngFor='let workout of workouts; let i = index;'
           style='text-align:center;'
           [style.display]='editable?"":"inline-block"'>
-      <div  style='margin-bottom: 10px; max-width: 400px;display:inline-block;position:relative;'
+      <div  style='margin-bottom: 10px; max-width: 400px; display:inline-block;position:relative;'
             padding>
         <div *ngIf='isTemplate || editable' style='text-align:left;font-size:50px;'>
           <ion-icon name="arrow-dropup" (click)='itemUp(i)'></ion-icon> 
@@ -33,13 +33,15 @@
           </ion-thumbnail>
           <div>
             <strong style='font-size:22px;display:table-cell;'>{{workout.name}}&nbsp;</strong>
-            <span *ngIf='!editable' style='display:table-cell;'>
-              {{workout.weight}} {{workout.weightUnit}}
-            </span>
-            <ion-item *ngIf='editable && workout.weightUnit' style='width:50%;display:table-cell;'>
-              <ion-input type="number" [(ngModel)]='workout.weight' style='width:50px;' required #weight='ngModel'></ion-input>
-            </ion-item>
-            <span *ngIf='editable && workout.weightUnit' style='display:table-cell;'>{{workout.weightUnit}}</span>
+            <div>
+              <span *ngIf='!editable' style='display:table-cell;'>
+                {{workout.weight}} {{workout.weightUnit}}&nbsp;
+              </span>
+              <ion-item *ngIf='editable && workout.weightUnit' style='width:50%;display:table-cell;'>
+                <ion-input type="number" [(ngModel)]='workout.weight' style='width:50px;' required #weight='ngModel'></ion-input>
+              </ion-item>
+              <span *ngIf='editable && workout.weightUnit' style='display:table-cell;'>{{workout.weightUnit}}</span>
+            </div>
           </div>
           <div style='margin-top:10px;'
               [align]='editable?"center":"right"'>
