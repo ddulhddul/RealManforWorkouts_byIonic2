@@ -22,6 +22,13 @@ export class Common{
         public toast: ToastController
     ){}
     
+    yyyymmddToDate(yyyymmdd:string){
+        let yyyy = Number(yyyymmdd.substr(0,4))
+        let mm = Number(yyyymmdd.substr(4,2))
+        let dd = Number(yyyymmdd.substr(6,4))
+        return new Date(yyyy, mm-1, dd)
+    }
+
     yyyymmddToMD(yyyymmdd:string){
         let mm = Number(yyyymmdd.substr(4,2))
         let dd = Number(yyyymmdd.substr(6,4))

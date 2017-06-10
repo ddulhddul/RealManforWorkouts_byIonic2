@@ -68,7 +68,7 @@ export class GraphPage {
             let rows = res.res.rows;
             this.isExistWeight = false;
 
-            let labels = [], done = [], goal=[];
+            let labels = [], done = [], goal=[], dateArr=[];
             let tempDone = 0, doneDate = '';
             
             for (let i = 0, len = rows.length; i < len; i++) {
@@ -77,6 +77,7 @@ export class GraphPage {
                 if(tempDone != element.DONE || i == len-1 || i == 0){
                     if(doneDate != curDate){
                         labels.push(curDate);
+                        dateArr.push(this.commonFunc.yyyymmddToDate(element.DATE_YMD))
                         done.push(element.DONE);
                         goal.push(element.GOAL);
                         tempDone = element.DONE;
@@ -88,7 +89,7 @@ export class GraphPage {
             console.log('push Graph load')
             this.graphArr.push({
                 type : 'line',
-                data : {labels: labels,
+                data : {labels: dateArr,
                     datasets: [{label: "Done",data: done,
                                 borderColor: 'rgb(75, 192, 192)',
                                 backgroundColor: 'rgba(75, 192, 192, 0.1)'},
@@ -101,6 +102,30 @@ export class GraphPage {
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
+                        xAxes: [{
+                            ticks: {
+                                callback: function(value) { 
+                                    if(value.indexOf('12AM') == -1) return ''
+                                    else return value.replace(', 12AM', '')
+                                },
+                            },
+                            type: 'time',
+                            unit: 'day',
+                            unitStepSize: 1,
+                            time: {
+                            displayFormats: {
+                                // 'millisecond': 'MMM DD',
+                                // 'second': 'MMM DD',
+                                // 'minute': 'MMM DD',
+                                // 'hour': 'MMM DD',
+                                'day': 'MMM DD',
+                                // 'week': 'MMM DD',
+                                // 'month': 'MMM DD',
+                                // 'quarter': 'MMM DD',
+                                // 'year': 'MMM DD',
+                            }
+                            }
+                        }],
                         yAxes: [{
                             display: true,
                             ticks: {
@@ -128,7 +153,7 @@ export class GraphPage {
             ORDER BY H.DATE_YMD, H.WEIGHT DESC
         `).then((res)=>{
 
-            let labels2 = [], weight = [];
+            let labels2 = [], weight = [], dateArr2 = [];
             let tempWeight = 0, weightDate = '';
             let rows = res.res.rows;
 
@@ -138,16 +163,16 @@ export class GraphPage {
                 if(tempWeight != element.WEIGHT || i == len-1 || i == 0){
                     if(weightDate != curDate){
                         labels2.push(curDate);
+                        dateArr2.push(this.commonFunc.yyyymmddToDate(element.DATE_YMD))
                         weight.push(element.WEIGHT);
                         tempWeight = element.WEIGHT;
                         weightDate = curDate;
                     }
                 }
             }
-
             this.graphArr.push({
                 type : 'line',
-                data : {labels: labels2,
+                data : {labels: dateArr2,
                 datasets: [{label: "Weight",data: weight,
                             borderColor: 'rgb(75, 192, 192)',
                             backgroundColor: 'rgba(75, 192, 192, 0.1)'
@@ -157,6 +182,30 @@ export class GraphPage {
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
+                        xAxes: [{
+                            ticks: {
+                                callback: function(value) { 
+                                    if(value.indexOf('12AM') == -1) return ''
+                                    else return value.replace(', 12AM', '')
+                                },
+                            },
+                            type: 'time',
+                            unit: 'day',
+                            unitStepSize: 1,
+                            time: {
+                            displayFormats: {
+                                // 'millisecond': 'MMM DD',
+                                // 'second': 'MMM DD',
+                                // 'minute': 'MMM DD',
+                                // 'hour': 'MMM DD',
+                                'day': 'MMM DD',
+                                // 'week': 'MMM DD',
+                                // 'month': 'MMM DD',
+                                // 'quarter': 'MMM DD',
+                                // 'year': 'MMM DD',
+                            }
+                            }
+                        }],
                         yAxes: [{
                             display: true,
                             ticks: {
