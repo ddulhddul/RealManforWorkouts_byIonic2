@@ -41,3 +41,8 @@ npm install angular2-chartjs
 ```
 
 ## ionic update(current 3.1.1)[https://github.com/driftyco/ionic/blob/master/CHANGELOG.md](https://github.com/driftyco/ionic/blob/master/CHANGELOG.md)
+
+## ionic splash image & app icon
+- resources\icon.png
+- resources\splash.png
+> ionic cordova resources
