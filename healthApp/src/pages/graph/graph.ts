@@ -99,31 +99,30 @@ export class GraphPage {
                             }]
                 },
                 options : {
+                    tooltips: {
+                        callbacks: {
+                            title: function(tooltipItem, data) {
+                                let date = tooltipItem[0].xLabel;
+                                let yyyy = date.getFullYear();
+                                let mm:any = date.getMonth()+1;
+                                let dd:any = date.getDate();
+                                let split = '/'
+                                return ''+yyyy+split+(mm<10?'0'+mm:mm)+split+(dd<10?'0'+dd:dd);
+                            }
+                        }
+                    },
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
                         xAxes: [{
-                            ticks: {
-                                callback: function(value) { 
-                                    if(value.indexOf('12AM') == -1) return ''
-                                    else return value.replace(', 12AM', '')
-                                },
-                            },
                             type: 'time',
-                            unit: 'day',
-                            unitStepSize: 1,
                             time: {
-                            displayFormats: {
-                                // 'millisecond': 'MMM DD',
-                                // 'second': 'MMM DD',
-                                // 'minute': 'MMM DD',
-                                // 'hour': 'MMM DD',
-                                'day': 'MMM DD',
-                                // 'week': 'MMM DD',
-                                // 'month': 'MMM DD',
-                                // 'quarter': 'MMM DD',
-                                // 'year': 'MMM DD',
-                            }
+                                unit: 'day',
+                                unitStepSize: 1,
+                                displayFormats: {
+                                    'day': 'MMM DD',
+                                }
+
                             }
                         }],
                         yAxes: [{
@@ -179,31 +178,33 @@ export class GraphPage {
                             }]
                 },
                 options : {
+                    tooltips: {
+                        callbacks: {
+                            title: function(tooltipItem, data) {
+                                let date = tooltipItem[0].xLabel;
+                                let yyyy = date.getFullYear();
+                                let mm:any = date.getMonth()+1;
+                                let dd:any = date.getDate();
+                                let split = '/'
+                                return ''+yyyy+split+(mm<10?'0'+mm:mm)+split+(dd<10?'0'+dd:dd);
+                            },
+                            // label: function(tooltipItem, data) {
+                            //     return data.datasets[0].label+':'+tooltipItem.yLabel;
+                            // }
+                        }
+                    },
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
                         xAxes: [{
-                            ticks: {
-                                callback: function(value) { 
-                                    if(value.indexOf('12AM') == -1) return ''
-                                    else return value.replace(', 12AM', '')
-                                },
-                            },
                             type: 'time',
-                            unit: 'day',
-                            unitStepSize: 1,
                             time: {
-                            displayFormats: {
-                                // 'millisecond': 'MMM DD',
-                                // 'second': 'MMM DD',
-                                // 'minute': 'MMM DD',
-                                // 'hour': 'MMM DD',
-                                'day': 'MMM DD',
-                                // 'week': 'MMM DD',
-                                // 'month': 'MMM DD',
-                                // 'quarter': 'MMM DD',
-                                // 'year': 'MMM DD',
-                            }
+                                unit: 'day',
+                                unitStepSize: 1,
+                                displayFormats: {
+                                    'day': 'MMM DD',
+                                }
+
                             }
                         }],
                         yAxes: [{
