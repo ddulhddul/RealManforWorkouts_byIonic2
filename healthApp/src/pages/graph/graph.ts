@@ -71,13 +71,18 @@ export class GraphPage {
             let labels = [], done = [], goal=[], dateArr=[];
             let tempDone = 0, doneDate = '';
             
+            let maxDateNum = 0;
+            let minDateNum = 9497439666007;
             for (let i = 0, len = rows.length; i < len; i++) {
                 let element = rows[i];
                 let curDate = this.commonFunc.yyyymmddToMD(element.DATE_YMD);
                 if(tempDone != element.DONE || i == len-1 || i == 0){
                     if(doneDate != curDate){
+                        let tempDate = this.commonFunc.yyyymmddToDate(element.DATE_YMD);
+                        maxDateNum = Math.max(maxDateNum, tempDate.getTime())
+                        minDateNum = Math.min(minDateNum, tempDate.getTime())
                         labels.push(curDate);
-                        dateArr.push(this.commonFunc.yyyymmddToDate(element.DATE_YMD))
+                        dateArr.push(tempDate)
                         done.push(element.DONE);
                         goal.push(element.GOAL);
                         tempDone = element.DONE;
@@ -88,6 +93,7 @@ export class GraphPage {
             }
             console.log('push Graph load')
             this.graphArr.push({
+                width : Math.max(Math.round((maxDateNum-minDateNum)/1000/60/60/24)*30, 320)+'px',
                 type : 'line',
                 data : {labels: dateArr,
                     datasets: [{label: "Done",data: done,
@@ -156,13 +162,18 @@ export class GraphPage {
             let tempWeight = 0, weightDate = '';
             let rows = res.res.rows;
 
+            let maxDateNum = 0;
+            let minDateNum = 9497439666007;
             for (let i = 0, len = rows.length; i < len; i++) {
                 let element = rows[i];
                 let curDate = this.commonFunc.yyyymmddToMD(element.DATE_YMD);
                 if(tempWeight != element.WEIGHT || i == len-1 || i == 0){
                     if(weightDate != curDate){
+                        let tempDate = this.commonFunc.yyyymmddToDate(element.DATE_YMD);
+                        maxDateNum = Math.max(maxDateNum, tempDate.getTime())
+                        minDateNum = Math.min(minDateNum, tempDate.getTime())
                         labels2.push(curDate);
-                        dateArr2.push(this.commonFunc.yyyymmddToDate(element.DATE_YMD))
+                        dateArr2.push(tempDate)
                         weight.push(element.WEIGHT);
                         tempWeight = element.WEIGHT;
                         weightDate = curDate;
@@ -170,6 +181,7 @@ export class GraphPage {
                 }
             }
             this.graphArr.push({
+                width : Math.max(Math.round((maxDateNum-minDateNum)/1000/60/60/24)*30, 320)+'px',
                 type : 'line',
                 data : {labels: dateArr2,
                 datasets: [{label: "Weight",data: weight,
