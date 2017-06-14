@@ -28,14 +28,13 @@
     </div>
     <ion-list>
         <ion-item *ngIf='workout' padding>
-            <div style='overflow-x:auto;'>
+            <div style='overflow-x:auto;margin-bottom:50px;' *ngFor='let obj of graphArr'>
                 <chart 
-                    *ngFor='let obj of graphArr' 
                     [type]="obj.type" 
                     [data]="obj.data" 
                     [options]="obj.options" 
                     [style.width]='obj.width'
-                    style='margin-bottom:50px;'></chart>
+                    style='margin-bottom:50px;min-width:90vw;'></chart>
             </div>
         </ion-item>
     </ion-list>

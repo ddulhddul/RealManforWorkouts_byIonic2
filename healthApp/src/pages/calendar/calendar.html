@@ -35,14 +35,14 @@
                         <ion-icon style='font-size:50px;float:left;margin-left:20%;' (click)='prev()' name="arrow-dropleft" item-center></ion-icon>
                     </div>-->
                     <div style='float:left'>
-                        <button ion-button outline item-left icon-left (click)='prev()'>
+                        <button ion-button outline item-left icon-left (click)='prev()' style='border:none;'>
                         < Prev
                         </button>
                     </div>
                 </ion-col>
                 <ion-col>
                     <div align='center'>
-                        <button ion-button outline (click)='defaultSet()'>
+                        <button ion-button outline (click)='defaultSet()' style='border:none;color:red;'>
                         Today
                         </button>
                     </div>
@@ -52,7 +52,7 @@
                         <ion-icon style='font-size:50px;float:right;margin-right:20%;' (click)='next()' name="arrow-dropright" item-center></ion-icon>
                     </div>-->
                     <div style='float:right'>
-                        <button ion-button outline item-right icon-right (click)='next()'>
+                        <button ion-button outline item-right icon-right (click)='next()' style='border:none;'>
                         Next >
                         </button>
                     </div>
@@ -63,7 +63,6 @@
                     <div style='display:inline-block;text-align:center;'>
                         <ion-item style='width:80vw;
                                         font-size:7vw;
-                                        display:table-cell;
                                         text-align:center'>
                             <ion-select (ionChange)='changeYYYY($event)' style='min-width:150px;float:left;' interface="popover">
                                 <ion-option *ngFor='let y of yyyy' 
