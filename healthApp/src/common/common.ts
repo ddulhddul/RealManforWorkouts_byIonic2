@@ -157,7 +157,7 @@ export class Common{
     insertSql = {
         workout : [
             `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
-                ('pushUp','Body','Push Up','5,10,15',100,'','','','','pushUp');`,
+                ('pushUp','Chest','Push Up','5,10,15',100,'','','','','pushUp');`,
             `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
                 ('dumbel','Arm','Dumbbel','5,10,15',100,'7','kg','','','dumbbel')`,
             `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES

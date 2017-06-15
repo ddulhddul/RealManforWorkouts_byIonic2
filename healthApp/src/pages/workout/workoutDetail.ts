@@ -65,6 +65,7 @@ export class WorkoutDetailPage {
             INSERT OR REPLACE INTO WORKOUT
             (
                 WORKOUT_ID,
+                GRP,
                 WORKOUT_NAME,
                 UNITS,
                 GOAL,
@@ -75,6 +76,7 @@ export class WorkoutDetailPage {
             VALUES
             (
                 '${obj.id}',
+                '',
                 '${obj.name}',
                 '${units}',
                 '${obj.goal}',

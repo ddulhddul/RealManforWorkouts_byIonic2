@@ -18,7 +18,7 @@
 <ion-list>
     <div *ngFor='let workout of workouts | searchPipe:searchVal ; let i = index'>
         <ion-list-header color='light' *ngIf='i==0 || workout.GRP != workouts[i-1].GRP'>
-            {{workout.GRP}}
+            {{workout.GRP || 'Custom'}}
         </ion-list-header>
         <ion-item-sliding>
             <ion-item (click)='presentModal(workout)'>
