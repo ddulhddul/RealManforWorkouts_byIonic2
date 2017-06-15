@@ -8,7 +8,6 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ListPage } from '../pages/workoutlist/workoutlist';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { OptionPage } from '../pages/option/option';
-import { TestPage } from '../pages/test/test';
 import { WorkoutPage } from '../pages/workout/workout';
 import { SearchPipe } from '../pages/workout/searchPipe';
 import { WorkoutDetailPage } from '../pages/workout/workoutDetail';
@@ -36,7 +35,6 @@ import { BrowserModule } from '@angular/platform-browser';
     ListPage,
     CalendarPage,
     OptionPage,
-    TestPage,
     WorkoutPage,
     SearchPipe,
     WorkoutDetailPage,
@@ -62,7 +60,6 @@ import { BrowserModule } from '@angular/platform-browser';
     ListPage,
     CalendarPage,
     OptionPage,
-    TestPage,
     WorkoutPage,
     WorkoutDetailPage,
     TemplateDetailPage,

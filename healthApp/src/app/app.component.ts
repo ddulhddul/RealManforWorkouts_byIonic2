@@ -9,7 +9,6 @@ import { ContactPage } from '../pages/contact/contact';
 import { ListPage } from '../pages/workoutlist/workoutlist';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { OptionPage } from '../pages/option/option';
-import { TestPage } from '../pages/test/test';
 import { WorkoutPage } from '../pages/workout/workout';
 import { TemplatePage } from '../pages/template/template';
 import { GraphPage } from '../pages/graph/graph';
@@ -29,7 +28,6 @@ export class MyApp {
   contactPage:any = ContactPage;
   calendarPage:any = CalendarPage;
   optionPage:any = OptionPage;
-  testPage:any = TestPage;
   workoutPage:any = WorkoutPage;
   templatePage:any = TemplatePage;
   graphPage:any = GraphPage;
