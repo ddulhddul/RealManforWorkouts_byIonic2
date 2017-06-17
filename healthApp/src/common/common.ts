@@ -166,6 +166,39 @@ export class Common{
                 ('flyDumbbel','Shoulder','Fly Dumbbel','5,10,15',100,'30','kg','','','flyDumbbel')`,
             `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
                 ('shoulderPressBarbell','Shoulder','Shoulder Press-Barbell','5,10,15',100,'30','kg','','','shoulderPressBarbell')`,
+            
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('benchPressMachine','Chest','Bench Press - Machine','5,10,15',100,'30','kg','','','benchPressMachine')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('dips','Chest','Dips','5,10,15',100,'30','kg','','','dips')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('kneePushUp','Chest','Knee Push-up','5,10,15',100,'30','kg','','','kneePushUp')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('crossOverCable','Chest','Cross Over - Cable','5,10,15',100,'30','kg','','','crossOverCable')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('lateralRaiseDumbbell','Shoulder','Lateral Raise - Dumbbell','5,10,15',100,'30','kg','','','lateralRaiseDumbbell')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('uprightRowBarbell','Shoulder','Upright Row - Barbell','5,10,15',100,'30','kg','','','uprightRowBarbell')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('rowBarbellBentOver','Back','Row - Barbell, Bent Over','5,10,15',100,'30','kg','','','rowBarbellBentOver')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('rowDumbbellOneArm','Back','Row - Dumbbell, One Arm','5,10,15',100,'30','kg','','','rowDumbbellOneArm')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('pullUpAssisted','Back','Pull-up - Assisted','5,10,15',100,'30','kg','','','pullUpAssisted')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('deadliftBarbell','Waist','Deadlift - Barbell','5,10,15',100,'30','kg','','','deadliftBarbell')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('backExtension','Waist','Back Extension','5,10,15',100,'30','kg','','','backExtension')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('sitUp','Stomach','Sit–up','5,10,15',100,'30','kg','','','sitUp')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('legRaise','Stomach','Leg Raise','5,10,15',100,'30','kg','','','legRaise')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('donkeyKick','Hip','Donkey kick','5,10,15',100,'30','kg','','','donkeyKick')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('squatDumbbell','Thigh','Squat - Dumbbell','5,10,15',100,'30','kg','','','squatDumbbell')`,
+            `INSERT OR REPLACE INTO WORKOUT (WORKOUT_ID,GRP,WORKOUT_NAME,UNITS,GOAL,WEIGHT,WEIGHT_UNIT,LAST_GOAL,LAST_WEIGHT,IMG) VALUES
+                ('lunge','Thigh','Lunge','5,10,15',100,'30','kg','','','lunge')`,
         ]
     }
     
