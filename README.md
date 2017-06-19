@@ -46,3 +46,16 @@ npm install angular2-chartjs
 - resources\icon.png
 - resources\splash.png
 > ionic cordova resources
+
+## addmob
+```linux
+ionic cordova plugin add cordova-plugin-admobpro
+npm install --save @ionic/app-scripts@^1.3.7
+npm install --save @ionic-native/core@^3.6.0
+
+npm install --save @ionic-native/admob
+npm install -g ionic@latest
+
+
+
+```

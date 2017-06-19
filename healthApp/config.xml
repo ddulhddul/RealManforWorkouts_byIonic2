@@ -1,11 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.ionicframework.healthapp253624" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>healthApp</name>
+    <name>Real Man</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.0.3:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
+    <allow-navigation href="http://192.168.0.3:8100" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -51,6 +52,7 @@
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
     <engine name="android" spec="^6.2.3" />
+    <plugin name="cordova-plugin-admobpro" spec="^2.29.0" />
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />

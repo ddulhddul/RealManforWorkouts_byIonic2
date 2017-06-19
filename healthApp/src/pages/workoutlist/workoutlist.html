@@ -10,11 +10,11 @@
 <ion-content>
     <ion-item-group *ngFor="let data of workoutList; let i = index;">
         <ion-item-divider color='light'>
-            <div style='float:left' (click)='goWorkoutPage(data.date)'>
+            <div style='float:left;width:80%;' (click)='goWorkoutPage(data.date)'>
                 {{data.date | date:'EEE, MMM d, y'}}
                 <font style='margin-left:10px;' *ngIf='data.dpTime'>({{data.dpTime}})</font>
             </div>
-            <div style='float:right;margin-right:10px' *ngIf='data.workouts && data.workouts.length >0' (click)='delWorkoutYmd(data.date, i)'>
+            <div style='float:right;margin-right:10px;right:10px;position:absolute;' *ngIf='data.workouts && data.workouts.length >0' (click)='delWorkoutYmd(data.date, i)'>
                 <ion-icon name="close-circle"></ion-icon>
             </div>
         </ion-item-divider>

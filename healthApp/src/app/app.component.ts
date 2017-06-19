@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, App, MenuController, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+// import { AdMob } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
 import { AboutPage } from '../pages/about/about';
@@ -21,7 +22,7 @@ import { Storage } from '@ionic/storage';
 })
 export class MyApp {
   @ViewChild('content') nav
-  rootPage:any = CalendarPage;
+  rootPage:any = ListPage;
   listPage:any = ListPage;
   homePage:any = HomePage;
   aboutPage:any = AboutPage;
@@ -35,12 +36,21 @@ export class MyApp {
   constructor(public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               public alert: AlertController, public commonFunc: Common,
               app: App, public menu: MenuController, storage: Storage) {
+    
+    
     menu.enable(true);
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      // if(AdMob) AdMob.createBanner({
+      //           adId: 'ca-app-pub-6335521540809347/4656000517',
+      //           position: AdMob.AD_POSITION.TOP_CENTER,
+      //           isTesting: true,
+      //           autoShow: true });
+      
     });
     // this.platform.registerBackButtonAction(this.exit)
   }
