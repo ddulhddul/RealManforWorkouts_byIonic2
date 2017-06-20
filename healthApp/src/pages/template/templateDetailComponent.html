@@ -2,7 +2,8 @@
     <div *ngFor='let workout of workouts; let i = index;'
           style='text-align:center;'
           [style.display]='editable?"":"inline-block"'>
-      <div  style='margin-bottom: 10px; max-width: 400px; display:inline-block;position:relative;'
+      <div  style='margin-bottom: 10px; display:inline-block;position:relative;'
+            [style.maxWidth]='pageWidth+"px"'
             padding>
         <div *ngIf='isTemplate || editable' style='text-align:left;font-size:50px;'>
           <ion-icon name="arrow-dropup" (click)='itemUp(i)'></ion-icon> 
@@ -31,10 +32,10 @@
             <img src="assets/icon/{{workout.img}}.png" (error)='workout.img = "icon"'/>
             <div align='center' style='font-size:20px;'>{{workout.message}}</div>
           </ion-thumbnail>
-          <div>
-            <strong style='font-size:22px;display:table-cell;'>{{workout.name}}&nbsp;</strong>
+          <div style='font-size:22px;white-space:normal;word-break:normal;font-weight:bold;'>
+            {{workout.name}}&nbsp;
             <div>
-              <span *ngIf='!editable' style='display:table-cell;'>
+              <span *ngIf='!editable' style='font-size:17px;display:table-cell;font-weight:normal;'>
                 {{workout.weight}} {{workout.weightUnit}}&nbsp;
               </span>
               <ion-item *ngIf='editable && workout.weightUnit' style='width:50%;display:table-cell;'>

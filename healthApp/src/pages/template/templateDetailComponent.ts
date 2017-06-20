@@ -12,10 +12,13 @@ export class TemplateDetailComponent {
   @Input() isTemplate: boolean;
   @Input() editable: boolean;
   @Input() dpTime: string;
+  pageWidth: number = 360;
 
   constructor(
     public navCtrl: NavController,
     public commonFunc: Common) {
+      this.pageWidth = Math.min(document.body.offsetWidth, 400)-40
+      console.log(this.pageWidth)
   }
   
   workoutClick(workout, unit){
