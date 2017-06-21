@@ -59,3 +59,8 @@ npm install -g ionic@latest
 
 
 ```
+
+
+## publishing android app
+[http://ionicframework.com/docs/v1/guide/publishing.html](http://ionicframework.com/docs/v1/guide/publishing.html)
+
