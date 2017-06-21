@@ -18,7 +18,7 @@ import { TemplateDetailComponent } from '../pages/template/templateDetailCompone
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-// import { AdMob } from 'ionic-native';
+import { AdMob } from '@ionic-native/admob';
 import { IonicStorageModule } from '@ionic/storage';
 import { SqlStorage } from '../common/sql';
 import { FormsModule }   from '@angular/forms';
@@ -71,7 +71,7 @@ import { BrowserModule } from '@angular/platform-browser';
   providers: [
     StatusBar,
     SplashScreen,
-    // AdMob,
+    AdMob,
     SqlStorage,
     Common,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

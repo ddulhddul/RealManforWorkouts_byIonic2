@@ -13,9 +13,10 @@ import { WorkoutPage } from '../pages/workout/workout';
 import { TemplatePage } from '../pages/template/template';
 import { GraphPage } from '../pages/graph/graph';
 import { Common } from '../common/common';
-// import { AdMob } from 'ionic-native';
+import { AdMob } from '@ionic-native/admob';
 
 import { Storage } from '@ionic/storage';
+// declare var AdMob: any;
 
 @Component({
   templateUrl: 'app.html'
@@ -35,7 +36,7 @@ export class MyApp {
 
   constructor(public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               public alert: AlertController, public commonFunc: Common,
-              app: App, public menu: MenuController, storage: Storage) {
+              admob: AdMob, app: App, public menu: MenuController, storage: Storage) {
     
     menu.enable(true);
     this.platform.ready().then(() => {
@@ -53,14 +54,27 @@ export class MyApp {
       //     this.admob.showBanner(8)
       // })
 
-      // if(AdMob) AdMob.createBanner({
-      //           adId: 'ca-app-pub-6335521540809347/4656000517',
-      //           position: AdMob.AD_POSITION.TOP_CENTER,
-      //           isTesting: true,
-      //           autoShow: true })
-      //           .then(()=>{
-      //             AdMob.showBanner(8)
-      //           });
+      if(admob) admob.createBanner({
+                adId: 'ca-app-pub-6335521540809347/4656000517',
+                adSize: 'SMART_BANNER',
+                // position: AdMob.AD_POSITION.TOP_CENTER,
+                isTesting: false,
+                autoShow: true })
+                .then(()=>{
+                  // admob.showBanner(2)
+                  admob.showBanner(8)
+                  /*0 – NO_CHANGE;
+                  1 – TOP_LEFT;
+                  2 – TOP_CENTER;
+                  3 – TOP_RIGHT;
+                  4 – LEFT;
+                  5 – CENTER;
+                  6 – RIGHT;
+                  7 – BOTTOM_LEFT;
+                  8 – BOTTOM_CENTER;
+                  9 – BOTTOM_RIGHT;
+                  10 – POS_XY;*/
+                });
       
     });
     // this.platform.registerBackButtonAction(this.exit)

@@ -64,3 +64,12 @@ npm install -g ionic@latest
 ## publishing android app
 [http://ionicframework.com/docs/v1/guide/publishing.html](http://ionicframework.com/docs/v1/guide/publishing.html)
 
+```linux
+<!--gen Key-->
+keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore android-release-unsigned.apk alias_name
+
+zipalign -v 4 android-release-unsigned.apk Release.apk
+
+```
