@@ -54,27 +54,29 @@ export class MyApp {
       //     this.admob.showBanner(8)
       // })
 
-      if(admob) admob.createBanner({
-                adId: 'ca-app-pub-6335521540809347/4656000517',
-                adSize: 'SMART_BANNER',
-                // position: AdMob.AD_POSITION.TOP_CENTER,
-                isTesting: false,
-                autoShow: true })
-                .then(()=>{
-                  // admob.showBanner(2)
-                  admob.showBanner(8)
-                  /*0 – NO_CHANGE;
-                  1 – TOP_LEFT;
-                  2 – TOP_CENTER;
-                  3 – TOP_RIGHT;
-                  4 – LEFT;
-                  5 – CENTER;
-                  6 – RIGHT;
-                  7 – BOTTOM_LEFT;
-                  8 – BOTTOM_CENTER;
-                  9 – BOTTOM_RIGHT;
-                  10 – POS_XY;*/
-                });
+      if(this.platform.is('android')){
+        if(admob) admob.createBanner({
+                  adId: 'ca-app-pub-6335521540809347/4656000517',
+                  adSize: 'SMART_BANNER',
+                  // position: AdMob.AD_POSITION.TOP_CENTER,
+                  isTesting: false,
+                  autoShow: true })
+                  .then(()=>{
+                    // admob.showBanner(2)
+                    admob.showBanner(8)
+                    /*0 – NO_CHANGE;
+                    1 – TOP_LEFT;
+                    2 – TOP_CENTER;
+                    3 – TOP_RIGHT;
+                    4 – LEFT;
+                    5 – CENTER;
+                    6 – RIGHT;
+                    7 – BOTTOM_LEFT;
+                    8 – BOTTOM_CENTER;
+                    9 – BOTTOM_RIGHT;
+                    10 – POS_XY;*/
+                  });
+      }
       
     });
     // this.platform.registerBackButtonAction(this.exit)

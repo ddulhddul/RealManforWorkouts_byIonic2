@@ -73,3 +73,8 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.
 zipalign -v 4 android-release-unsigned.apk Release.apk
 
 ```
+
+## build ionic app options
+[https://ionicframework.com/docs/cli/cordova/build/](https://ionicframework.com/docs/cli/cordova/build/)
+
+ionic cordova build android --aot --minifyjs --minifycss --optimizejs --prod --release
