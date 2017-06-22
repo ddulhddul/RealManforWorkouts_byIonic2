@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Common } from './common';
+import { Storage } from '@ionic/storage';
 const DB_NAME: string = '__ionicstorage';
 const win: any = window;
 
@@ -50,7 +51,8 @@ export class SqlStorage {
   private _db: any;
 
   constructor(
-    public commonFunc: Common
+    public commonFunc: Common,
+    private storage: Storage
   ) {
     let options = {};
     let dbOptions = this.defaults(options, {
@@ -73,7 +75,16 @@ export class SqlStorage {
 
       this._db = win.openDatabase(dbOptions.name, '1.0', 'database', 5 * 1024 * 1024);
     }
-    this._tryInit();
+
+    storage.get('isDBCreated').then((val) => {
+      if(!val){
+        storage.set('isDBCreated', 1);
+        this._tryInit();
+      }else{
+        console.log('already created...')
+      }
+    });
+
   }
 
   _getBackupLocation(dbFlag: number): number {
