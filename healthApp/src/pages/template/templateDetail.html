@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title style='float:left;' padding>
+    <ion-title style='float:left;padding:10px 0px 10px 5px;' >
       Template Detail
     </ion-title>
     <ion-icon name="close" (click)="dismiss()" style='float:right;' padding></ion-icon> 
@@ -25,9 +25,8 @@
         <ion-card><ion-item (click)='presentModal("add")' style='text-align:center;'>
           Add
         </ion-item></ion-card>
-        <ion-item>
-          <button ion-button type="submit" block>Submit</button>
-        </ion-item>
+        <br>
+        <button ion-button type="submit" block>Submit</button>
       </ion-list>
     </form>
 </ion-content>

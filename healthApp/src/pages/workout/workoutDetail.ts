@@ -12,6 +12,7 @@ import { Common } from '../../common/common';
 export class WorkoutDetailPage {
     model:workoutForm = new workoutForm();
     curNum:number;
+    grp:string;
 
     constructor(
         public navCtrl: NavController,
@@ -48,6 +49,7 @@ export class WorkoutDetailPage {
                 obj.LAST_GOAL,
                 obj.LAST_WEIGHT
             );
+            this.grp = obj.GRP;
 
         }
     }
@@ -76,7 +78,7 @@ export class WorkoutDetailPage {
             VALUES
             (
                 '${obj.id}',
-                '',
+                '${this.grp || ''}',
                 '${obj.name}',
                 '${units}',
                 '${obj.goal}',
