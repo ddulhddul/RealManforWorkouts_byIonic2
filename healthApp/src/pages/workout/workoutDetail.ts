@@ -4,6 +4,8 @@ import { NavController, NavParams, ViewController, ActionSheetController } from 
 import { SqlStorage } from '../../common/sql';
 import { Storage } from '@ionic/storage';
 import { Common } from '../../common/common';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+
 
 @Component({
   selector: 'page-workoutDetail',
@@ -21,7 +23,8 @@ export class WorkoutDetailPage {
         public params: NavParams,
         public commonFunc: Common,
         public viewCtrl: ViewController,
-        public actionSheetCtrl: ActionSheetController
+        public actionSheetCtrl: ActionSheetController,
+        private camera: Camera
         ) {
 
         let param = this.params.get('param');
@@ -85,7 +88,7 @@ export class WorkoutDetailPage {
                 '${obj.goal}',
                 '${obj.weight || ''}',
                 '${obj.weightUnit || ''}',
-                '${obj.id}'
+                '${obj.img}'
             )`;
         
         this.sql.query(sql).then((res)=>{
@@ -114,12 +117,32 @@ export class WorkoutDetailPage {
                 {
                 text: 'Take a Picture',
                 handler: () => {
+                    const options: CameraOptions = {
+                        quality: 100,
+                        // destinationType: this.camera.DestinationType.DATA_URL,
+                        destinationType: this.camera.DestinationType.FILE_URI,
+                        encodingType: this.camera.EncodingType.JPEG,
+                        mediaType: this.camera.MediaType.PICTURE,
+                        saveToPhotoAlbum: true
+                    }
+                    this.camera.getPicture(options).then((imageData) => {
+                        // imageData is either a base64 encoded string or a file URI
+                        // If it's base64:
+                        // let base64Image = 'data:image/jpeg;base64,' + imageData;
+                        this.model.img = imageData;
+                        // this.model.name = imageData;
+                        // console.log('imageData : ',imageData)
+                        // console.log('base64Image : ',base64Image)
+                        }, (err) => {
+                        // Handle error
+                        console.log('Camera Err...')
+                    });
 
                 }
                 },{
                 text: 'Load from Gallery',
                 handler: () => {
-                    
+
                 }
                 },{
                 text: 'Cancel',
