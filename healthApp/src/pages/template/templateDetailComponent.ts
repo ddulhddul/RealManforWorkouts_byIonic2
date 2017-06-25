@@ -18,7 +18,6 @@ export class TemplateDetailComponent {
     public navCtrl: NavController,
     public commonFunc: Common) {
       this.pageWidth = Math.min(document.body.offsetWidth, 400)-40
-      console.log(this.pageWidth)
   }
   
   workoutClick(workout, unit){
