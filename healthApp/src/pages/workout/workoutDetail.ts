@@ -6,7 +6,6 @@ import { Storage } from '@ionic/storage';
 import { Common } from '../../common/common';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
-
 @Component({
   selector: 'page-workoutDetail',
   templateUrl: 'workoutDetail.html'
@@ -118,11 +117,13 @@ export class WorkoutDetailPage {
                 text: 'Take a Picture',
                 handler: () => {
                     const options: CameraOptions = {
-                        quality: 100,
+                        quality: 50,
                         // destinationType: this.camera.DestinationType.DATA_URL,
                         destinationType: this.camera.DestinationType.FILE_URI,
                         encodingType: this.camera.EncodingType.JPEG,
                         mediaType: this.camera.MediaType.PICTURE,
+                        targetWidth: 1000,
+                        targetHeight: 1000,
                         saveToPhotoAlbum: true
                     }
                     this.camera.getPicture(options).then((imageData) => {
@@ -142,7 +143,21 @@ export class WorkoutDetailPage {
                 },{
                 text: 'Load from Gallery',
                 handler: () => {
-
+                    const options: CameraOptions = {
+                        quality: 50,
+                        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+                        destinationType: this.camera.DestinationType.FILE_URI,
+                        encodingType: this.camera.EncodingType.JPEG,
+                        mediaType: this.camera.MediaType.PICTURE,
+                        targetWidth: 1000,
+                        targetHeight: 1000
+                    }
+                    this.camera.getPicture(options).then((imageData) => {
+                        this.model.img = imageData;
+                        }, (err) => {
+                        // Handle error
+                        console.log('Camera Load Err...')
+                    });
                 }
                 },{
                 text: 'Cancel',
