@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { workoutForm } from './workoutForm'
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ActionSheetController } from 'ionic-angular';
 import { SqlStorage } from '../../common/sql';
 import { Storage } from '@ionic/storage';
 import { Common } from '../../common/common';
@@ -20,7 +20,8 @@ export class WorkoutDetailPage {
         public storage: Storage,
         public params: NavParams,
         public commonFunc: Common,
-        public viewCtrl: ViewController
+        public viewCtrl: ViewController,
+        public actionSheetCtrl: ActionSheetController
         ) {
 
         let param = this.params.get('param');
@@ -102,6 +103,34 @@ export class WorkoutDetailPage {
             console.log('err : ',err);
             return;
         })
+    }
+
+    clickPhotoChange(){
+        console.log('photo change.... ', this.model);
+
+        let actionSheet = this.actionSheetCtrl.create({
+            title: 'Change Photo',
+            buttons: [
+                {
+                text: 'Take a Picture',
+                handler: () => {
+
+                }
+                },{
+                text: 'Load from Gallery',
+                handler: () => {
+                    
+                }
+                },{
+                text: 'Cancel',
+                role: 'cancel',
+                handler: () => {}
+                }
+            ]
+        });
+        actionSheet.present();
+
+
     }
 
 }

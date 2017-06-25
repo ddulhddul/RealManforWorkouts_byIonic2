@@ -25,6 +25,8 @@ import { FormsModule }   from '@angular/forms';
 import { ChartModule } from 'angular2-chartjs';
 import { Common } from '../common/common';
 import { BrowserModule } from '@angular/platform-browser';
+import { Camera } from '@ionic-native/camera';
+
 
 @NgModule({
   declarations: [
@@ -74,6 +76,7 @@ import { BrowserModule } from '@angular/platform-browser';
     AdMob,
     SqlStorage,
     Common,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

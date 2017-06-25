@@ -78,3 +78,11 @@ zipalign -v 4 android-release-unsigned.apk Release.apk
 [https://ionicframework.com/docs/cli/cordova/build/](https://ionicframework.com/docs/cli/cordova/build/)
 
 ionic cordova build android --aot --minifyjs --minifycss --optimizejs --prod --release
+
+## Camera plugin
+```linux
+ionic cordova plugin add cordova-plugin-camera
+npm install --save @ionic-native/camera
+```
+
+
