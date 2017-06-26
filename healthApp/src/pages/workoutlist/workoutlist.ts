@@ -111,10 +111,9 @@ export class ListPage {
     }
 
     delWorkoutYmd(date, index){
-        let yyyymmdd = this.commonFunc.yyyymmdd(date);
         let confirm = this.alertCtrl.create({
             title: 'Delete',
-            message: 'Would you like to delete '+yyyymmdd+'\'s history?',
+            message: 'Would you like to delete<br>'+date.toDateString()+'\'s history?',
             buttons: [
                 {
                     text: 'Disagree',

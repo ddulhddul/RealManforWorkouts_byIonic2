@@ -98,7 +98,7 @@ export class WorkoutDetailPage {
             }
             //toast
             //return to main
-            this.commonFunc.presentToast('Successfully Saved.');
+            this.commonFunc.presentToast('Saved.');
             this.dismiss('submit');
             return;
         }, (err)=>{
