@@ -16,6 +16,7 @@
           <div align='center' (click)="clickPhotoChange()">
             <!--<img src="assets/icon/{{model.img || model.id}}.png" (error)='model.img = "icon"'>-->
             <img [src]="model.img" (error)='model.img = "assets/icon/icon.png"'>
+            <ion-icon name="camera"></ion-icon>
           </div>
         </ion-item>
         <ion-card><ion-item>
