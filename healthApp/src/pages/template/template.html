@@ -9,6 +9,9 @@
 </ion-header>
 
 <ion-content>
+  <div *ngIf='!templates || templates.length == 0' style='text-align:center;'>
+      <br><br>Plase Add Workout Template
+  </div>
   <ion-list>
     <ion-item-sliding *ngFor='let template of templates'>
       <ion-item>
