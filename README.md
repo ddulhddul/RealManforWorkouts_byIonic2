@@ -85,4 +85,8 @@ ionic cordova plugin add cordova-plugin-camera
 npm install --save @ionic-native/camera
 ```
 
-
+## get app version
+```linux
+ionic cordova plugin add cordova-plugin-app-version
+npm install --save @ionic-native/app-version
+```

@@ -26,6 +26,7 @@ import { ChartModule } from 'angular2-chartjs';
 import { Common } from '../common/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Camera } from '@ionic-native/camera';
+import { AppVersion } from '@ionic-native/app-version';
 
 
 @NgModule({
@@ -77,7 +78,8 @@ import { Camera } from '@ionic-native/camera';
     SqlStorage,
     Common,
     Camera,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AppVersion
   ]
 })
 export class AppModule {}
