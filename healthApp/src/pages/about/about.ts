@@ -35,12 +35,12 @@ export class AboutPage {
     this.getParamWorkout();
   }
 
-  ionViewCanLeave(){
-    return new Promise((resolve: Function, reject: Function) => {
-      if(this.workouts && this.workouts.length > 0) this.done(resolve);
-      else resolve();
-    })
-  }
+  // ionViewCanLeave(){
+  //   return new Promise((resolve: Function, reject: Function) => {
+  //     if(this.workouts && this.workouts.length > 0) this.done(resolve);
+  //     else resolve();
+  //   })
+  // }
   
   getParamWorkout(){
     
