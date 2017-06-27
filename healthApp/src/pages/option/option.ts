@@ -8,6 +8,9 @@ import { SqlStorage } from '../../common/sql';
   templateUrl: 'option.html'
 })
 export class OptionPage {
+    initWorkouts: any;
+    deleteHistories: any;
+    deleteTemplates: any;
 
     constructor(
             public navCtrl: NavController,
@@ -15,35 +18,52 @@ export class OptionPage {
             public sql: SqlStorage,
             public commonFunc: Common,
             public alertCtrl: AlertController){
-
-    }
-
-    createInit(){
-        let initQueuries = this.commonFunc.sqlStorageInit();
-        for (let i = 0; i < initQueuries.length; i++) {
-            this.sql.query(
-                initQueuries[i]
-                ).catch(err => {
-                console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
-            });
+        
+        this.initWorkouts = ()=>{
+            let initQueuries = this.commonFunc.dropSql['workout']
+                                .concat(this.commonFunc.createSql['workout'])
+                                .concat(this.commonFunc.insertSql['workout'])
+            for (let i = 0; i < initQueuries.length; i++) {
+                this.sql.query(
+                    initQueuries[i]
+                    ).catch(err => {
+                    console.error('Storage: Unable to create initial storage tables', err);
+                });
+            }
+            this.commonFunc.presentToast('Workouts Initted.', 'top');
         }
-        this.commonFunc.presentToast('Workout Created', 'top');
-
-    }
-
-    initWorkouts(){
-        let initQueuries = this.commonFunc.dropSql['workout']
-                            .concat(this.commonFunc.createSql['workout'])
-                            .concat(this.commonFunc.insertSql['workout'])
-        for (let i = 0; i < initQueuries.length; i++) {
+        this.deleteHistories = ()=>{
             this.sql.query(
-                initQueuries[i]
-                ).catch(err => {
-                console.error('Storage: Unable to create initial storage tables', err);
-            });
+                `DELETE FROM WORKOUT_HIST`
+            ).catch(err => {
+                console.error('Storage: Unable to delete history table', err);
+            }).then((res)=>{
+                this.commonFunc.presentToast('History Datas Deleted.', 'top');
+            })
         }
-        this.commonFunc.presentToast('Workout Init', 'top');
-
+        this.deleteTemplates = ()=>{
+            this.sql.query(
+                `DELETE FROM WORKOUT_TEMPLATE`
+            ).catch(err => {
+                console.error('Storage: Unable to delete template table', err);
+            }).then((res)=>{
+                this.commonFunc.presentToast('Template Datas Deleted.', 'top');
+            })
+        }
     }
+
+    confirmMsg(msg:string, callbackFunc){
+        let confirm = this.alertCtrl.create({
+            title: 'Warning',
+            message: msg,
+            buttons: [
+                {text: 'Disagree',handler: () => {}},
+                {text: 'Agree',handler: () => {callbackFunc()}}
+            ]
+        });
+        confirm.present();
+    }
+
+    
 
 }

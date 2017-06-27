@@ -10,17 +10,24 @@
 <ion-content>
   <ion-list>
     <ion-item>
-        Create init SqlStorage Data
-        <button ion-button outline item-right icon-left (click)='createInit()'>
-        <!--<ion-icon name="star"></ion-icon>-->
-        Create
+        Init Workouts
+        <button ion-button outline item-right icon-left 
+          (click)="confirmMsg('Would you like to reset workout datas?', initWorkouts)">
+        Init
         </button>
     </ion-item>
     <ion-item>
-        Init Workouts
-        <button ion-button outline item-right icon-left (click)='initWorkouts()'>
-        <!--<ion-icon name="star"></ion-icon>-->
-        Init
+        Delete All workout Histories
+        <button ion-button outline item-right icon-left 
+          (click)="confirmMsg('Would you like to delete all workout history datas?', deleteHistories)">
+        Delete
+        </button>
+    </ion-item>
+    <ion-item>
+        Delete All Templates
+        <button ion-button outline item-right icon-left 
+          (click)="confirmMsg('Would you like to delete all workout templates?', deleteTemplates)">
+        Delete
         </button>
     </ion-item>
   </ion-list>
