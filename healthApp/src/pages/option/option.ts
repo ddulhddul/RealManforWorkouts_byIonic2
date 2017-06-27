@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController, AlertController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
 import { Common } from '../../common/common';
 import { SqlStorage } from '../../common/sql';
 
@@ -11,7 +10,6 @@ import { SqlStorage } from '../../common/sql';
 export class OptionPage {
 
     constructor(
-            public storage: Storage,
             public navCtrl: NavController,
             public toastCtrl: ToastController,
             public sql: SqlStorage,

@@ -15,7 +15,6 @@ import { GraphPage } from '../pages/graph/graph';
 import { Common } from '../common/common';
 import { AdMob } from '@ionic-native/admob';
 
-import { Storage } from '@ionic/storage';
 // declare var AdMob: any;
 
 @Component({
@@ -36,7 +35,7 @@ export class MyApp {
 
   constructor(public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               public alert: AlertController, public commonFunc: Common,
-              admob: AdMob, app: App, public menu: MenuController, storage: Storage) {
+              admob: AdMob, app: App, public menu: MenuController) {
     
     menu.enable(true);
     this.platform.ready().then(() => {
