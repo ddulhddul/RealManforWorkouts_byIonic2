@@ -1,5 +1,5 @@
 ![icon](https://github.com/ddulhddul/HealthApp-byIonic2/blob/master/icon.png?raw=true)
-# Android App Store URL : [Click](https://play.google.com/store/apps/details?id=com.ionicframework.healthapp253624)
+# Android App Store Release URL : [Click](https://play.google.com/store/apps/details?id=com.ionicframework.healthapp253624)
 
 
 # Health App
