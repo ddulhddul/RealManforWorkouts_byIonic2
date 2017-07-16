@@ -38,8 +38,8 @@
 
 
 ## 3. Tech
-    - Ionic2
-    - SQLite
+- [Ionic2](http://ionicframework.com/)
+- [SQLite](https://www.sqlite.org/)
 
 ## 4. Developer
 뚫뚤 (ddulhddul@gmail.com)
