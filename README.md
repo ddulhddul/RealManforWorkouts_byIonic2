@@ -24,12 +24,11 @@
     확인할수 있습니다.
 
 ## 2. 화면 Overview
-&nbsp; | &nbsp;
--|-
-![1](./img/1.png) | ![2](./img/2.png)
-![3](./img/1.png) | ![4](./img/2.png)
-![5](./img/1.png) | ![6](./img/2.png)
-![7](./img/1.png) | 
+&nbsp; | &nbsp; | &nbsp; 
+-|-|-|-
+![1](./img/1.png) | ![2](./img/2.png) | ![3](./img/1.png)
+![4](./img/2.png) | ![5](./img/1.png) | ![6](./img/2.png)
+|![7](./img/1.png) |
 
 
 ## 3. Tech
