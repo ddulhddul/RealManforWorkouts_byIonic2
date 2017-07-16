@@ -35,5 +35,5 @@
     - Ionic2
     - SQLite
 
-## 3. Developer
+## 4. Developer
 뚫뚤 (ddulhddul@gmail.com)
