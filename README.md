@@ -36,11 +36,19 @@
 ![4](./img/4.png) | ![5](./img/5.png) | ![6](./img/6.png)
 |![7](./img/7.png) |
 
+## 3. 기능
+- 매일 운동 History 관리
+    - Calendar
+    - List
+    - Graph
+        - 운동 개수 및 중량 변화
+- 나만의 운동 종류 추가 (사진 업로드 가능)
+- 하루에 운동할 Template 만들기 (상체, 하체, 복부 등)
 
-## 3. Tech
+## 4. Tech
 - [Ionic2](http://ionicframework.com/)
 - [SQLite](https://www.sqlite.org/)
 
-## 4. Developer
+## 5. Developer
 뚫뚤 (ddulhddul@gmail.com)
 > 의견, Request, Contribution 언제나 환영합니다.
