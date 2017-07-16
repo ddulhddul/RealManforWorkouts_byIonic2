@@ -14,6 +14,12 @@
     You can check how your workout counts or weight changed.
 
 ---
+    진짜 남자가 되고 싶습니까 ?
+
+    당신을 진짜 남자로 만들어줄 헬스 앱 출시 !
+
+    남자들의 앱 !
+    (여자도 사용 가능)
 
     날마다 헬스 기록을 입력하세요 !
 
